@@ -1,26 +1,196 @@
 @import "tailwindcss";
 
+/* ================================ VARS ================================ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --light: #e5e5e5;
+  --dark: #1e1e1e;
+  --sky: #0d94e6;
+
+  /* Sky color palette */
+  --sky-50: #f0f9ff;
+  --sky-100: #e0f2fe;
+  --sky-200: #bae6fd;
+  --sky-300: #7dd3fc;
+  --sky-400: #38bdf8;
+  --sky-500: #0ea5e9;
+  --sky-600: #0284c7;
+  --sky-700: #0369a1;
+  --sky-800: #075985;
+  --sky-900: #0c4a6e;
+  --sky-950: #082f49;
 }
+
+/* ================================ TAILWIND ================================ */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-sky: var(--sky);
+  --color-sky-50: var(--sky-50);
+  --color-sky-100: var(--sky-100);
+  --color-sky-200: var(--sky-200);
+  --color-sky-300: var(--sky-300);
+  --color-sky-400: var(--sky-400);
+  --color-sky-500: var(--sky-500);
+  --color-sky-600: var(--sky-600);
+  --color-sky-700: var(--sky-700);
+  --color-sky-800: var(--sky-800);
+  --color-sky-900: var(--sky-900);
+  --color-sky-950: var(--sky-950);
+
+  --color-light: var(--light);
+  --color-dark: var(--dark);
+
+  --font-heading: var(--font-special);
+  --font-paragraph: var(--font-saira);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* ======================= GENERALS ======================= */
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Saira", Arial, Helvetica, sans-serif;
+}
+
+/* ======================== NAVBAR ======================= */
+.menu-link {
+  position: relative;
+}
+
+.menu-link:after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 8px;
+  bottom: -10px;
+  left: 0;
+  background-color: var(--sky);
+
+  transition: all 0.3s ease-in-out;
+}
+
+.menu-link:hover:after {
+  width: 100%;
+}
+
+/* ===================== HERO BANNER ===================== */
+
+.hero-polygon {
+  clip-path: polygon(100% 0%, 100% 100%, 30% 100%);
+}
+
+.hero-polygon-2 {
+  clip-path: polygon(0% 100%, 100% 70%, 100% 100%);
+}
+
+.hero-polygon-3 {
+  clip-path: polygon(0% 100%, 0% 80%, 100% 100%);
+}
+
+/* ===================== CARD STYLES ===================== */
+
+.card {
+  position: relative;
+
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1.5rem;
+
+  padding: 1px;
+  overflow: hidden;
+}
+
+.card-dark {
+  background-color: #333;
+}
+.card-dark::before {
+  background-image: linear-gradient(transparent, var(--sky), transparent);
+}
+
+.card-dark::after {
+  background-color: var(--dark);
+}
+
+.card-dark .card-content {
+  background-color: var(--dark);
+  color: var(--light);
+}
+
+.card-steel {
+  background-color: var(--sky-900);
+}
+
+.card-steel::before {
+  background-image: linear-gradient(transparent, var(--light), transparent);
+}
+
+.card-steel::after {
+  background-color: var(--sky);
+}
+
+.card-steel .card-content {
+  background-color: var(--sky-700);
+  color: var(--light);
+}
+
+.card:before {
+  content: "";
+  position: absolute;
+  width: 140%;
+  height: 140%;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  animation: spin 10s linear infinite;
+}
+
+.card:hover:before {
+  opacity: 1;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.card::after {
+  content: "";
+
+  position: absolute;
+  background-color: var(--dark);
+  border-radius: 1.5rem;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
+  width: 100%;
+  height: 100%;
+  position: relative;
+
+  background-position: 50% 50%;
+  background-size: 1.1rem 1.1rem;
+
+  border-radius: inherit;
+
+  overflow: hidden;
+  z-index: 10;
+}
+
+.card-tip {
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.1) 1px,
+    transparent 1px
+  );
 }
