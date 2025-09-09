@@ -45,7 +45,7 @@ const NavbarDesktop: React.FC<NavbarProps> = ({ items }) => {
             <Bars3Icon aria-hidden="true" className="size-6" />
           </button>
         </div>
-        <div className="hidden lg:flex lg:gap-x-12">
+        <div className="hidden lg:flex lg:gap-x-12 justify-start">
           {items.map((item) => (
             <a
               key={item.name}

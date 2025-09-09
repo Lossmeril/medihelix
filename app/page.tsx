@@ -19,9 +19,9 @@ const HomePage = () => {
   return (
     <>
       <HeroBanner />
-      <Section>
+      {/* <Section>
         <div className="flex items-center gap-1 mb-4">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
+
           <img
             src="/img/logos/head-blue.svg"
             className="h-6 w-auto object-cover"
@@ -42,7 +42,6 @@ const HomePage = () => {
             <Card>
               <div className="w-full h-40 bg-steel-700">
                 {" "}
-                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/img/products/cnc.jpg"
                   alt="CNC výroba"
@@ -68,7 +67,6 @@ const HomePage = () => {
           <div className="col-span-8 md:col-span-4">
             <Card>
               <div className="w-full h-40 bg-steel-700">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/img/products/klempir.jpg"
                   alt="Klempířská výroba"
@@ -109,7 +107,6 @@ const HomePage = () => {
                 </p>
               </div>
 
-              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/img/manticore-drawing.jpg"
                 className="absolute right-0 top-[50%] translate-y-[-40%] w-1/4 rotate-15 -scale-x-100 mix-blend-luminosity"
@@ -129,10 +126,10 @@ const HomePage = () => {
             </Card>
           </div>
         </div>
-      </Section>
-      <Section anchor="služby">
+      </Section> */}
+      {/* <Section anchor="služby">
         <div className="flex items-center gap-1 mb-4">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
+
           <img
             src="/img/logos/head-blue.svg"
             className="h-6 w-auto object-cover"
@@ -148,7 +145,7 @@ const HomePage = () => {
         </h2>
         <Divider />
         <UspSection uspPoints={uspPoints} columnCount={4} />
-      </Section>
+      </Section> */}
     </>
   );
 };
