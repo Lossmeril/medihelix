@@ -1,16 +1,12 @@
 interface CardProps {
   tip?: boolean;
-  theme?: "dark" | "steel";
+  theme?: "light" | "dark" | "steel";
   children: React.ReactNode;
 }
 
-const Card: React.FC<CardProps> = ({ tip, theme, children }) => {
+const Card: React.FC<CardProps> = ({ tip, theme = "light", children }) => {
   return (
-    <div
-      className={`card min-h-[200px] h-full ${
-        theme == "steel" ? "card-steel" : "card-dark"
-      }`}
-    >
+    <div className={`card min-h-[200px] h-full ${"card-" + theme}`}>
       <div
         className={`card-content ${
           tip ? "card-tip" : ""

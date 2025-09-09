@@ -6,7 +6,7 @@ interface SectionProps {
 
 const Section: React.FC<SectionProps> = ({
   anchor,
-  theme = "dark",
+  theme = "light",
   children,
 }) => {
   return (

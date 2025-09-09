@@ -103,9 +103,27 @@ body {
   overflow: hidden;
 }
 
+.card-light {
+  background-color: #fafafa;
+}
+
+.card-light::before {
+  background-image: linear-gradient(transparent, var(--sky), transparent);
+}
+
+.card-light::after {
+  background-color: var(--light);
+}
+
+.card-light .card-content {
+  background-color: #fafafa;
+  color: var(--dark);
+}
+
 .card-dark {
   background-color: #333;
 }
+
 .card-dark::before {
   background-image: linear-gradient(transparent, var(--sky), transparent);
 }
@@ -139,9 +157,9 @@ body {
 .card:before {
   content: "";
   position: absolute;
-  width: 140%;
-  height: 140%;
-  border-radius: inherit;
+  width: 170%;
+  height: 130%;
+  border-radius: 100%;
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
   animation: spin 10s linear infinite;
