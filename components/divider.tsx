@@ -1,17 +1,17 @@
 interface DividerProps {
-  color?: "dark" | "light" | "steel";
+  color?: string;
   marginTop?: number | string;
   marginBottom?: number | string;
 }
 
 const Divider: React.FC<DividerProps> = ({
-  color = "steel",
+  color = "dark",
   marginTop = "2rem",
   marginBottom = "2rem",
 }) => {
   return (
     <div
-      className="w-20 h-3"
+      className={`w-full h-[1px] opacity-35 bg-${color}`}
       style={{
         backgroundColor: `var(--${color})`,
         marginTop,

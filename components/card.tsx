@@ -1,6 +1,6 @@
 interface CardProps {
   tip?: boolean;
-  theme?: "light" | "dark" | "steel";
+  theme?: "light" | "dark" | "sky";
   children: React.ReactNode;
 }
 
