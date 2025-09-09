@@ -4,16 +4,16 @@ import Divider from "./divider";
 const HeroBanner = () => {
   return (
     <>
-      <div className="relative bg-dark/80 text-light h-screen max-w-screen overflow-hidden">
+      <div className="relative bg-light/80 text-dark text-light h-screen max-w-screen overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/img/Manticore.svg"
           className="absolute -bottom-0 lg:bottom-20 xl:-bottom-20 -right-20 h-auto w-[500px] md:w-[600px] lg:w-[600px] xl:w-[850px] object-cover z-10 -scale-x-100"
           alt=""
         />
-        <div className="bg-dark/80 w-screen h-screen absolute top-0 left-0 hero-polygon"></div>
-        <div className="bg-steel-900 w-screen h-screen absolute top-0 left-0 hero-polygon-2 z-20"></div>
-        <div className="bg-dark w-screen h-screen absolute top-0 left-0 hero-polygon-3 z-30"></div>
+        <div className="bg-light/90 w-screen h-screen absolute top-0 left-0 hero-polygon"></div>
+        <div className="bg-sky-200 w-screen h-screen absolute top-0 left-0 hero-polygon-2 z-20"></div>
+        <div className="bg-light w-screen h-screen absolute top-0 left-0 hero-polygon-3 z-30"></div>
 
         <div className="relative isolate px-6 pt-16 lg:px-20 w-3/4 md:w-1/2 lg:w-2/3 text-left z-20">
           <div className="mx-auto max-w-3xl py-32 sm:py-48 lg:py-56">
@@ -24,16 +24,16 @@ const HeroBanner = () => {
                 className="h-6 w-auto object-cover"
                 alt=""
               />
-              <p className="text-lg font-semibold text-steel uppercase tracking-widest">
+              <p className="text-lg font-semibold text-sky uppercase tracking-widest">
                 Medihelix
               </p>
             </div>
             <div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold tracking-tight text-balance uppercase font-heading">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold tracking-tight text-balance uppercase font-heading text-dark">
                 Mantikoří síla v&nbsp;naší oceli
               </h1>
               <Divider />
-              <p className="mt-8 text-lg font-normal text-pretty text-light/80 sm:text-xl/8">
+              <p className="mt-8 text-lg font-normal text-pretty text-dark/80 sm:text-xl/8">
                 Poctivé řemeslo, moderní technologie: zakázková výroba
                 nerezových a ocelových dílů
               </p>

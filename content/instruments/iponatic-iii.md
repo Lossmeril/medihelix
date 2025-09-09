@@ -4,8 +4,8 @@ slug: "iponatic-iii"
 summary: "iPonatic III je nové zařízení v řadě iPonatic, které zvyšuje úroveň molekulární diagnostiky díky pokročilým technologiím. Zavádí éru digitální a inteligentní diagnostiky s cílem poskytnout rychlé a přesné výsledky."
 hero_image: "/uploads/ponatic-iii.png"
 gallery:
-  - image: "/ponatic-iii.png"
-  - image: "/ponatic-iii.png"
+  - image: "/uploads/ponatic-iii.png"
+  - image: "/uploads/ponatic-iii.png"
 
 features:
   - title: "Plně automatizovaný proces"

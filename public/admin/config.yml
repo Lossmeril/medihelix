@@ -27,6 +27,18 @@ collections:
       - { label: "Obsah", name: "body", widget: "markdown" }
       - { label: "Náhledový obrázek", name: "image", widget: "image" }
 
+  - name: "companies"
+    label: "Společnosti"
+    folder: "content/companies"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Název", name: "name", widget: "string" }
+      - { label: "Slug", name: "slug", widget: "string" }
+      - { label: "Logo", name: "logo", widget: "image", allow_multiple: false }
+      - { label: "Web", name: "website", widget: "string", required: false }
+      - { label: "Popis", name: "description", widget: "text", required: false }
+
   - name: "instruments"
     label: "Přístroje"
     folder: "content/instruments"
@@ -45,6 +57,16 @@ collections:
       - label: "Stručný popis"
         name: "summary"
         widget: "text"
+      - label: "Výrobce"
+        name: "companies"
+        widget: "relation"
+        collection: "companies"
+        search_fields: ["name", "slug"]
+        value_field: "slug"
+        display_fields: ["name"]
+        hint: "Vyberte výrobce ze seznamu společností"
+
+
       - label: "Hlavní obrázek"
         name: "hero_image"
         widget: "image"
