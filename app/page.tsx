@@ -1,10 +1,7 @@
-import Button from "@/components/button";
 import Card from "@/components/card";
-import Divider from "@/components/divider";
 import HeroBanner from "@/components/heroBanner";
 import Section from "@/components/section";
-import { UspSection } from "@/components/usp";
-import { uspPoints } from "@/data/uspPoints";
+import { getInstruments } from "@/utils/getInstrument";
 import Balancer from "react-wrap-balancer";
 
 const HomePageInfoCardWrapper = ({
@@ -15,10 +12,38 @@ const HomePageInfoCardWrapper = ({
   return <div className="w-full text-left p-12 pt-8 pr-20">{children}</div>;
 };
 
-const HomePage = () => {
+const HomePage = async () => {
+  const instruments = await getInstruments();
   return (
     <>
       <HeroBanner />
+      <Section>
+        <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold tracking-tight text-balance uppercase font-heading text-center">
+          Produkty
+        </h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {instruments.map((instrument) => (
+            <Card key={instrument.slug}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={instrument.hero_image}
+                alt={instrument.title}
+                className="w-full h-40 object-contain bg-white"
+              />
+              <div className="pb-8 px-4">
+                <h3 className="text-xl font-semibold leading-tight mb-3">
+                  {instrument.title}
+                </h3>
+                <p className="text-sm text-gray-400 leading-tight">
+                  <Balancer>{instrument.summary}</Balancer>
+                </p>
+              </div>
+            </Card>
+          ))}
+        </div>
+      </Section>
+
       {/* <Section>
         <div className="flex items-center gap-1 mb-4">
 

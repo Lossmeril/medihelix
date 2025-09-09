@@ -2,10 +2,10 @@
 title: "iPonatic III – Přenosná molekulární pracovní stanice"
 slug: "iponatic-iii"
 summary: "iPonatic III je nové zařízení v řadě iPonatic, které zvyšuje úroveň molekulární diagnostiky díky pokročilým technologiím. Zavádí éru digitální a inteligentní diagnostiky s cílem poskytnout rychlé a přesné výsledky."
-hero_image: "/images/instruments/iponatic-iii/hero.jpg"
+hero_image: "/uploads/ponatic-iii.png"
 gallery:
-  - image: "/images/instruments/iponatic-iii/angle-1.jpg"
-  - image: "/images/instruments/iponatic-iii/angle-2.jpg"
+  - image: "/ponatic-iii.png"
+  - image: "/ponatic-iii.png"
 
 features:
   - title: "Plně automatizovaný proces"
