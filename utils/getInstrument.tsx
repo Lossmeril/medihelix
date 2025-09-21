@@ -8,7 +8,7 @@ export type Instrument = {
   slug: string;
   title: string;
   summary: string;
-  companies: string[];
+  companies: { slug: string }[];
   hero_image: string;
   gallery: { image: string }[];
   features?: { title: string; description?: string }[];

@@ -61,10 +61,15 @@ body {
   content: "";
   position: absolute;
   width: 0%;
-  height: 8px;
-  bottom: -10px;
+  height: 15px;
+  top: 50%;
   left: 0;
   background-color: var(--sky);
+
+  z-index: -1;
+  opacity: 0.3;
+
+  transform: translate(0, -50%);
 
   transition: all 0.3s ease-in-out;
 }

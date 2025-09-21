@@ -6,6 +6,7 @@ import { NavigationItem } from "@/data/navbarItems";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import Button from "./button";
+import Link from "next/link";
 
 interface NavbarProps {
   items: NavigationItem[];
@@ -22,18 +23,14 @@ const NavbarDesktop: React.FC<NavbarProps> = ({ items }) => {
       {/* ------ DESKTOP MENU */}
       <nav
         aria-label="Global"
-        className="flex items-center justify-between p-6 lg:px-8"
+        className="flex items-center justify-between p-6 lg:px-20"
       >
         <div className="flex lg:flex-1">
-          <a href="#" className="-m-1.5 p-1.5">
-            <span className="sr-only">ANTIKOR</span>
+          <Link href="/" className="-m-1.5 p-1.5">
+            <span className="sr-only">MEDI HELIX s.r.o.,</span>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              alt=""
-              src="/img/logos/logo-long-mono-light.png"
-              className="h-16 w-auto"
-            />
-          </a>
+            <img alt="" src="/img/logo.svg" className="h-10 w-auto" />
+          </Link>
         </div>
         <div className="flex lg:hidden">
           <button
@@ -45,12 +42,12 @@ const NavbarDesktop: React.FC<NavbarProps> = ({ items }) => {
             <Bars3Icon aria-hidden="true" className="size-6" />
           </button>
         </div>
-        <div className="hidden lg:flex lg:gap-x-12 justify-start">
+        <div className="hidden lg:flex justify-start gap-5">
           {items.map((item) => (
             <a
               key={item.name}
               href={item.href}
-              className="text-sm/6 font-semibold text-light menu-link hover:text-steel-600 transition duration-300"
+              className="text-sm/6 font-semibold text-dark menu-link hover:text-steel-600 transition duration-300"
             >
               {item.name}
             </a>
@@ -72,7 +69,7 @@ const NavbarDesktop: React.FC<NavbarProps> = ({ items }) => {
         <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-dark px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-light/10">
           <div className="flex items-center justify-between">
             <a href="#" className="-m-1.5 p-1.5">
-              <span className="sr-only">ANTIKOR</span>
+              <span className="sr-only">MEDI HELIX s.r.o.,</span>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 alt=""

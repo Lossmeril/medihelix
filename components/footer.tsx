@@ -2,7 +2,7 @@ const FooterMenu = () => {
   return (
     <nav className="flex justify-evenly py-8">
       <a href="#" className="-m-1.5 p-1.5">
-        <span className="sr-only">ANTIKOR</span>
+        <span className="sr-only">MEDI HELIX s.r.o.,</span>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           alt=""
@@ -11,9 +11,9 @@ const FooterMenu = () => {
         />
       </a>
       <div className="flex flex-col gap-2">
-        <p className="font-bold text-sm">Zdeněk Maixner - ANTIKOR s.r.o</p>
-        <p className="text-sm">Kunčice 26</p>
-        <p className="text-sm">561 51 Letohrad</p>
+        <p className="font-bold text-sm">MEDI HELIX s.r.o.,</p>
+        <p className="text-sm">Jasanová 2690</p>
+        <p className="text-sm">250 01 Brandýs nad Labem</p>
       </div>
       <div className="flex flex-col gap-2">
         <a href="#" className="text-sm">

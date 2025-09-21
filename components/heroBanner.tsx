@@ -20,13 +20,11 @@ const HeroBanner = () => {
             <div className="flex items-center gap-1 mb-2">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/img/logos/head-blue.svg"
+                src="/img/logo.svg"
                 className="h-6 w-auto object-cover"
                 alt=""
               />
-              <p className="text-lg font-semibold text-sky uppercase tracking-widest">
-                Medihelix
-              </p>
+              <span className="sr-only">MEDI HELIX s.r.o.,</span>
             </div>
             <div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold tracking-tight text-balance uppercase font-heading text-dark">
@@ -66,7 +64,7 @@ const HeroBanner = () => {
 
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/img/products/ANTIKOR hero thumb.png"
+          src="/img/stock/stock-5.jpg"
           className="absolute top-0 left-0 w-full h-full object-cover"
           alt=""
         />

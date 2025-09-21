@@ -7,6 +7,9 @@ gallery:
   - image: "/uploads/ponatic-iii.png"
   - image: "/uploads/ponatic-iii.png"
 
+companies:
+  - slug: "sansure"
+
 features:
   - title: "Plně automatizovaný proces"
     description: "Výsledky testů do 15–45 minut."

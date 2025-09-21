@@ -7,6 +7,7 @@ import Divider from "@/components/divider";
 import Link from "next/link";
 import Card from "@/components/card";
 import Balancer from "react-wrap-balancer";
+import { getCompanies } from "@/utils/getCompany";
 
 type Props = {
   params: { slug: string };
@@ -21,6 +22,13 @@ export default async function InstrumentPage({ params }: Props) {
 
   const instruments = await getInstruments();
   const instrument = instruments.find((i) => i.slug === param.slug);
+
+  const companies = await getCompanies();
+  const company = companies.find(
+    (c) => c.slug === instrument?.companies[0].slug
+  );
+
+  console.log(instrument?.companies[0], company);
 
   if (!instrument) {
     notFound();
@@ -43,17 +51,19 @@ export default async function InstrumentPage({ params }: Props) {
           )}
           <div>
             <h1 className="text-3xl font-bold mb-4">{instrument.title}</h1>
-            {instrument.companies && instrument.companies.length > 0 && (
-              <p>
-                Výrobce:
-                <Link
-                  href="/instruments"
-                  className="text-sky-600 hover:underline ml-2"
-                >
-                  Zpět na přehled přístrojů
-                </Link>
-              </p>
-            )}
+            {instrument.companies &&
+              instrument.companies.length > 0 &&
+              company && (
+                <p>
+                  Výrobce:
+                  <Link
+                    href={`/companies/${company.slug}`}
+                    className="text-sky-600 hover:underline ml-2"
+                  >
+                    {company.name}
+                  </Link>
+                </p>
+              )}
             <Divider />
             <p className="text-lg text-gray-600">{instrument.summary}</p>
             <div className="mt-6 flex gap-8 flex-col md:flex-row items-center">
@@ -198,27 +208,25 @@ export default async function InstrumentPage({ params }: Props) {
           </section>
         )}
 
+      <Divider />
       {/* SKU, tags, and downloads */}
-      <footer className="border-t pt-8">
+      <div className="flex flex-row">
         {instrument.assets?.datasheet && (
-          <a
+          <Button
+            label="Stáhnout datový list"
             href={instrument.assets.datasheet}
-            className="inline-block mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-          >
-            Stáhnout datový list
-          </a>
+          />
         )}
         {instrument.assets?.external_url && (
-          <a
+          <Button
+            label="Více informací"
             href={instrument.assets.external_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="ml-4 inline-block mt-4 px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-800"
-          >
-            Více informací
-          </a>
+            transparent
+            inverted
+            monochrome
+          />
         )}
-      </footer>
+      </div>
     </main>
   );
 }
