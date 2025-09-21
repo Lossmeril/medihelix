@@ -47,7 +47,11 @@ const HomePage = async () => {
                 <Divider marginTop="1rem" marginBottom="1rem" />
                 <Button
                   label="Prohlédnout si detaily"
-                  href={`/instruments/${instrument.slug}`}
+                  href={`/instruments/${
+                    instrument.instrument_types[0].slug
+                      ? instrument.instrument_types[0].slug + "/"
+                      : ""
+                  }${instrument.slug}`}
                   transparent
                   inverted
                 />

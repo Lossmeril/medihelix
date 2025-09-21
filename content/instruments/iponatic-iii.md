@@ -10,6 +10,9 @@ gallery:
 companies:
   - slug: "sansure"
 
+instrument_types:
+  - slug: "mpoct"
+
 features:
   - title: "Plně automatizovaný proces"
     description: "Výsledky testů do 15–45 minut."

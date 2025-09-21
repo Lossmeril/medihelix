@@ -8,6 +8,7 @@ import Link from "next/link";
 import Card from "@/components/card";
 import Balancer from "react-wrap-balancer";
 import { getCompanies } from "@/utils/getCompany";
+import { getInstrumentTypes } from "@/utils/getInstrumentTypes";
 
 type Props = {
   params: { slug: string };
@@ -23,12 +24,15 @@ export default async function InstrumentPage({ params }: Props) {
   const instruments = await getInstruments();
   const instrument = instruments.find((i) => i.slug === param.slug);
 
+  const instrumentTypes = await getInstrumentTypes();
+  const type = instrumentTypes.find(
+    (t) => t.slug === instrument?.instrument_types[0].slug
+  );
+
   const companies = await getCompanies();
   const company = companies.find(
     (c) => c.slug === instrument?.companies[0].slug
   );
-
-  console.log(instrument?.companies[0], company);
 
   if (!instrument) {
     notFound();
@@ -36,6 +40,49 @@ export default async function InstrumentPage({ params }: Props) {
 
   return (
     <main className="max-w-5xl mx-auto px-4 py-12 mt-40">
+      <nav className="mb-18 flex flex-col gap-2">
+        {/* Type hierarchy breadcrumb */}
+        <div className="flex items-center text-sm text-gray-500">
+          <Link href="/instruments" className="hover:underline text-sky-600">
+            Instrumenty
+          </Link>
+          <span className="mx-2">/</span>
+          {type ? (
+            <>
+              <Link
+                href={`/instruments/${type.slug}`}
+                className="hover:underline text-sky-600"
+              >
+                {type.name}
+              </Link>
+              <span className="mx-2">/</span>
+            </>
+          ) : null}
+          <span className="font-semibold text-gray-800">
+            {instrument.title}
+          </span>
+        </div>
+        {/* Company breadcrumb */}
+        {company && (
+          <div className="flex items-center text-sm text-gray-500">
+            <Link href="/companies" className="hover:underline text-sky-600">
+              Výrobci
+            </Link>
+            <span className="mx-2">/</span>
+            <Link
+              href={`/companies/${company.slug}`}
+              className="hover:underline text-sky-600"
+            >
+              {company.name}
+            </Link>
+            <span className="mx-2">/</span>
+            <span className="font-semibold text-gray-800">
+              {instrument.title}
+            </span>
+          </div>
+        )}
+      </nav>
+
       {/* Hero section */}
       <header className="mb-12 gap-8 items-center">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-20 justify-start">

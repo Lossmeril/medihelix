@@ -39,9 +39,9 @@ collections:
       - { label: "Web", name: "website", widget: "string", required: false }
       - { label: "Popis", name: "description", widget: "text", required: false }
 
-  - name: "types"
-    label: "Typy přístrojů"
-    folder: "content/types"
+  - name: "instrument_types"
+    label: "Typy instrumentů"
+    folder: "content/instrument_types"
     create: true
     slug: "{{slug}}"
     fields:
@@ -80,7 +80,7 @@ collections:
       - label: "Typ instrumentu"
         name: "type"
         widget: "relation"
-        collection: "types"
+        collection: "instrument_types"
         search_fields: ["name", "slug"]
         value_field: "slug"
         display_fields: ["name"]
@@ -128,15 +128,15 @@ collections:
         fields:
           - { label: "Název skupiny", name: "name", widget: "string" }
           - label: "Testy"
-        name: "tests"
-        widget: "list"
-        label_singular: "Test"
-        summary: "{{name}}"
-        fields:
-          - { label: "Název testu", name: "name", widget: "string" }
-          - { label: "Cíle", name: "targets", widget: "string", required: false }
-          - { label: "Kód", name: "code", widget: "string", required: false }
-          - { label: "Poznámka", name: "note", widget: "text", required: false }
+            name: "tests"
+            widget: "list"
+            label_singular: "Test"
+            summary: "{{name}}"
+            fields:
+              - { label: "Název testu", name: "name", widget: "string" }
+              - { label: "Cíle", name: "targets", widget: "string", required: false }
+              - { label: "Kód", name: "code", widget: "string", required: false }
+              - { label: "Poznámka", name: "note", widget: "text", required: false }
 
       - label: "Použití"
         name: "intended_use"
