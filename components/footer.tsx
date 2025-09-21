@@ -37,7 +37,7 @@ const Footer = () => {
 
       <div className="container mx-auto text-center">
         <p className="text-sm py-4 bg-light/10">
-          &copy; {new Date().getFullYear()}, coalmarketing & Michal Špitálský
+          &copy; {new Date().getFullYear()}, Michal Špitálský
         </p>
       </div>
     </footer>

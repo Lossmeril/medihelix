@@ -4,7 +4,7 @@ export type NavigationItem = {
 };
 
 export const navigationItems: NavigationItem[] = [
-  { name: "Domů", href: "#" },
+  { name: "Domů", href: "/" },
 
   { name: "Diagnostika", href: "#" },
   { name: "Přístroje", href: "#" },

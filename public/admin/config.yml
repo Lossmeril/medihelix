@@ -71,6 +71,7 @@ collections:
         name: "hero_image"
         widget: "image"
         allow_multiple: false
+        
       - label: "Galerie"
         name: "gallery"
         widget: "list"
@@ -98,23 +99,32 @@ collections:
           - { label: "Jednotka", name: "unit", widget: "string", required: false }
           - { label: "Skupina", name: "group", widget: "string", required: false }
 
-      - label: "Nabídka testů"
-        name: "test_menu"
+      - label: "Skupiny testů"
+        name: "test_groups"
         widget: "list"
         required: false
-        label_singular: "Test"
-        summary: "{{group | default: 'Bez skupiny'}} — {{name}}"
+        label_singular: "Skupina testů"
+        summary: "{{name}}"
         fields:
-          - { label: "Kategorie / Skupina", name: "group", widget: "string", required: false, hint: "např. Respiratory, STI & HPV, Ostatní" }
+          - { label: "Název skupiny", name: "name", widget: "string" }
+          - label: "Testy"
+        name: "tests"
+        widget: "list"
+        label_singular: "Test"
+        summary: "{{name}}"
+        fields:
           - { label: "Název testu", name: "name", widget: "string" }
-          - { label: "Cíle / geny", name: "targets", widget: "string", required: false }
+          - { label: "Cíle", name: "targets", widget: "string", required: false }
           - { label: "Kód", name: "code", widget: "string", required: false }
           - { label: "Poznámka", name: "note", widget: "text", required: false }
 
       - label: "Použití"
         name: "intended_use"
         widget: "list"
-        field: { label: "Typ použití", name: "place", widget: "string" }
+        field: 
+          label: "Typ použití"
+          name: "place"
+          widget: "string"
 
       - { label: "Objednací číslo / SKU", name: "sku", widget: "string" }
       - { label: "Tagy", name: "tags", widget: "list", required: false }

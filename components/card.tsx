@@ -6,12 +6,8 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ tip, theme = "light", children }) => {
   return (
-    <div className={`card min-h-[200px] h-full ${"card-" + theme}`}>
-      <div
-        className={`card-content ${
-          tip ? "card-tip" : ""
-        } min-h-[200px] h-full relative`}
-      >
+    <div className={`card h-full ${"card-" + theme}`}>
+      <div className={`card-content ${tip ? "card-tip" : ""}  h-full relative`}>
         {children}
       </div>
     </div>

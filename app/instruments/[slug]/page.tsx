@@ -4,6 +4,9 @@ import Image from "next/image";
 import { getInstruments } from "@/utils/getInstrument";
 import Button from "@/components/button";
 import Divider from "@/components/divider";
+import Link from "next/link";
+import Card from "@/components/card";
+import Balancer from "react-wrap-balancer";
 
 type Props = {
   params: { slug: string };
@@ -40,6 +43,17 @@ export default async function InstrumentPage({ params }: Props) {
           )}
           <div>
             <h1 className="text-3xl font-bold mb-4">{instrument.title}</h1>
+            {instrument.companies && instrument.companies.length > 0 && (
+              <p>
+                Výrobce:
+                <Link
+                  href="/instruments"
+                  className="text-sky-600 hover:underline ml-2"
+                >
+                  Zpět na přehled přístrojů
+                </Link>
+              </p>
+            )}
             <Divider />
             <p className="text-lg text-gray-600">{instrument.summary}</p>
             <div className="mt-6 flex gap-8 flex-col md:flex-row items-center">
@@ -52,6 +66,29 @@ export default async function InstrumentPage({ params }: Props) {
                 monochrome
               />
             </div>
+
+            {Array.isArray(instrument.tags) && instrument.tags.length > 0 && (
+              <p className="text-sm text-gray-600 mt-4">
+                Tagy:{" "}
+                {instrument.tags.map((tag, idx) => (
+                  <Link
+                    key={tag}
+                    href={`/instruments?tag=${encodeURIComponent(tag)}`}
+                  >
+                    <span key={tag} className="text-sky-500">
+                      {tag}
+                      {instrument.tags && idx < instrument.tags.length - 1
+                        ? ", "
+                        : ""}
+                    </span>
+                  </Link>
+                ))}
+              </p>
+            )}
+
+            <p className="font-medium text-sm mt-2">
+              Objednací číslo: {instrument.sku}
+            </p>
           </div>
         </div>
       </header>
@@ -73,6 +110,26 @@ export default async function InstrumentPage({ params }: Props) {
                   className="object-cover rounded-lg"
                 />
               </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Intended use */}
+      {instrument.intended_use?.length > 0 && (
+        <section className="mb-12">
+          <h2 className="text-2xl font-semibold mb-4">Použití</h2>
+          <div className="flex flex-row justify-between">
+            {instrument.intended_use.map((use, idx) => (
+              <h3
+                key={idx}
+                className="text-lg text-gray-700 relative pl-4 font-semibold"
+              >
+                <span className="text-sky-500 font-bold text-4xl absolute -mt-[6px] scale-500 opacity-25 -z-10 left-3">
+                  &bull;
+                </span>{" "}
+                {use.place}
+              </h3>
             ))}
           </div>
         </section>
@@ -118,57 +175,31 @@ export default async function InstrumentPage({ params }: Props) {
       )}
 
       {/* Test menu */}
-      {Array.isArray(instrument.test_menu) &&
-        instrument.test_menu.length > 0 && (
+      {Array.isArray(instrument.test_groups) &&
+        instrument.test_groups.length > 0 && (
           <section className="mb-12">
             <h2 className="text-2xl font-semibold mb-4">Nabídka testů</h2>
-            <ul className="space-y-2">
-              {instrument.test_menu.map((t, idx) => (
-                <li
-                  key={idx}
-                  className="p-3 bg-white border rounded-md shadow-sm"
-                >
-                  <span className="font-medium">{t.name}</span>
-                  {t.group && (
-                    <span className="ml-2 text-sm text-gray-500">
-                      ({t.group})
-                    </span>
-                  )}
-                  {t.note && (
-                    <p className="text-sm text-gray-600 mt-1">{t.note}</p>
-                  )}
-                </li>
+            <div className="grid grid-cols-3 gap-4">
+              {instrument.test_groups.map((group, idx) => (
+                <Card key={idx}>
+                  <div className="h-full flex flex-col justify-start p-4">
+                    <h3 className="font-medium mb-2">{group.name}</h3>
+                    {group.tests && (
+                      <div className="text-xs text-gray-500">
+                        <Balancer>
+                          {group.tests.map((test) => test.name).join(", ")}
+                        </Balancer>
+                      </div>
+                    )}
+                  </div>
+                </Card>
               ))}
-            </ul>
+            </div>
           </section>
         )}
 
-      {/* Intended use */}
-      {instrument.intended_use?.length > 0 && (
-        <section className="mb-12">
-          <h2 className="text-2xl font-semibold mb-4">Použití</h2>
-          <ul className="list-disc text-gray-700">
-            {instrument.intended_use.map((u, idx) => (
-              <li key={idx}>
-                {typeof u === "string"
-                  ? u
-                  : typeof u === "object" && "place" in u
-                  ? u.place
-                  : ""}
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
-
       {/* SKU, tags, and downloads */}
       <footer className="border-t pt-8">
-        <p className="font-medium">Objednací číslo: {instrument.sku}</p>
-        {Array.isArray(instrument.tags) && instrument.tags.length > 0 && (
-          <p className="text-sm text-gray-600 mt-2">
-            Tagy: {instrument.tags.join(", ")}
-          </p>
-        )}
         {instrument.assets?.datasheet && (
           <a
             href={instrument.assets.datasheet}

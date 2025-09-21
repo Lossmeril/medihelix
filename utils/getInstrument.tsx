@@ -8,16 +8,19 @@ export type Instrument = {
   slug: string;
   title: string;
   summary: string;
+  companies: string[];
   hero_image: string;
   gallery: { image: string }[];
   features?: { title: string; description?: string }[];
   specs?: { name: string; value: string; unit?: string; group?: string }[];
-  test_menu?: {
-    group?: string;
+  test_groups?: {
     name: string;
-    targets?: string;
-    code?: string;
-    note?: string;
+    tests: {
+      name: string;
+      targets?: string;
+      code?: string;
+      note?: string;
+    }[];
   }[];
   intended_use: { place: string }[];
   sku: string;
@@ -45,11 +48,12 @@ export async function getInstruments(): Promise<Instrument[]> {
         slug: data.slug || filename.replace(/\.md$/, ""),
         title: data.title || "",
         summary: data.summary || "",
+        companies: data.companies || [],
         hero_image: data.hero_image || "",
         gallery: data.gallery || [],
         features: data.features || [],
         specs: data.specs || [],
-        test_menu: data.test_menu || [],
+        test_groups: data.test_groups || [],
         intended_use: data.intended_use || [],
         sku: data.sku || "",
         tags: data.tags || [],
