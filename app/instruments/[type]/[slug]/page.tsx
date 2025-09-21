@@ -39,7 +39,7 @@ export default async function InstrumentPage({ params }: Props) {
   }
 
   return (
-    <main className="max-w-5xl mx-auto px-4 py-12 mt-40">
+    <main className="max-w-5xl mx-auto px-12 lg:px-4 py-12 mt-20 lg:mt-40">
       <nav className="mb-18 flex flex-col gap-2">
         {/* Type hierarchy breadcrumb */}
         <div className="flex items-center text-sm text-gray-500">
@@ -84,8 +84,8 @@ export default async function InstrumentPage({ params }: Props) {
       </nav>
 
       {/* Hero section */}
-      <header className="mb-12 gap-8 items-center">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-20 justify-start">
+      <header className="mb-4 lg:mb-12 gap-8 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-20 justify-start">
           {instrument.hero_image && (
             <div className="relative w-full aspect-square">
               <Image
@@ -97,7 +97,9 @@ export default async function InstrumentPage({ params }: Props) {
             </div>
           )}
           <div>
-            <h1 className="text-3xl font-bold mb-4">{instrument.title}</h1>
+            <h1 className="text-2xl lg:text-3xl font-bold mb-4">
+              {instrument.title}
+            </h1>
             {instrument.companies &&
               instrument.companies.length > 0 &&
               company && (
@@ -112,8 +114,10 @@ export default async function InstrumentPage({ params }: Props) {
                 </p>
               )}
             <Divider />
-            <p className="text-lg text-gray-600">{instrument.summary}</p>
-            <div className="mt-6 flex gap-8 flex-col md:flex-row items-center">
+            <p className="text-base lg:text-lg text-gray-600">
+              {instrument.summary}
+            </p>
+            <div className="mt-6 flex gap-8 flex-row md:flex-col lg:flex-row justify-start items-center md:items-start lg:items-center">
               <Button href="#specs" label="Kontaktujte nás" />
               <Button
                 href="#specs"
@@ -125,7 +129,7 @@ export default async function InstrumentPage({ params }: Props) {
             </div>
 
             {Array.isArray(instrument.tags) && instrument.tags.length > 0 && (
-              <p className="text-sm text-gray-600 mt-4">
+              <p className="text-sm text-gray-600 mt-10 lg:mt-4">
                 Tagy:{" "}
                 {instrument.tags.map((tag, idx) => (
                   <Link
@@ -152,7 +156,7 @@ export default async function InstrumentPage({ params }: Props) {
 
       {/* Gallery */}
       {instrument.gallery?.length > 0 && (
-        <section className="mb-12">
+        <section className="mt-12 lg:mt-0 mb-12">
           <h2 className="text-2xl font-semibold mb-4">Galerie</h2>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
             {instrument.gallery.map((img, idx) => (
@@ -176,11 +180,11 @@ export default async function InstrumentPage({ params }: Props) {
       {instrument.intended_use?.length > 0 && (
         <section className="mb-12">
           <h2 className="text-2xl font-semibold mb-4">Použití</h2>
-          <div className="flex flex-row justify-between">
+          <div className="flex flex-row flex-wrap lg:flex-nowrap gap-12 lg:gap-0 justify-start lg:justify-between">
             {instrument.intended_use.map((use, idx) => (
               <h3
                 key={idx}
-                className="text-lg text-gray-700 relative pl-4 font-semibold"
+                className="text-base lg:text-lg text-gray-700 relative pl-4 font-semibold"
               >
                 <span className="text-sky-500 font-bold text-4xl absolute -mt-[6px] scale-500 opacity-25 -z-10 left-3">
                   &bull;
@@ -196,7 +200,7 @@ export default async function InstrumentPage({ params }: Props) {
       {Array.isArray(instrument.features) && instrument.features.length > 0 && (
         <section className="mb-12">
           <h2 className="text-2xl font-semibold mb-4">Přednosti</h2>
-          <ul className="space-y-3 grid grid-cols-2">
+          <ul className="space-x-3 space-y-3 grid grid-cols-1 md:grid-cols-2">
             {instrument.features.map((feature, idx) => (
               <li key={idx} className="py-2">
                 <h3 className="font-medium">{feature.title}</h3>
@@ -236,7 +240,7 @@ export default async function InstrumentPage({ params }: Props) {
         instrument.test_groups.length > 0 && (
           <section className="mb-12">
             <h2 className="text-2xl font-semibold mb-4">Nabídka testů</h2>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {instrument.test_groups.map((group, idx) => (
                 <Card key={idx}>
                   <div className="h-full flex flex-col justify-start p-4">
