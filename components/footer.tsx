@@ -32,10 +32,10 @@ const FooterMenu = () => {
 
 const Footer = () => {
   return (
-    <footer className="bg-dark text-light border-t border-light/10">
+    <footer className="w-full bg-dark text-light border-t border-light/10">
       <FooterMenu />
 
-      <div className="container mx-auto text-center">
+      <div className="w-full mx-auto text-center">
         <p className="text-sm py-4 bg-light/10">
           &copy; {new Date().getFullYear()}, Michal Špitálský
         </p>

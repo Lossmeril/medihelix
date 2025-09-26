@@ -4,7 +4,7 @@ import Divider from "./divider";
 const HeroBanner = () => {
   return (
     <>
-      <div className="relative bg-light/80 text-dark text-light h-screen max-w-screen overflow-hidden">
+      <div className="relative bg-light/80 text-dark h-screen max-w-screen overflow-hidden">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/img/Manticore.svg"

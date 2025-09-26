@@ -1,5 +1,5 @@
 import Button from "@/components/button";
-import Card from "@/components/card";
+import Card, { ProductCard } from "@/components/card";
 import Divider from "@/components/divider";
 import HeroBanner from "@/components/heroBanner";
 import Section from "@/components/section";
@@ -30,33 +30,14 @@ const HomePage = async () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {instruments.map((instrument) => (
-            <Card key={instrument.slug}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={instrument.hero_image}
-                alt={instrument.title}
-                className="w-full h-40 object-contain bg-white border-b border-dark/10"
-              />
-              <div className="pb-8 px-4">
-                <h3 className="text-lg font-semibold leading-tight mb-3">
-                  {instrument.title}
-                </h3>
-                <p className="text-sm text-gray-400 leading-tight">
-                  <Balancer>{instrument.summary}</Balancer>
-                </p>
-                <Divider marginTop="1rem" marginBottom="1rem" />
-                <Button
-                  label="Prohlédnout si detaily"
-                  href={`/instruments/${
-                    instrument.instrument_types[0].slug
-                      ? instrument.instrument_types[0].slug + "/"
-                      : ""
-                  }${instrument.slug}`}
-                  transparent
-                  inverted
-                />
-              </div>
-            </Card>
+            <ProductCard
+              key={instrument.slug}
+              title={instrument.title}
+              summary={instrument.summary}
+              hero_image={instrument.hero_image}
+              slug={instrument.slug}
+              instrument_types={instrument.instrument_types}
+            />
           ))}
         </div>
       </Section>

@@ -36,7 +36,7 @@ const NavbarDesktop: React.FC<NavbarProps> = ({ items }) => {
           <button
             type="button"
             onClick={() => setMobileMenuOpen(true)}
-            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-light bg-steel-700 hover:bg-steel-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-steel"
+            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-light bg-sky hover:bg-sky-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky"
           >
             <span className="sr-only">Otevřít menu</span>
             <Bars3Icon aria-hidden="true" className="size-6" />
@@ -66,16 +66,18 @@ const NavbarDesktop: React.FC<NavbarProps> = ({ items }) => {
         className="lg:hidden"
       >
         <div className="fixed inset-0 z-50" />
-        <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-dark px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-light/10">
+        <DialogPanel
+          className={`fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-dark px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-light/10 transition-all duration-300 ease-in-out transform ${
+            mobileMenuOpen
+              ? "translate-x-0 opacity-100"
+              : "translate-x-full opacity-0"
+          }`}
+        >
           <div className="flex items-center justify-between">
             <a href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">MEDI HELIX s.r.o.,</span>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                alt=""
-                src="/img/logos/head-blue.svg"
-                className="h-12 w-auto"
-              />
+              <img alt="" src="/img/logo.svg" className="h-12 w-auto" />
             </a>
             <button
               type="button"
