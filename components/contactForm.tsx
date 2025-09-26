@@ -4,7 +4,11 @@ import React, { FormEvent, useState } from "react";
 
 import { contactFormAccessKey } from "@/data/webGlobals";
 
-const ContactForm: React.FC = () => {
+interface ContactFormProps {
+  product?: { name: string };
+}
+
+const ContactForm: React.FC<ContactFormProps> = ({ product }) => {
   const [result, setResult] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -41,13 +45,55 @@ const ContactForm: React.FC = () => {
   };
 
   return (
-    <div className="w-full mx-auto bg-lobster-100 p-8">
-      <h3 className="text-2xl font-bold mb-4 text-dark uppercase">
-        Kontaktní formulář
-      </h3>
-      <form onSubmit={onSubmit} className="space-y-4">
+    <div className="w-full mx-auto bg-sky-50 rounded-xl p-10">
+      <svg
+        className="w-12 h-12 mb-5 bg-sky-300 p-3 rounded-lg"
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="white"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+      </svg>
+      <h2 className="text-2xl font-semibold mb-4">
+        {!product ? "Kontaktní formulář" : `Máte dotaz k tomuto produktu?`}
+      </h2>
+      <p className="text-sm text-gray-600">
+        {!product
+          ? `Máte-li jakékoliv dotazy ohledně naší nabídky, technických detailů, či potenciální spolupráce, neváhejte se na nás obrátit; rádi vaše dotazy zodpovíme. Kontaktovat nás můžete skrze kontaktní formulář níže, nebo na email`
+          : "Máte-li jakékoliv dotazy ohledně tohoto produktu, technických specifikací, či chcete tento produkt poptat, neváhejte se na nás obráti skrze kontaktní formulář níže, nebo na email"}{" "}
+        <a
+          href="mailto:info@medihelix.cz"
+          className="text-sky-600 hover:underline"
+        >
+          info@medihelix.cz
+        </a>
+      </p>
+      <form onSubmit={onSubmit} className="space-y-4 mt-10">
+        <input
+          type="hidden"
+          name="subject"
+          value={
+            !product?.name
+              ? "Nový dotaz z webu MediHelix"
+              : `Nový dotaz z webu MediHelix - ${product.name}`
+          }
+        />
+
+        {product?.name && (
+          <input type="hidden" name="product" value={product.name} />
+        )}
+
         <div>
-          <label htmlFor="name" className="block text-sm mb-1 opacity-65">
+          <label
+            htmlFor="name"
+            className="block text-sm mb-1 text-dark font-semibold"
+          >
             Jméno
           </label>
           <input
@@ -56,13 +102,16 @@ const ContactForm: React.FC = () => {
             name="name"
             required
             minLength={2}
-            className="w-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-steel/50"
+            className="w-full px-4 py-2 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-sky/50"
             placeholder="Vaše jméno"
           />
         </div>
 
         <div>
-          <label htmlFor="email" className="block text-sm mb-1 opacity-65">
+          <label
+            htmlFor="email"
+            className="block text-sm mb-1 text-dark font-semibold"
+          >
             Email
           </label>
           <input
@@ -71,13 +120,16 @@ const ContactForm: React.FC = () => {
             name="email"
             required
             minLength={3}
-            className="w-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-steel/50"
+            className="w-full px-4 py-2 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-sky/50"
             placeholder="vas@email.cz"
           />
         </div>
 
         <div>
-          <label htmlFor="message" className="block text-sm mb-1 opacity-65">
+          <label
+            htmlFor="message"
+            className="block text-sm mb-1 text-dark font-semibold"
+          >
             Zpráva
           </label>
           <textarea
@@ -86,7 +138,7 @@ const ContactForm: React.FC = () => {
             required
             minLength={2}
             rows={4}
-            className="w-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-steel/50"
+            className="w-full px-4 py-2 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-sky/50"
             placeholder="Vaše zpráva..."
           ></textarea>
         </div>
@@ -94,7 +146,7 @@ const ContactForm: React.FC = () => {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="px-3.5 py-2.5 bg-steel text-light rounded-md text-md font-semibold shadow-xs transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-steel hover:bg-steel-700"
+          className="px-3.5 py-2.5 bg-sky text-white rounded-md text-md font-semibold shadow-xs transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky hover:bg-sky-700"
         >
           {isSubmitting ? "Odesílání..." : "Odeslat formulář"}
         </button>

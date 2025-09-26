@@ -8,6 +8,7 @@ import { getInstruments } from "@/utils/getInstrument";
 import { getInstrumentTypes } from "@/utils/getInstrumentTypes";
 
 import { ProductCard } from "@/components/card";
+import ContactForm from "@/components/contactForm";
 import Divider from "@/components/divider";
 
 type Props = {
@@ -87,6 +88,7 @@ export default async function InstrumentTypePage({ params }: Props) {
           </div>
         </div>
       </header>
+      <ContactForm />
     </main>
   );
 }

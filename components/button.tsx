@@ -32,15 +32,15 @@ const ButtonInside = ({
         !transparent
           ? !inverted
             ? !monochrome
-              ? "bg-sky text-light hover:bg-sky-700 px-3.5 py-2.5 shadow-xs "
-              : "bg-dark text-light hover:bg-dark/70 px-3.5 py-2.5 shadow-xs "
+              ? "bg-sky text-white hover:bg-sky-700 px-3.5 py-2.5 shadow-xs "
+              : "bg-dark text-white hover:bg-dark/70 px-3.5 py-2.5 shadow-xs "
             : !monochrome
               ? "bg-light text-sky hover:light/90 px-3.5 py-2.5 shadow-xs "
               : "bg-light text-dark hover:bg-light/90 px-3.5 py-2.5 shadow-xs "
           : !inverted
             ? !monochrome
-              ? "bg-transparent text-sky hover:text-light px-0"
-              : "bg-transparent text-light hover:text-light/60 px-0"
+              ? "bg-transparent text-sky hover:text-white px-0"
+              : "bg-transparent text-white hover:text-white/60 px-0"
             : !monochrome
               ? "bg-transparent text-sky hover:text-dark px-0"
               : "bg-transparent text-dark hover:text-dark/60 px-0"

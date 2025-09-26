@@ -9,6 +9,7 @@ import { getCompanies } from "@/utils/getCompany";
 import { getInstruments } from "@/utils/getInstrument";
 
 import { ProductCard } from "@/components/card";
+import ContactForm from "@/components/contactForm";
 import Divider from "@/components/divider";
 
 type Props = {
@@ -97,6 +98,7 @@ export default async function CompanyPage({ params }: Props) {
           </div>
         </div>
       </header>
+      <ContactForm />
     </main>
   );
 }

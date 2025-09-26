@@ -4,16 +4,10 @@ import Divider from "./divider";
 const HeroBanner = () => {
   return (
     <>
-      <div className="relative bg-light/80 text-dark h-screen max-w-screen overflow-hidden">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/img/Manticore.svg"
-          className="absolute -bottom-0 lg:bottom-20 xl:-bottom-20 -right-20 h-auto w-[500px] md:w-[600px] lg:w-[600px] xl:w-[850px] object-cover z-10 -scale-x-100"
-          alt=""
-        />
-        <div className="bg-light/90 w-screen h-screen absolute top-0 left-0 hero-polygon"></div>
-        <div className="bg-sky-200 w-screen h-screen absolute top-0 left-0 hero-polygon-2 z-20"></div>
-        <div className="bg-light w-screen h-screen absolute top-0 left-0 hero-polygon-3 z-30"></div>
+      <div className="relative bg-white/80 text-dark h-screen max-w-screen overflow-hidden">
+        <div className="bg-sky-400/30 w-screen h-screen absolute top-0 left-0 hero-polygon"></div>
+        <div className="bg-sky-500/50 w-screen h-screen absolute top-0 left-0 hero-polygon-2 z-20"></div>
+        <div className="bg-white w-screen h-screen absolute top-0 left-0 hero-polygon-3 z-30"></div>
 
         <div className="relative isolate px-6 pt-16 lg:px-20 w-3/4 md:w-1/2 lg:w-2/3 text-left z-20">
           <div className="mx-auto max-w-3xl py-32 sm:py-48 lg:py-56">
@@ -42,6 +36,7 @@ const HeroBanner = () => {
                   href="#služby"
                   transparent
                   monochrome
+                  inverted
                 />
               </div>
             </div>
