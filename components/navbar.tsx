@@ -16,7 +16,7 @@ interface NavbarProps {
 }
 
 const NavbarDesktop: React.FC<NavbarProps> = ({ items }) => {
-  const buttonHref = "#";
+  const buttonHref = "#kontakt";
   const buttonText = "Napište nám";
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);

@@ -1,4 +1,5 @@
 // app/instruments/[slug]/page.tsx
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -8,6 +9,8 @@ import Balancer from "react-wrap-balancer";
 import { getCompanies } from "@/utils/getCompany";
 import { getInstruments } from "@/utils/getInstrument";
 
+import { webCompanyName } from "@/data/webGlobals";
+
 import { ProductCard } from "@/components/card";
 import ContactForm from "@/components/contactForm";
 import Divider from "@/components/divider";
@@ -15,6 +18,19 @@ import Divider from "@/components/divider";
 type Props = {
   params: { company: string };
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const companies = await getCompanies();
+  const company = companies.find((c) => c.slug === params?.company);
+  return {
+    title:
+      (company?.name ? "Produkty výrobce " + company?.name + " | " : "") +
+      webCompanyName,
+    description:
+      company?.description ||
+      `Produkty a informace o společnosti ${company?.name || ""}.`,
+  };
+}
 
 export default async function CompanyPage({ params }: Props) {
   const param = await params;
@@ -70,10 +86,13 @@ export default async function CompanyPage({ params }: Props) {
               </div>
             )}
             <h1 className="text-2xl lg:text-3xl font-bold mb-4">
-              {company.name}
+              {companyInstruments[0]?.seo?.meta_title || company.name}
             </h1>
             <p className="text-base lg:text-lg text-gray-600">
-              <Balancer>{company.description}</Balancer>
+              <Balancer>
+                {companyInstruments[0]?.seo?.meta_description ||
+                  company.description}
+              </Balancer>
             </p>
             <Divider />
 

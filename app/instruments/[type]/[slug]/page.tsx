@@ -1,4 +1,5 @@
 // app/instruments/[slug]/page.tsx
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -9,6 +10,8 @@ import { getCompanies } from "@/utils/getCompany";
 import { getInstruments } from "@/utils/getInstrument";
 import { getInstrumentTypes } from "@/utils/getInstrumentTypes";
 
+import { webCompanyName } from "@/data/webGlobals";
+
 import Button from "@/components/button";
 import Card from "@/components/card";
 import ContactForm from "@/components/contactForm";
@@ -17,6 +20,16 @@ import Divider from "@/components/divider";
 type Props = {
   params: { slug: string };
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const instruments = await getInstruments();
+  const instrument = instruments.find((i) => i.slug === params?.slug);
+  return {
+    title:
+      (instrument?.title ? instrument?.title + " | " : "") + webCompanyName,
+    description: instrument?.summary || "",
+  };
+}
 
 export default async function InstrumentPage({ params }: Props) {
   const param = await params;
