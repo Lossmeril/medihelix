@@ -1,7 +1,8 @@
 "use client";
 
-import { contactFormAccessKey } from "@/data/webGlobals";
 import React, { FormEvent, useState } from "react";
+
+import { contactFormAccessKey } from "@/data/webGlobals";
 
 const ContactForm: React.FC = () => {
   const [result, setResult] = useState("");

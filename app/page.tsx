@@ -1,20 +1,11 @@
-import Button from "@/components/button";
-import Card, { ProductCard } from "@/components/card";
-import Divider from "@/components/divider";
-import HeroBanner from "@/components/heroBanner";
-import Section from "@/components/section";
+import Link from "next/link";
+
 import { getCompanies } from "@/utils/getCompany";
 import { getInstruments } from "@/utils/getInstrument";
-import Link from "next/link";
-import Balancer from "react-wrap-balancer";
 
-const HomePageInfoCardWrapper = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
-  return <div className="w-full text-left p-12 pt-8 pr-20">{children}</div>;
-};
+import { ProductCard } from "@/components/card";
+import HeroBanner from "@/components/heroBanner";
+import Section from "@/components/section";
 
 const HomePage = async () => {
   const instruments = await getInstruments();

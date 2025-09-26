@@ -1,12 +1,15 @@
 "use client";
+
 import { useState } from "react";
+
+import Link from "next/link";
+
+import { Dialog, DialogPanel } from "@headlessui/react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 import { NavigationItem } from "@/data/navbarItems";
 
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { Dialog, DialogPanel } from "@headlessui/react";
 import Button from "./button";
-import Link from "next/link";
 
 interface NavbarProps {
   items: NavigationItem[];

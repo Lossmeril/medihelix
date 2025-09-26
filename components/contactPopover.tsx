@@ -1,7 +1,8 @@
 "use client";
 
-import { contactFormAccessKey } from "@/data/webGlobals";
 import React, { useState } from "react";
+
+import { contactFormAccessKey } from "@/data/webGlobals";
 
 const ContactPopover: React.FC = () => {
   const [open, setOpen] = useState(false);
@@ -40,7 +41,7 @@ const ContactPopover: React.FC = () => {
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };

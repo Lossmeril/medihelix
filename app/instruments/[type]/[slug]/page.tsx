@@ -1,14 +1,17 @@
 // app/instruments/[slug]/page.tsx
-import { notFound } from "next/navigation";
 import Image from "next/image";
-import { getInstruments } from "@/utils/getInstrument";
-import Button from "@/components/button";
-import Divider from "@/components/divider";
 import Link from "next/link";
-import Card from "@/components/card";
+import { notFound } from "next/navigation";
+
 import Balancer from "react-wrap-balancer";
+
 import { getCompanies } from "@/utils/getCompany";
+import { getInstruments } from "@/utils/getInstrument";
 import { getInstrumentTypes } from "@/utils/getInstrumentTypes";
+
+import Button from "@/components/button";
+import Card from "@/components/card";
+import Divider from "@/components/divider";
 
 type Props = {
   params: { slug: string };
@@ -26,12 +29,12 @@ export default async function InstrumentPage({ params }: Props) {
 
   const instrumentTypes = await getInstrumentTypes();
   const type = instrumentTypes.find(
-    (t) => t.slug === instrument?.instrument_types[0].slug
+    (t) => t.slug === instrument?.instrument_types[0].slug,
   );
 
   const companies = await getCompanies();
   const company = companies.find(
-    (c) => c.slug === instrument?.companies[0].slug
+    (c) => c.slug === instrument?.companies[0].slug,
   );
 
   if (!instrument) {

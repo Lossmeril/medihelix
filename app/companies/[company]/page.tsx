@@ -1,12 +1,15 @@
 // app/instruments/[slug]/page.tsx
-import { notFound } from "next/navigation";
 import Image from "next/image";
-import Divider from "@/components/divider";
 import Link from "next/link";
-import { getCompanies } from "@/utils/getCompany";
+import { notFound } from "next/navigation";
+
 import Balancer from "react-wrap-balancer";
+
+import { getCompanies } from "@/utils/getCompany";
 import { getInstruments } from "@/utils/getInstrument";
+
 import { ProductCard } from "@/components/card";
+import Divider from "@/components/divider";
 
 type Props = {
   params: { company: string };
@@ -24,7 +27,7 @@ export default async function CompanyPage({ params }: Props) {
 
   const instruments = await getInstruments();
   const companyInstruments = instruments.filter(
-    (instrument) => instrument.companies[0].slug === param?.company
+    (instrument) => instrument.companies[0].slug === param?.company,
   );
 
   if (!company) {

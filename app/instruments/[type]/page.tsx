@@ -1,13 +1,14 @@
 // app/instruments/[slug]/page.tsx
-import { notFound } from "next/navigation";
-import Image from "next/image";
-import Divider from "@/components/divider";
 import Link from "next/link";
-import { getCompanies } from "@/utils/getCompany";
+import { notFound } from "next/navigation";
+
 import Balancer from "react-wrap-balancer";
+
 import { getInstruments } from "@/utils/getInstrument";
-import { ProductCard } from "@/components/card";
 import { getInstrumentTypes } from "@/utils/getInstrumentTypes";
+
+import { ProductCard } from "@/components/card";
+import Divider from "@/components/divider";
 
 type Props = {
   params: { type: string };
@@ -25,7 +26,7 @@ export default async function InstrumentTypePage({ params }: Props) {
 
   const instruments = await getInstruments();
   const typedInstruments = instruments.filter(
-    (instrument) => instrument.instrument_types[0].slug === param?.type
+    (instrument) => instrument.instrument_types[0].slug === param?.type,
   );
 
   if (!type) {

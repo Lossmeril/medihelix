@@ -1,6 +1,7 @@
 import Balancer from "react-wrap-balancer";
-import Divider from "./divider";
+
 import Button from "./button";
+import Divider from "./divider";
 
 interface CardProps {
   tip?: boolean;

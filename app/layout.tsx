@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-
 // import localFont from "next/font/local";
 import { Saira } from "next/font/google";
 
-import "./globals.css";
-
-import NavbarDesktop from "@/components/navbar";
 import { navigationItems } from "@/data/navbarItems";
-import Footer from "@/components/footer";
+
 import ContactPopover from "@/components/contactPopover";
+import Footer from "@/components/footer";
+import NavbarDesktop from "@/components/navbar";
+
+import "./globals.css";
 
 const saira = Saira({
   variable: "--font-saira",
