@@ -70,7 +70,7 @@ export const CompanyBreadcrumbs = ({
 };
 
 interface ProductBreadcrumbsProps {
-  subcategories: Subcategory[];
+  subcategories?: Subcategory[];
   product?: { title: string; slug: string };
   type?: "Instrument" | "Kit" | "Reagencie";
 }
@@ -80,6 +80,23 @@ export const ProductBreadcrumbs: React.FC<ProductBreadcrumbsProps> = ({
   subcategories,
   type = "Instrument",
 }) => {
+  if (!subcategories) {
+    return (
+      <Breadcrumbs
+        items={[]}
+        current={
+          product
+            ? product.title
+            : type === "Instrument"
+              ? "Přístroje"
+              : type === "Kit"
+                ? "Rychlotesty"
+                : "Reagencie"
+        }
+      />
+    );
+  }
+
   const subcategoryTrail = subcategories.map((subcategory: Subcategory) => ({
     href: `/instruments/${subcategory.slug}`,
     label: subcategory.name,
