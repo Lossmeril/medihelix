@@ -11,6 +11,7 @@ import { getInstruments } from "@/utils/getInstrument";
 
 import { webCompanyName } from "@/data/webGlobals";
 
+import { BreadcrumbsBlock, CompanyBreadcrumbs } from "@/components/breadcrumbs";
 import { ProductCard } from "@/components/card";
 import ContactForm from "@/components/contactForm";
 import Divider from "@/components/divider";
@@ -53,23 +54,9 @@ export default async function CompanyPage({ params }: Props) {
 
   return (
     <main className="max-w-5xl mx-auto px-12 lg:px-4 py-12 mt-20 lg:mt-40">
-      <nav className="mb-18 flex flex-col gap-2">
-        {/* Company breadcrumb */}
-        {company && (
-          <div className="flex items-center text-sm text-gray-500">
-            <Link href="/companies" className="hover:underline text-sky-600">
-              Výrobci
-            </Link>
-            <span className="mx-2">/</span>
-            <Link
-              href={`/companies/${company.slug}`}
-              className="hover:underline text-sky-600"
-            >
-              {company.name}
-            </Link>
-          </div>
-        )}
-      </nav>
+      <BreadcrumbsBlock>
+        <CompanyBreadcrumbs company={company} />
+      </BreadcrumbsBlock>
 
       {/* Hero section */}
       <header className="mb-4 lg:mb-12 gap-8 items-center">
@@ -86,13 +73,10 @@ export default async function CompanyPage({ params }: Props) {
               </div>
             )}
             <h1 className="text-2xl lg:text-3xl font-bold mb-4">
-              {companyInstruments[0]?.seo?.meta_title || company.name}
+              {company.name}
             </h1>
             <p className="text-base lg:text-lg text-gray-600">
-              <Balancer>
-                {companyInstruments[0]?.seo?.meta_description ||
-                  company.description}
-              </Balancer>
+              <Balancer>{company.description}</Balancer>
             </p>
             <Divider />
 
@@ -107,7 +91,7 @@ export default async function CompanyPage({ params }: Props) {
                   summary={instrument.summary}
                   hero_image={instrument.hero_image}
                   slug={instrument.slug}
-                  instrument_types={instrument.instrument_types}
+                  subcategories={instrument.subcategories}
                 />
               ))}
               {companyInstruments.length === 0 && (

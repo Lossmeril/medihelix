@@ -10,8 +10,8 @@ gallery:
 companies:
   - slug: "sansure"
 
-instrument_types:
-  - slug: "mpoct"
+subcategories:
+  - slug: "rada-iponatic"
 
 features:
   - title: "Plně automatizovaný proces"

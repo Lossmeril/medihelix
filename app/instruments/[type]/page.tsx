@@ -5,8 +5,9 @@ import { notFound } from "next/navigation";
 import Balancer from "react-wrap-balancer";
 
 import { getInstruments } from "@/utils/getInstrument";
-import { getInstrumentTypes } from "@/utils/getInstrumentTypes";
+import { Subcategory, getSubcategories } from "@/utils/getSubcategory";
 
+import { BreadcrumbsBlock, ProductBreadcrumbs } from "@/components/breadcrumbs";
 import { ProductCard } from "@/components/card";
 import ContactForm from "@/components/contactForm";
 import Divider from "@/components/divider";
@@ -22,66 +23,67 @@ export default async function InstrumentTypePage({ params }: Props) {
     notFound();
   }
 
-  const types = await getInstrumentTypes();
-  const type = types.find((c) => c.slug === param?.type);
+  const subcategories = await getSubcategories();
+  const subcategory = subcategories.find((c) => c.slug === param?.type);
+
+  // Get all the subcategories for breadcrumb trail
+  const subcategoryTrail: Subcategory[] = subcategory?.parent
+    ? [
+        ...(subcategories.find((c) => c.slug === subcategory?.parent)
+          ? [subcategories.find((c) => c.slug === subcategory?.parent)]
+          : []),
+        subcategory,
+      ].filter((c): c is Subcategory => c !== undefined)
+    : [subcategory].filter((c): c is Subcategory => c !== undefined);
 
   const instruments = await getInstruments();
-  const typedInstruments = instruments.filter(
-    (instrument) => instrument.instrument_types[0].slug === param?.type,
+  const instrumentsInSubcat = instruments.filter((instrument) =>
+    instrument.subcategories.some(
+      (subcat) =>
+        subcat.slug === param?.type ||
+        [subcategories.find((c) => c.slug === subcat.slug)?.parent].includes(
+          param?.type,
+        ),
+    ),
   );
 
-  if (!type) {
+  if (!subcategory) {
     notFound();
   }
 
   return (
     <main className="max-w-5xl mx-auto px-12 lg:px-4 py-12 mt-20 lg:mt-40">
-      <nav className="mb-18 flex flex-col gap-2">
-        {/* Type hierarchy breadcrumb */}
-        <div className="flex items-center text-sm text-gray-500">
-          <Link href="/instruments" className="hover:underline text-sky-600">
-            Instrumenty
-          </Link>
-          <span className="mx-2">/</span>
-          {type ? (
-            <>
-              <Link
-                href={`/instruments/${type.slug}`}
-                className="hover:underline text-sky-600"
-              >
-                {type.name}
-              </Link>
-              <span className="mx-2">/</span>
-            </>
-          ) : null}
-        </div>
-      </nav>
+      <BreadcrumbsBlock>
+        <ProductBreadcrumbs subcategories={subcategoryTrail} />
+      </BreadcrumbsBlock>
 
       {/* Hero section */}
       <header className="mb-4 lg:mb-12 gap-8 items-center">
         <div className="flex flex-col gap-10 lg:gap-20 justify-start">
           <div>
-            <h1 className="text-2xl lg:text-3xl font-bold mb-4">{type.name}</h1>
+            <h1 className="text-2xl lg:text-3xl font-bold mb-4">
+              {subcategory.name}
+            </h1>
             <p className="text-base lg:text-lg text-gray-600">
-              <Balancer>{type.description}</Balancer>
+              <Balancer>{subcategory.description}</Balancer>
             </p>
             <Divider />
 
             <h2 className="text-xl lg:text-2xl font-bold mb-6">
-              Instrumenty spadající do kategorie {type.name}
+              Přístroje spadající do kategorie {subcategory.name}
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {typedInstruments.map((instrument) => (
+              {instrumentsInSubcat.map((instrument) => (
                 <ProductCard
                   key={instrument.slug}
                   title={instrument.title}
                   summary={instrument.summary}
                   hero_image={instrument.hero_image}
                   slug={instrument.slug}
-                  instrument_types={instrument.instrument_types}
+                  subcategories={instrument.subcategories}
                 />
               ))}
-              {typedInstruments.length === 0 && (
+              {instrumentsInSubcat.length === 0 && (
                 <p className="text-gray-500">Žádné produkty k zobrazení.</p>
               )}
             </div>

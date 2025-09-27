@@ -4,14 +4,20 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { title } from "process";
 import Balancer from "react-wrap-balancer";
 
 import { getCompanies } from "@/utils/getCompany";
 import { getInstruments } from "@/utils/getInstrument";
-import { getInstrumentTypes } from "@/utils/getInstrumentTypes";
+import { Subcategory, getSubcategories } from "@/utils/getSubcategory";
 
 import { webCompanyName } from "@/data/webGlobals";
 
+import {
+  BreadcrumbsBlock,
+  CompanyBreadcrumbs,
+  ProductBreadcrumbs,
+} from "@/components/breadcrumbs";
 import Button from "@/components/button";
 import Card from "@/components/card";
 import ContactForm from "@/components/contactForm";
@@ -41,10 +47,7 @@ export default async function InstrumentPage({ params }: Props) {
   const instruments = await getInstruments();
   const instrument = instruments.find((i) => i.slug === param.slug);
 
-  const instrumentTypes = await getInstrumentTypes();
-  const type = instrumentTypes.find(
-    (t) => t.slug === instrument?.instrument_types[0].slug,
-  );
+  const subcategories = await getSubcategories();
 
   const companies = await getCompanies();
   const company = companies.find(
@@ -58,48 +61,22 @@ export default async function InstrumentPage({ params }: Props) {
   return (
     <>
       <main className="max-w-5xl mx-auto px-12 lg:px-4 py-12 mt-20 lg:mt-40">
-        <nav className="mb-18 flex flex-col gap-2">
-          {/* Type hierarchy breadcrumb */}
-          <div className="flex items-center text-sm text-gray-500">
-            <Link href="/instruments" className="hover:underline text-sky-600">
-              Instrumenty
-            </Link>
-            <span className="mx-2">/</span>
-            {type ? (
-              <>
-                <Link
-                  href={`/instruments/${type.slug}`}
-                  className="hover:underline text-sky-600"
-                >
-                  {type.name}
-                </Link>
-                <span className="mx-2">/</span>
-              </>
-            ) : null}
-            <span className="font-semibold text-gray-800">
-              {instrument.title}
-            </span>
-          </div>
-          {/* Company breadcrumb */}
-          {company && (
-            <div className="flex items-center text-sm text-gray-500">
-              <Link href="/companies" className="hover:underline text-sky-600">
-                Výrobci
-              </Link>
-              <span className="mx-2">/</span>
-              <Link
-                href={`/companies/${company.slug}`}
-                className="hover:underline text-sky-600"
-              >
-                {company.name}
-              </Link>
-              <span className="mx-2">/</span>
-              <span className="font-semibold text-gray-800">
-                {instrument.title}
-              </span>
-            </div>
+        <BreadcrumbsBlock>
+          <ProductBreadcrumbs
+            product={{
+              title: instrument.title,
+              slug: instrument.slug,
+            }}
+            subcategories={subcategories}
+          />
+
+          {company && instrument.companies.length > 0 && (
+            <CompanyBreadcrumbs
+              company={company}
+              product={{ title: instrument.title }}
+            />
           )}
-        </nav>
+        </BreadcrumbsBlock>
 
         {/* Hero section */}
         <header className="mb-4 lg:mb-12 gap-8 items-center">

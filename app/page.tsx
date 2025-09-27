@@ -28,7 +28,7 @@ const HomePage = async () => {
               summary={instrument.summary}
               hero_image={instrument.hero_image}
               slug={instrument.slug}
-              instrument_types={instrument.instrument_types}
+              subcategories={instrument.subcategories}
             />
           ))}
         </div>
@@ -45,9 +45,9 @@ const HomePage = async () => {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 key={company.slug}
-                src={"uploads/" + (company.logo || "/img/logos/head-blue.svg")}
+                src={company.logo || "/img/logos/head-blue.svg"}
                 alt={company.name ? `Logo společnosti ${company.name}` : "Logo"}
-                className="w-full h-20 object-contain p-4 grayscale hover:filter-none transition duration-300"
+                className="w-60 h-20 object-contain p-4 grayscale hover:filter-none transition duration-300"
               />
             </Link>
           ))}

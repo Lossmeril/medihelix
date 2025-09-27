@@ -1,15 +1,15 @@
 "use server";
 
 import fs from "fs";
-import path from "path";
 import matter from "gray-matter";
+import path from "path";
 
 export type Instrument = {
   slug: string;
   title: string;
   summary: string;
   companies: { slug: string }[];
-  instrument_types: { slug: string }[];
+  subcategories: { slug: string }[];
   hero_image: string;
   gallery: { image: string }[];
   features?: { title: string; description?: string }[];
@@ -50,7 +50,7 @@ export async function getInstruments(): Promise<Instrument[]> {
         title: data.title || "",
         summary: data.summary || "",
         companies: data.companies || [],
-        instrument_types: data.instrument_types || [],
+        subcategories: data.subcategories || [],
         hero_image: data.hero_image || "",
         gallery: data.gallery || [],
         features: data.features || [],

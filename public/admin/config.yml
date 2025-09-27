@@ -39,15 +39,25 @@ collections:
       - { label: "Web", name: "website", widget: "string", required: false }
       - { label: "Popis", name: "description", widget: "text", required: false }
 
-  - name: "instrument_types"
-    label: "Typy instrumentů"
-    folder: "content/instrument_types"
+  - name: "subcategories"
+    label: "Podkategorie"
+    folder: "content/subcategories"
     create: true
     slug: "{{slug}}"
     fields:
       - { label: "Název", name: "name", widget: "string" }
       - { label: "Slug", name: "slug", widget: "string" }
       - { label: "Popis", name: "description", widget: "text", required: false }
+      - label: "Nadřazená kategorie"
+        name: "parent"
+        widget: "relation"
+        collection: "subcategories"
+        search_fields: ["name", "slug"]
+        value_field: "slug"
+        display_fields: ["name"]
+        required: false
+        hint: "Pokud je tato podkategorie součástí jiné, vyberte ji zde"
+
 
   - name: "instruments"
     label: "Přístroje"
@@ -77,14 +87,14 @@ collections:
         display_fields: ["name"]
         hint: "Vyberte výrobce ze seznamu společností"
 
-      - label: "Typ instrumentu"
-        name: "type"
+      - label: "Podkategorie"
+        name: "subcategory"
         widget: "relation"
-        collection: "instrument_types"
+        collection: "subcategories"
         search_fields: ["name", "slug"]
         value_field: "slug"
         display_fields: ["name"]
-        hint: "Vyberte typ přístroje ze seznamu typů"
+        hint: "Vyberte podkategorii přístroje ze seznamu typů"
 
 
       - label: "Hlavní obrázek"
