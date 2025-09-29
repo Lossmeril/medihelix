@@ -1,21 +1,21 @@
+import Link from "next/link";
+
 const FooterMenu = () => {
   return (
-    <nav className="flex justify-evenly py-8">
-      <a href="#" className="-m-1.5 p-1.5">
-        <span className="sr-only">MEDI HELIX s.r.o.,</span>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          alt=""
-          src="/img/logos/logo-long-mono-light.png"
-          className="h-16 w-auto"
-        />
-      </a>
-      <div className="flex flex-col gap-2">
+    <nav className="grid grid-cols-1 lg:grid-cols-3 mx-auto py-8">
+      <div className="w-full h-full flex flex-col justify-center items-center lg:items-end">
+        <Link href="/" className="-m-1.5 p-1.5">
+          <span className="sr-only">MEDI HELIX s.r.o.,</span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img alt="" src="/img/logo-white.png" className="h-10 w-auto" />
+        </Link>
+      </div>
+      <div className="flex flex-col gap-2 w-full h-full justify-center items-center">
         <p className="font-bold text-sm">MEDI HELIX s.r.o.,</p>
         <p className="text-sm">Jasanová 2690</p>
         <p className="text-sm">250 01 Brandýs nad Labem</p>
       </div>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 w-full h-full justify-center items-center lg:items-start">
         <a href="#" className="text-sm">
           O nás
         </a>

@@ -96,6 +96,11 @@ collections:
         display_fields: ["name"]
         hint: "Vyberte podkategorii přístroje ze seznamu typů"
 
+      - label: "Vypíchnutý produkt?"
+        name: "featured"
+        widget: "boolean"
+        default: false
+
 
       - label: "Hlavní obrázek"
         name: "hero_image"

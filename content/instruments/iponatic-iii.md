@@ -13,6 +13,8 @@ companies:
 subcategories:
   - slug: "rada-iponatic"
 
+featured: false
+
 features:
   - title: "Plně automatizovaný proces"
     description: "Výsledky testů do 15–45 minut."

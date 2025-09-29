@@ -4,12 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { title } from "process";
 import Balancer from "react-wrap-balancer";
 
 import { getCompanies } from "@/utils/getCompany";
 import { getInstruments } from "@/utils/getInstrument";
-import { Subcategory, getSubcategories } from "@/utils/getSubcategory";
+import { getSubcategories } from "@/utils/getSubcategory";
 
 import { webCompanyName } from "@/data/webGlobals";
 

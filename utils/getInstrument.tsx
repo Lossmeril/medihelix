@@ -10,6 +10,7 @@ export type Instrument = {
   summary: string;
   companies: { slug: string }[];
   subcategories: { slug: string }[];
+  featured: boolean;
   hero_image: string;
   gallery: { image: string }[];
   features?: { title: string; description?: string }[];
@@ -51,6 +52,7 @@ export async function getInstruments(): Promise<Instrument[]> {
         summary: data.summary || "",
         companies: data.companies || [],
         subcategories: data.subcategories || [],
+        featured: data.featured || false,
         hero_image: data.hero_image || "",
         gallery: data.gallery || [],
         features: data.features || [],
