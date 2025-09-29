@@ -2,6 +2,8 @@ import Link from "next/link";
 
 import { getCompanies } from "@/utils/getCompany";
 import { getInstruments } from "@/utils/getInstrument";
+import { getSubcategories } from "@/utils/getSubcategory";
+import { getSubcategoryTrail } from "@/utils/getSubcategoryTrail";
 
 import { ProductCard } from "@/components/card";
 import ContactForm from "@/components/contactForm";
@@ -21,7 +23,7 @@ const HomePage = async () => {
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {instruments.map((instrument) => (
+          {instruments.map(async (instrument) => (
             <ProductCard
               key={instrument.slug}
               title={instrument.title}
@@ -29,6 +31,12 @@ const HomePage = async () => {
               hero_image={instrument.hero_image}
               slug={instrument.slug}
               subcategories={instrument.subcategories}
+              company={companies.find(
+                (c) => c.slug === instrument.companies[0].slug,
+              )}
+              categories={await getSubcategoryTrail(
+                instrument.subcategories[0].slug,
+              )}
             />
           ))}
         </div>

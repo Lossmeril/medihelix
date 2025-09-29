@@ -8,6 +8,7 @@ import Balancer from "react-wrap-balancer";
 
 import { getCompanies } from "@/utils/getCompany";
 import { getInstruments } from "@/utils/getInstrument";
+import { getSubcategoryTrail } from "@/utils/getSubcategoryTrail";
 
 import { webCompanyName } from "@/data/webGlobals";
 
@@ -21,8 +22,10 @@ type Props = {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const param = await params;
+
   const companies = await getCompanies();
-  const company = companies.find((c) => c.slug === params?.company);
+  const company = companies.find(async (c) => c.slug === param.company);
   return {
     title:
       (company?.name ? "Produkty výrobce " + company?.name + " | " : "") +
@@ -84,7 +87,7 @@ export default async function CompanyPage({ params }: Props) {
               Produkty od {company.name}
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {companyInstruments.map((instrument) => (
+              {companyInstruments.map(async (instrument) => (
                 <ProductCard
                   key={instrument.slug}
                   title={instrument.title}
@@ -92,6 +95,9 @@ export default async function CompanyPage({ params }: Props) {
                   hero_image={instrument.hero_image}
                   slug={instrument.slug}
                   subcategories={instrument.subcategories}
+                  categories={await getSubcategoryTrail(
+                    instrument.subcategories[0].slug,
+                  )}
                 />
               ))}
               {companyInstruments.length === 0 && (

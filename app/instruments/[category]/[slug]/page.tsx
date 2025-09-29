@@ -28,8 +28,10 @@ type Props = {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const param = await params;
+
   const instruments = await getInstruments();
-  const instrument = instruments.find((i) => i.slug === params?.slug);
+  const instrument = instruments.find((i) => i.slug === param?.slug);
   return {
     title:
       (instrument?.title ? instrument?.title + " | " : "") + webCompanyName,
@@ -39,10 +41,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function InstrumentPage({ params }: Props) {
   const param = await params;
-
-  if (!param) {
-    notFound();
-  }
 
   const instruments = await getInstruments();
   const instrument = instruments.find((i) => i.slug === param.slug);

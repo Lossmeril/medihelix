@@ -1,10 +1,13 @@
 // app/instruments/[slug]/page.tsx
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import Balancer from "react-wrap-balancer";
 
+import { getCompanies } from "@/utils/getCompany";
 import { getInstruments } from "@/utils/getInstrument";
 import { Subcategory, getSubcategories } from "@/utils/getSubcategory";
+import { getSubcategoryTrail } from "@/utils/getSubcategoryTrail";
 
 import { BreadcrumbsBlock, ProductBreadcrumbs } from "@/components/breadcrumbs";
 import { ProductCard } from "@/components/card";
@@ -12,18 +15,16 @@ import ContactForm from "@/components/contactForm";
 import Divider from "@/components/divider";
 
 type Props = {
-  params: { type: string };
+  params: { category: string };
 };
 
 export default async function InstrumentTypePage({ params }: Props) {
   const param = await params;
 
-  if (!param) {
-    notFound();
-  }
-
   const subcategories = await getSubcategories();
-  const subcategory = subcategories.find((c) => c.slug === param?.type);
+  const subcategory = subcategories.find((c) => c.slug === param?.category);
+
+  const companies = await getCompanies();
 
   // Get all the subcategories for breadcrumb trail
   const subcategoryTrail: Subcategory[] = subcategory?.parent
@@ -39,11 +40,15 @@ export default async function InstrumentTypePage({ params }: Props) {
   const instrumentsInSubcat = instruments.filter((instrument) =>
     instrument.subcategories.some(
       (subcat) =>
-        subcat.slug === param?.type ||
+        subcat.slug === param?.category ||
         [subcategories.find((c) => c.slug === subcat.slug)?.parent].includes(
-          param?.type,
+          param?.category,
         ),
     ),
+  );
+
+  const childSubcategories = subcategories.filter(
+    (c) => c.parent === subcategory?.slug,
   );
 
   if (!subcategory) {
@@ -66,13 +71,42 @@ export default async function InstrumentTypePage({ params }: Props) {
             <p className="text-base lg:text-lg text-gray-600">
               <Balancer>{subcategory.description}</Balancer>
             </p>
+            {childSubcategories.length > 0 && (
+              <div className="mt-4">
+                <h2 className="text-lg font-semibold mb-2">
+                  Podkategorie v {subcategory.name}
+                </h2>
+                <div className="flex flex-wrap gap-2">
+                  {childSubcategories.map((child) => (
+                    <Link key={child.slug} href={`/instruments/${child.slug}`}>
+                      <div className="grid grid-cols-2 h-20 justify-center items-center bg-sky-100 hover:bg-sky-200 transition-colors rounded-lg border border-sky-800/5 pr-6">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={
+                            instruments.find((inst) =>
+                              inst.subcategories.some(
+                                (sub) => sub.slug === child.slug,
+                              ),
+                            )?.hero_image ||
+                            "/img/placeholders/instrument-placeholder.png"
+                          }
+                          alt={child.name}
+                          className="h-20 aspect-square object-contain rounded-md"
+                        />
+                        <div className="">{child.name}</div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
             <Divider />
 
             <h2 className="text-xl lg:text-2xl font-bold mb-6">
               Přístroje spadající do kategorie {subcategory.name}
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {instrumentsInSubcat.map((instrument) => (
+              {instrumentsInSubcat.map(async (instrument) => (
                 <ProductCard
                   key={instrument.slug}
                   title={instrument.title}
@@ -80,6 +114,12 @@ export default async function InstrumentTypePage({ params }: Props) {
                   hero_image={instrument.hero_image}
                   slug={instrument.slug}
                   subcategories={instrument.subcategories}
+                  categories={await getSubcategoryTrail(
+                    instrument.subcategories[0].slug,
+                  )}
+                  company={companies.find(
+                    (c) => c.slug === instrument.companies[0].slug,
+                  )}
                 />
               ))}
               {instrumentsInSubcat.length === 0 && (
