@@ -15,7 +15,7 @@ import ContactForm from "@/components/contactForm";
 import Divider from "@/components/divider";
 
 type Props = {
-  params: { category: string };
+  params: Promise<{ category: string }>;
 };
 
 export default async function InstrumentTypePage({ params }: Props) {

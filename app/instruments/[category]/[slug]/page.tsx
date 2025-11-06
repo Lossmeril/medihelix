@@ -23,7 +23,7 @@ import ContactForm from "@/components/contactForm";
 import Divider from "@/components/divider";
 
 type Props = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

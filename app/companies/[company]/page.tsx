@@ -17,14 +17,14 @@ import ContactForm from "@/components/contactForm";
 import Divider from "@/components/divider";
 
 type Props = {
-  params: { company: string };
+  params: Promise<{ company: string }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const param = await params;
-
   const companies = await getCompanies();
-  const company = companies.find(async (c) => c.slug === param.company);
+  const paramObj = await params;
+  const company = companies.find((c) => c.slug === paramObj.company);
+
   return {
     title:
       (company?.name ? "Produkty výrobce " + company?.name + " | " : "") +
@@ -36,18 +36,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function CompanyPage({ params }: Props) {
-  const param = await params;
-
-  if (!param) {
+  if (!params) {
     notFound();
   }
 
   const companies = await getCompanies();
-  const company = companies.find((c) => c.slug === param?.company);
+  const paramObj = await params;
+  const company = companies.find((c) => c.slug === paramObj.company);
 
   const instruments = await getInstruments();
   const companyInstruments = instruments.filter(
-    (instrument) => instrument.companies[0].slug === param?.company,
+    (instrument) => instrument.companies[0].slug === paramObj.company,
   );
 
   if (!company) {
@@ -60,7 +59,6 @@ export default async function CompanyPage({ params }: Props) {
         <CompanyBreadcrumbs company={company} />
       </BreadcrumbsBlock>
 
-      {/* Hero section */}
       <header className="mb-4 lg:mb-12 gap-8 items-center">
         <div className="flex flex-col gap-10 lg:gap-20 justify-start">
           <div>
