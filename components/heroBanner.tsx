@@ -1,7 +1,19 @@
 import Button from "./button";
 import Divider from "./divider";
 
-const HeroBanner = () => {
+type HeroBannerProps = {
+  headline: string;
+  subheadline: string;
+  primaryCta: { label: string; href: string };
+  secondaryCta: { label: string; href: string };
+};
+
+const HeroBanner = ({
+  headline,
+  subheadline,
+  primaryCta,
+  secondaryCta,
+}: HeroBannerProps) => {
   return (
     <>
       <div className="relative bg-white/80 text-dark h-screen max-w-screen overflow-hidden">
@@ -9,7 +21,7 @@ const HeroBanner = () => {
         <div className="bg-sky-500/50 w-screen h-screen absolute top-0 left-0 hero-polygon-2 z-20"></div>
         <div className="bg-white w-screen h-screen absolute top-0 left-0 hero-polygon-3 z-30"></div>
 
-        <div className="relative isolate px-6 pt-16 lg:px-20 w-3/4 md:w-1/2 lg:w-2/3 text-left z-40">
+        <div className="relative isolate px-6 pt-16 lg:px-20 w-full md:w-1/2 lg:w-2/3 text-left z-40">
           <div className="mx-auto max-w-3xl py-32 sm:py-48 lg:py-56">
             <div className="flex items-center gap-1 mb-4">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -20,31 +32,30 @@ const HeroBanner = () => {
               />
               <span className="sr-only">MEDI HELIX s.r.o.,</span>
             </div>
-            <div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold tracking-tight text-balance uppercase font-heading text-dark">
-                Vaši laboratoř si bereme na&nbsp;starost
-              </h1>
-              <Divider />
-              <p className="mt-8 text-lg font-normal text-pretty text-dark/80 sm:text-xl/8">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac
-                lorem malesuada sapien varius iaculis. Proin eget odio vehicula,
-                lacinia purus non, scelerisque magna. Ut non mi feugiat, aliquam
-                ante a, pulvinar mi.
-              </p>
-              <div className="mt-10 flex flex-col md:flex-row items-start md:items-center justify-center md:justify-start gap-6">
-                <Button label="Začněme spolupracovat" href="/products" />
-                <Button
-                  label="Poznejte naše služby"
-                  href="#služby"
-                  transparent
-                  monochrome
-                  inverted
-                />
-              </div>
+
+            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold tracking-tight text-balance uppercase font-heading text-dark">
+              {headline}
+            </h1>
+            <Divider />
+
+            <p className="mt-8 text-lg font-normal text-pretty text-dark/80 sm:text-xl/8">
+              {subheadline}
+            </p>
+
+            <div className="mt-10 flex flex-col md:flex-row items-start md:items-center justify-start gap-6">
+              <Button label={primaryCta.label} href={primaryCta.href} />
+              <Button
+                label={secondaryCta.label}
+                href={secondaryCta.href}
+                transparent
+                monochrome
+                inverted
+              />
             </div>
           </div>
         </div>
       </div>
+
       <div className="absolute top-0 left-0 w-screen h-screen overflow-hidden -z-10">
         <video
           className="absolute top-0 left-0 w-full h-full object-cover z-10"

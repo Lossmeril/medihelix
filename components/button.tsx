@@ -35,7 +35,7 @@ const ButtonInside = ({
               ? "bg-sky text-white hover:bg-sky-700 px-3.5 py-2.5 shadow-xs "
               : "bg-dark text-white hover:bg-dark/70 px-3.5 py-2.5 shadow-xs "
             : !monochrome
-              ? "bg-light text-sky hover:light/90 px-3.5 py-2.5 shadow-xs "
+              ? "bg-light text-sky hover:bg-light/90 px-3.5 py-2.5 shadow-xs "
               : "bg-light text-dark hover:bg-light/90 px-3.5 py-2.5 shadow-xs "
           : !inverted
             ? !monochrome

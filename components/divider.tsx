@@ -11,13 +11,9 @@ const Divider: React.FC<DividerProps> = ({
 }) => {
   return (
     <div
-      className={`w-full h-[1px] opacity-35 bg-${color}`}
-      style={{
-        backgroundColor: `var(--${color})`,
-        marginTop,
-        marginBottom,
-      }}
-    ></div>
+      className="w-full h-px opacity-35"
+      style={{ backgroundColor: `var(--${color})`, marginTop, marginBottom }}
+    />
   );
 };
 

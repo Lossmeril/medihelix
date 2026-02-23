@@ -30,7 +30,7 @@ export const UspSection: React.FC<UspSectionProps> = ({
     >
       {uspPoints.map((point, index) => (
         <div key={index} className="text-center p-4">
-          <div className="w-20 h-20 mx-auto mb-6 grid place-content-center text-5xl blob-animated bg-lobster">
+          <div className="w-20 h-20 mx-auto mb-6 grid place-content-center text-5xl blob-animated bg-sky/10 text-sky rounded-xl  ">
             {point.icon}
           </div>
           <h3 className="font-bold text-2xl mb-3 leading-none">
