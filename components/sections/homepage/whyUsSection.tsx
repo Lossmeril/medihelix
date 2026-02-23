@@ -36,16 +36,16 @@ export default function WhyUsSection({
 
   return (
     <Section anchor="proc" minHeight="content">
-      <SectionHeading>{title}</SectionHeading>
+      <p className="text-base sm:text-xl font-semibold text-sky text-center mb-10 max-w-2xl mx-auto leading-tight">
+        &quot;{promise}&quot;
+      </p>
+      <SectionHeading className="text-center">{title}</SectionHeading>
 
       <div className="max-w-3xl mx-auto text-center">
-        <p className="text-base sm:text-lg text-dark/80 leading-relaxed">
+        <p className="text-base sm:text-base text-dark/80 leading-relaxed">
           {lead}
         </p>
-        <Divider marginTop="1.25rem" marginBottom="1.25rem" />
-        <p className="text-base sm:text-lg text-dark font-semibold leading-relaxed">
-          {promise}
-        </p>
+        <Divider marginTop="2.25rem" marginBottom="1.25rem" />
       </div>
 
       <UspSection uspPoints={mappedPoints} columnCount={4} />

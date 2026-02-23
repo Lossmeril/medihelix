@@ -13,9 +13,9 @@ export default function CTASection({
 }) {
   return (
     <Section anchor="sluzby" minHeight="content" theme="light">
-      <Card theme="dark" className="shadow-sm">
-        <div className="p-8 sm:p-10 text-center">
-          <h2 className="text-2xl sm:text-3xl font-semibold uppercase font-heading">
+      <Card theme="dark" tip className="shadow-sm">
+        <div className="p-8 sm:p-10 px-20 my-20 text-center max-w-3xl mx-auto">
+          <h2 className="text-2xl sm:text-5xl font-bold leading-none font-heading mb-4">
             {title}
           </h2>
           <p className="mt-4 text-white/80 max-w-2xl mx-auto">{text}</p>
@@ -27,6 +27,13 @@ export default function CTASection({
               monochrome
             />
           </div>
+          <div
+            className="absolute inset-0 -z-10 mix-blend-screen grayscale hover:scale-3d transition opacity-55 mask-l-from-0% to-100%"
+            style={{
+              background:
+                "url(./img/stock/stock-6.jpg) center/cover no-repeat ",
+            }}
+          />
         </div>
       </Card>
     </Section>

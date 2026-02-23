@@ -10,8 +10,8 @@ const Divider: React.FC<DividerProps> = ({
   marginBottom = "2rem",
 }) => {
   return (
-    <div
-      className="w-full h-px opacity-35"
+    <span
+      className="w-full h-px opacity-35 block"
       style={{ backgroundColor: `var(--${color})`, marginTop, marginBottom }}
     />
   );

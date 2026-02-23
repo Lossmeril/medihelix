@@ -12,12 +12,12 @@ export default function WhoWeAreSection({
 }) {
   return (
     <Section anchor="kdo-jsme" minHeight="content">
-      <SectionHeading>{title}</SectionHeading>
+      <SectionHeading className="text-center">{title}</SectionHeading>
       <div className="max-w-3xl mx-auto text-center">
         {paragraphs.map((p, i) => (
           <p
             key={i}
-            className="text-base sm:text-lg text-dark/80 leading-relaxed"
+            className="text-base sm:text-base text-dark/80 leading-relaxed"
           >
             {p}
             {i < paragraphs.length - 1 && (

@@ -142,19 +142,19 @@ body {
   color: var(--light);
 }
 
-.card-steel {
+.card-sky {
   background-color: var(--sky-900);
 }
 
-.card-steel::before {
+.card-sky::before {
   background-image: linear-gradient(transparent, var(--light), transparent);
 }
 
-.card-steel::after {
+.card-sky::after {
   background-color: var(--sky);
 }
 
-.card-steel .card-content {
+.card-sky .card-content {
   background-color: var(--sky-700);
   color: var(--light);
 }

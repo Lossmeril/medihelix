@@ -36,7 +36,7 @@ export const UspSection: React.FC<UspSectionProps> = ({
           <h3 className="font-bold text-2xl mb-3 leading-none">
             {point.title}
           </h3>
-          <p className="opacity-65">{point.description}</p>
+          <p className="opacity-65 text-sm">{point.description}</p>
         </div>
       ))}
     </div>
