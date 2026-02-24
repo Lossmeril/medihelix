@@ -18,6 +18,12 @@ const ContactPopover: React.FC = () => {
 
   React.useEffect(() => {
     if (typeof window === "undefined") return;
+
+    // Match Tailwind's `sm` breakpoint (min-width: 640px)
+    const isDesktop = window.matchMedia("(min-width: 640px)").matches;
+
+    if (!isDesktop) return;
+
     const hasOpened = localStorage.getItem("contactPopoverOpened");
     if (!hasOpened) {
       const timer = setTimeout(() => {
