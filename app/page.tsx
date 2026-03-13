@@ -18,43 +18,31 @@ const HomePage = async () => {
         primaryCta={hero.primaryCta}
         secondaryCta={hero.secondaryCta}
       />
-
       <WhoWeAreSection
         title={sections.whoWeAre.title}
         paragraphs={sections.whoWeAre.paragraphs}
       />
-
       <WhatWeDoSection
         title={sections.whatWeDo.title}
         paragraphs={sections.whatWeDo.paragraphs}
         bullets={sections.whatWeDo.bullets}
       />
-
       <WhyUsSection
         title={sections.whyUs.title}
         lead={sections.whyUs.lead}
         promise={sections.whyUs.promise}
         uspPoints={sections.whyUs.uspPoints}
       />
-
       <CTASection
         title={sections.cta.title}
         text={sections.cta.text}
         button={sections.cta.button}
       />
-
+      {/* <FeaturedInstrumentsSection />
+      <PartnersSection /> */}
       <div className="max-w-5xl mx-auto px-6 sm:px-10 lg:px-4 py-12">
         <ContactForm />
       </div>
-
-      {/*
-        Decap-driven sekce DOČASNĚ SCHOVÁNY:
-        - Přístroje (getInstruments + ProductCard)
-        - Naši dodavatelé (getCompanies)
-        Až bude CMS připravené, vrátíme je sem jako samostatné sekce:
-        <FeaturedInstrumentsSection />
-        <PartnersSection />
-      */}
     </main>
   );
 };
