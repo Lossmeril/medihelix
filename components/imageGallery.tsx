@@ -69,7 +69,7 @@ export default function ImageGallery({
               src={heroImage}
               alt={title}
               fill
-              className="object-contain rounded-xl shadow"
+              className="object-cover rounded-xl shadow"
             />
           </div>
         )}

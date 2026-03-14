@@ -45,16 +45,7 @@ export type QuickTest = {
   // For simple single-variant kits a plain SKU is enough
   sku?: string;
 
-  performance?: {
-    turnaround_time?: string; // e.g. "< 10 min"
-    sensitivity?: string; // e.g. "98 %"
-    specificity?: string; // e.g. "99 %"
-  };
-
-  storage_temperature?: string; // e.g. "-20 °C", "2–8 °C"
-  compatible_systems?: string[]; // open system notes, specific instrument names
-
-  intended_use?: { place: string }[];
+  specs?: { name: string; value: string; unit?: string }[];
 
   tags?: string[];
 
@@ -100,10 +91,7 @@ export async function getQuickTests(): Promise<QuickTest[]> {
         target_groups: data.target_groups || [],
         variants: data.variants || [],
         sku: data.sku || undefined,
-        performance: data.performance || undefined,
-        storage_temperature: data.storage_temperature || undefined,
-        compatible_systems: data.compatible_systems || [],
-        intended_use: data.intended_use || [],
+        specs: data.specs || [],
         tags: data.tags || [],
         assets: data.assets || {},
         seo: data.seo || {},

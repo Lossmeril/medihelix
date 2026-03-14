@@ -3,6 +3,8 @@ import { landingContent } from "@/data/pageContent/homepage";
 import ContactForm from "@/components/contactForm";
 import HeroBanner from "@/components/heroBanner";
 import CTASection from "@/components/sections/homepage/ctaSection";
+import FeaturedProductsSection from "@/components/sections/homepage/featuredProductsSection";
+import PartnersSection from "@/components/sections/homepage/partnersSection";
 import WhatWeDoSection from "@/components/sections/homepage/whatWeDoSection";
 import WhoWeAreSection from "@/components/sections/homepage/whoWeAreSection";
 import WhyUsSection from "@/components/sections/homepage/whyUsSection";
@@ -27,19 +29,19 @@ const HomePage = async () => {
         paragraphs={sections.whatWeDo.paragraphs}
         bullets={sections.whatWeDo.bullets}
       />
+      <FeaturedProductsSection />
       <WhyUsSection
         title={sections.whyUs.title}
         lead={sections.whyUs.lead}
         promise={sections.whyUs.promise}
         uspPoints={sections.whyUs.uspPoints}
       />
+      <PartnersSection />
       <CTASection
         title={sections.cta.title}
         text={sections.cta.text}
         button={sections.cta.button}
       />
-      {/* <FeaturedInstrumentsSection />
-      <PartnersSection /> */}
       <div className="max-w-5xl mx-auto px-6 sm:px-10 lg:px-4 py-12">
         <ContactForm />
       </div>

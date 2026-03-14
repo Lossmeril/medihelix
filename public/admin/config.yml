@@ -322,40 +322,15 @@ collections:
         required: false
         hint: "Vyplňte pouze u jednoduchých kitů s jedinou variantou. Pro kity s více variantami použijte sekci Varianty a balení výše."
 
-      - label: "Výkonnostní parametry"
-        name: "performance"
-        widget: "object"
+      - label: "Specifikace"
+        name: "specs"
+        widget: "list"
         required: false
-        collapsed: true
+        hint: "Volné položky 'Název' + 'Hodnota' — přidejte jen to, co dává smysl pro daný kit (např. Skladovací teplota, Senzitivita, Kompatibilní systémy…)."
         fields:
-          - { label: "Doba zpracování / TAT", name: "turnaround_time", widget: "string", required: false, hint: "Např. '< 10 min', '15–45 min'" }
-          - { label: "Senzitivita", name: "sensitivity", widget: "string", required: false, hint: "Např. '98 %'" }
-          - { label: "Specificita", name: "specificity", widget: "string", required: false, hint: "Např. '99 %'" }
-
-      - label: "Skladovací teplota"
-        name: "storage_temperature"
-        widget: "string"
-        required: false
-        hint: "Např. '-20 °C', '2–8 °C', 'Pokojová teplota'"
-
-      - label: "Kompatibilní systémy"
-        name: "compatible_systems"
-        widget: "list"
-        required: false
-        hint: "Systémy extrakce nebo termocyklery, se kterými je kit kompatibilní. U otevřených kitů uveďte 'Většina systémů extrakce' apod."
-        field:
-          label: "Systém"
-          name: "system"
-          widget: "string"
-
-      - label: "Použití"
-        name: "intended_use"
-        widget: "list"
-        required: false
-        field:
-          label: "Typ použití"
-          name: "place"
-          widget: "string"
+          - { label: "Název parametru", name: "name", widget: "string" }
+          - { label: "Hodnota", name: "value", widget: "string" }
+          - { label: "Jednotka", name: "unit", widget: "string", required: false }
 
       - { label: "Tagy", name: "tags", widget: "list", required: false }
 

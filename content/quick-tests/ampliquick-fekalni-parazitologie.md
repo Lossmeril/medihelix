@@ -6,13 +6,10 @@ summary: Multiplexní PCR pro simultánní identifikaci 20 střevních parazitů
 companies: biosynex
 subcategories:
   - slug: parazitologie
-featured: false
+featured: true
 hero_image: /uploads/ampliquick-helminths-and-protozoaires-kits-scaled.jpg
 gallery:
   - /uploads/picture-1.png
-technology: Multiplexní PCR
-sample_types:
-  - stolice
 features:
   - title: Komplexní výsledky v jediném PCR cyklu
     description: Detekce 20 střevních parazitů simultánně bez nutnosti opakování.
@@ -75,16 +72,21 @@ variants:
         sku: BX3150067_SEC02
       - label: 96 testů
         sku: BX3150067_BLK96
-performance:
-  turnaround_time: < 10 min (příprava vzorku)
-storage_temperature: -20 °C
-compatible_systems:
-  - Většina systémů extrakce nukleových kyselin
-  - Většina termocyklerů
-intended_use:
-  - place: Mikrobiologické laboratoře
-  - place: Parazitologické laboratoře
-  - place: Nemocniční laboratoře
+specs:
+  - name: Technologie
+    value: Multiplexní PCR
+  - name: Typ vzorku
+    value: Stolice
+  - name: Skladovací teplota
+    value: -20 °C
+  - name: Doba zpracování (TAT)
+    value: < 10 min (příprava vzorku)
+  - name: Kompatibilní systémy extrakce
+    value: Většina systémů extrakce nukleových kyselin
+  - name: Kompatibilní termocyklery
+    value: Většina termocyklerů
+  - name: Použití
+    value: Mikrobiologické, parazitologické a nemocniční laboratoře
 tags:
   - PCR
   - parazitologie

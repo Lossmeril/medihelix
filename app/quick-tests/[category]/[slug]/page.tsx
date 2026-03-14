@@ -94,33 +94,6 @@ export default async function QuickTestPage({ params }: Props) {
                 </p>
               )}
 
-              {qt.technology && (
-                <p className="text-sm text-gray-500 mt-1">
-                  Technologie:{" "}
-                  <span className="font-medium text-gray-700">
-                    {qt.technology}
-                  </span>
-                </p>
-              )}
-
-              {qt.sample_types && qt.sample_types.length > 0 && (
-                <p className="text-sm text-gray-500 mt-1">
-                  Typ vzorku:{" "}
-                  <span className="font-medium text-gray-700">
-                    {qt.sample_types.join(", ")}
-                  </span>
-                </p>
-              )}
-
-              {qt.storage_temperature && (
-                <p className="text-sm text-gray-500 mt-1">
-                  Skladování:{" "}
-                  <span className="font-medium text-gray-700">
-                    {qt.storage_temperature}
-                  </span>
-                </p>
-              )}
-
               <Divider />
               <p className="text-base lg:text-lg text-gray-600">{qt.summary}</p>
 
@@ -201,67 +174,21 @@ export default async function QuickTestPage({ params }: Props) {
           </section>
         )}
 
-        {/* Performance */}
-        {qt.performance && Object.values(qt.performance).some(Boolean) && (
-          <section className="mb-12">
-            <h2 className="text-2xl font-semibold mb-4">
-              Výkonnostní parametry
-            </h2>
+        {/* Specs */}
+        {Array.isArray(qt.specs) && qt.specs.length > 0 && (
+          <section id="specs" className="mb-12">
+            <h2 className="text-2xl font-semibold mb-4">Specifikace</h2>
             <div className="grid grid-cols-1">
-              {qt.performance.turnaround_time && (
-                <div className="bg-gray-100 odd:bg-white grid grid-cols-2 border-b border-gray-200 px-4 py-2">
-                  <h3 className="font-medium">Doba zpracování (TAT)</h3>
+              {qt.specs.map((s, idx) => (
+                <div
+                  key={idx}
+                  className="bg-gray-100 odd:bg-white grid grid-cols-2 border-b border-gray-200 px-4 py-2"
+                >
+                  <h3 className="font-medium">{s.name}</h3>
                   <p className="text-gray-700">
-                    {qt.performance.turnaround_time}
+                    {s.value} {s.unit}
                   </p>
                 </div>
-              )}
-              {qt.performance.sensitivity && (
-                <div className="bg-white odd:bg-gray-100 grid grid-cols-2 border-b border-gray-200 px-4 py-2">
-                  <h3 className="font-medium">Senzitivita</h3>
-                  <p className="text-gray-700">{qt.performance.sensitivity}</p>
-                </div>
-              )}
-              {qt.performance.specificity && (
-                <div className="bg-gray-100 odd:bg-white grid grid-cols-2 border-b border-gray-200 px-4 py-2">
-                  <h3 className="font-medium">Specificita</h3>
-                  <p className="text-gray-700">{qt.performance.specificity}</p>
-                </div>
-              )}
-            </div>
-          </section>
-        )}
-
-        {/* Compatible systems */}
-        {Array.isArray(qt.compatible_systems) &&
-          qt.compatible_systems.length > 0 && (
-            <section className="mb-12">
-              <h2 className="text-2xl font-semibold mb-4">
-                Kompatibilní systémy
-              </h2>
-              <ul className="list-disc list-inside text-gray-700 space-y-1">
-                {qt.compatible_systems.map((sys, idx) => (
-                  <li key={idx}>{sys}</li>
-                ))}
-              </ul>
-            </section>
-          )}
-
-        {/* Intended use */}
-        {Array.isArray(qt.intended_use) && qt.intended_use.length > 0 && (
-          <section className="mb-12">
-            <h2 className="text-2xl font-semibold mb-4">Použití</h2>
-            <div className="flex flex-row flex-wrap lg:flex-nowrap gap-12 lg:gap-0 justify-start lg:justify-between">
-              {qt.intended_use.map((use, idx) => (
-                <h3
-                  key={idx}
-                  className="text-base lg:text-lg text-gray-700 relative pl-4 font-semibold"
-                >
-                  <span className="text-sky-500 font-bold text-4xl absolute -mt-[6px] scale-500 opacity-25 -z-10 left-3">
-                    &bull;
-                  </span>{" "}
-                  {use.place}
-                </h3>
               ))}
             </div>
           </section>

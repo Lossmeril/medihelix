@@ -3,8 +3,8 @@ const buttonArrows = {
   double: "⇒",
 };
 
-export const webCompanyName = "Medi Helix, s.r.o.";
-export const webCompanyShortName = "Medi Helix";
+export const webCompanyName = "Medihelix, s.r.o.";
+export const webCompanyShortName = "Medihelix";
 
 export const webButtonArrow = buttonArrows.simple;
 
