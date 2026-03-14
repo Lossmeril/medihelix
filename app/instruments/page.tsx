@@ -7,9 +7,23 @@ import { BreadcrumbsBlock, ProductBreadcrumbs } from "@/components/breadcrumbs";
 import { ProductCard } from "@/components/card";
 import ContactForm from "@/components/contactForm";
 import Divider from "@/components/divider";
+import { TagFilter } from "@/components/tagFilter";
 
-export default async function InstrumentsPage() {
+type Props = {
+  searchParams: Promise<{ tag?: string }>;
+};
+
+export default async function InstrumentsPage({ searchParams }: Props) {
+  const { tag } = await searchParams;
   const instruments = await getInstruments();
+
+  const allTags = Array.from(
+    new Set(instruments.flatMap((i) => i.tags ?? []))
+  ).sort();
+
+  const filtered = tag
+    ? instruments.filter((i) => i.tags?.includes(tag))
+    : instruments;
 
   return (
     <main className="max-w-5xl mx-auto px-12 lg:px-4 py-12 mt-20 lg:mt-40">
@@ -35,8 +49,9 @@ export default async function InstrumentsPage() {
             <h2 className="text-xl lg:text-2xl font-bold mb-6">
               Nabídka přístrojů
             </h2>
+            <TagFilter tags={allTags} basePath="/instruments" />
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {instruments.map((instrument) => (
+              {filtered.map((instrument) => (
                 <ProductCard
                   key={instrument.slug}
                   title={instrument.title}
@@ -46,8 +61,10 @@ export default async function InstrumentsPage() {
                   subcategories={instrument.subcategories}
                 />
               ))}
-              {instruments.length === 0 && (
-                <p className="text-gray-500">Žádné produkty k zobrazení.</p>
+              {filtered.length === 0 && (
+                <p className="text-gray-500">
+                  Žádné produkty pro vybraný tag.
+                </p>
               )}
             </div>
           </div>
