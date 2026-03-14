@@ -7,6 +7,10 @@ import Balancer from "react-wrap-balancer";
 import { getCompanies } from "@/utils/getCompany";
 import { getInstruments } from "@/utils/getInstrument";
 import { Subcategory, getSubcategories } from "@/utils/getSubcategory";
+import {
+  buildSubcategoryTrail,
+  getDescendantSlugs,
+} from "@/utils/subcategoryHelpers";
 import { getSubcategoryTrail } from "@/utils/getSubcategoryTrail";
 
 import { BreadcrumbsBlock, ProductBreadcrumbs } from "@/components/breadcrumbs";
@@ -26,25 +30,16 @@ export default async function InstrumentTypePage({ params }: Props) {
 
   const companies = await getCompanies();
 
-  // Get all the subcategories for breadcrumb trail
-  const subcategoryTrail: Subcategory[] = subcategory?.parent
-    ? [
-        ...(subcategories.find((c) => c.slug === subcategory?.parent)
-          ? [subcategories.find((c) => c.slug === subcategory?.parent)]
-          : []),
-        subcategory,
-      ].filter((c): c is Subcategory => c !== undefined)
-    : [subcategory].filter((c): c is Subcategory => c !== undefined);
+  const subcategoryTrail: Subcategory[] = subcategory
+    ? buildSubcategoryTrail(subcategory.slug, subcategories)
+    : [];
 
   const instruments = await getInstruments();
+  const descendantSlugs = new Set(
+    getDescendantSlugs(param.category, subcategories)
+  );
   const instrumentsInSubcat = instruments.filter((instrument) =>
-    instrument.subcategories.some(
-      (subcat) =>
-        subcat.slug === param?.category ||
-        [subcategories.find((c) => c.slug === subcat.slug)?.parent].includes(
-          param?.category,
-        ),
-    ),
+    instrument.subcategories.some((subcat) => descendantSlugs.has(subcat.slug))
   );
 
   const childSubcategories = subcategories.filter(

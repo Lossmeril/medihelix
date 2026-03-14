@@ -62,7 +62,11 @@ collections:
         value_field: "slug"
         display_fields: ["name"]
         required: false
-        hint: "Pokud je tato podkategorie součástí jiné, vyberte ji zde"
+        hint: >
+          Vyberte pouze přímého rodiče této kategorie — prarodiče se dědí automaticky.
+          Příklad: pokud vytváříte „Řada iPonatic", přiřaďte rodiče „mPOCT".
+          Kategorie „mPOCT" pak sama odkazuje na svého rodiče (pokud jej má).
+          Systém hierarchii sestaví sám.
 
   - name: "instruments"
     label: "Přístroje"
