@@ -191,3 +191,187 @@ collections:
         fields:
           - { label: "Meta title", name: "meta_title", widget: "string", required: false }
           - { label: "Meta description", name: "meta_description", widget: "text", required: false }
+
+  - name: "quick-tests"
+    label: "Rychlé testy / kity"
+    folder: "content/quick-tests"
+    create: true
+    slug: "{{slug}}"
+    summary: "{{title}} — {{technology}}"
+    fields:
+      - label: "Název"
+        name: "title"
+        widget: "string"
+        hint: "Marketingový název produktu (např. AMPLIQUICK Fekální parazitologie)"
+      - label: "Slug"
+        name: "slug"
+        widget: "string"
+        hint: "URL identifikátor (např. ampliquick-fekalni-parazitologie)"
+      - label: "Stručný popis"
+        name: "summary"
+        widget: "text"
+
+      - label: "Výrobce"
+        name: "companies"
+        widget: "relation"
+        collection: "companies"
+        search_fields: ["name", "slug"]
+        value_field: "slug"
+        display_fields: ["name"]
+        hint: "Vyberte výrobce ze seznamu společností"
+
+      - label: "Podkategorie"
+        name: "subcategories"
+        widget: "list"
+        label_singular: "Podkategorie"
+        hint: "Vyberte podkategorie kitu ze seznamu typů"
+        fields:
+          - label: "Podkategorie"
+            name: "slug"
+            widget: "relation"
+            collection: "subcategories"
+            search_fields: ["name", "slug"]
+            value_field: "slug"
+            display_fields: ["name"]
+
+      - label: "Vypíchnutý produkt?"
+        name: "featured"
+        widget: "boolean"
+        default: false
+
+      - label: "Hlavní obrázek"
+        name: "hero_image"
+        widget: "image"
+        allow_multiple: false
+
+      - label: "Galerie"
+        name: "gallery"
+        widget: "list"
+        required: false
+        field:
+          label: "Obrázek"
+          name: "image"
+          widget: "image"
+
+      - label: "Technologie"
+        name: "technology"
+        widget: "string"
+        required: false
+        hint: "Např. PCR, Multiplexní PCR, Lateral flow, ELISA"
+
+      - label: "Typ vzorku"
+        name: "sample_types"
+        widget: "list"
+        required: false
+        hint: "Např. stolice, sérum, plná krev, moč"
+        field:
+          label: "Typ vzorku"
+          name: "sample_type"
+          widget: "string"
+
+      - label: "Přednosti"
+        name: "features"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Titulek", name: "title", widget: "string" }
+          - { label: "Popis", name: "description", widget: "text", required: false }
+
+      - label: "Skupiny cílů / panely"
+        name: "target_groups"
+        widget: "list"
+        required: false
+        label_singular: "Panel / skupina"
+        summary: "{{name}}"
+        hint: "Skupiny detekovaných patogenů nebo analytů. Každá skupina odpovídá jednomu panelu kitu."
+        fields:
+          - { label: "Název skupiny / panelu", name: "name", widget: "string" }
+          - label: "Cíle"
+            name: "targets"
+            widget: "list"
+            label_singular: "Cíl"
+            summary: "{{name}}"
+            fields:
+              - { label: "Název patogenu / analytu", name: "name", widget: "string" }
+              - { label: "Zkratka / alias", name: "alias", widget: "string", required: false }
+              - { label: "Poznámka", name: "note", widget: "text", required: false }
+
+      - label: "Varianty a balení"
+        name: "variants"
+        widget: "list"
+        required: false
+        label_singular: "Varianta"
+        summary: "{{name}}"
+        hint: >
+          Každá varianta je samostatně objednatelný produkt (např. Helminths panel vs. Protozoans panel).
+          Každá varianta může mít více velikostí balení s vlastním katalogovým číslem.
+        fields:
+          - { label: "Název varianty", name: "name", widget: "string" }
+          - label: "Velikosti balení"
+            name: "pack_sizes"
+            widget: "list"
+            label_singular: "Balení"
+            summary: "{{label}} — {{sku}}"
+            fields:
+              - { label: "Popis balení", name: "label", widget: "string", hint: "Např. '60 testů', '96 testů'" }
+              - { label: "Katalogové číslo", name: "sku", widget: "string" }
+
+      - label: "Objednací číslo / SKU"
+        name: "sku"
+        widget: "string"
+        required: false
+        hint: "Vyplňte pouze u jednoduchých kitů s jedinou variantou. Pro kity s více variantami použijte sekci Varianty a balení výše."
+
+      - label: "Výkonnostní parametry"
+        name: "performance"
+        widget: "object"
+        required: false
+        collapsed: true
+        fields:
+          - { label: "Doba zpracování / TAT", name: "turnaround_time", widget: "string", required: false, hint: "Např. '< 10 min', '15–45 min'" }
+          - { label: "Senzitivita", name: "sensitivity", widget: "string", required: false, hint: "Např. '98 %'" }
+          - { label: "Specificita", name: "specificity", widget: "string", required: false, hint: "Např. '99 %'" }
+
+      - label: "Skladovací teplota"
+        name: "storage_temperature"
+        widget: "string"
+        required: false
+        hint: "Např. '-20 °C', '2–8 °C', 'Pokojová teplota'"
+
+      - label: "Kompatibilní systémy"
+        name: "compatible_systems"
+        widget: "list"
+        required: false
+        hint: "Systémy extrakce nebo termocyklery, se kterými je kit kompatibilní. U otevřených kitů uveďte 'Většina systémů extrakce' apod."
+        field:
+          label: "Systém"
+          name: "system"
+          widget: "string"
+
+      - label: "Použití"
+        name: "intended_use"
+        widget: "list"
+        required: false
+        field:
+          label: "Typ použití"
+          name: "place"
+          widget: "string"
+
+      - { label: "Tagy", name: "tags", widget: "list", required: false }
+
+      - label: "Odkazy / Soubory"
+        name: "assets"
+        widget: "object"
+        required: false
+        fields:
+          - { label: "Datový list (PDF)", name: "datasheet", widget: "file", required: false }
+          - { label: "Návod k použití / IFU (PDF)", name: "ifu", widget: "file", required: false }
+          - { label: "Externí odkaz", name: "external_url", widget: "string", required: false }
+
+      - label: "SEO"
+        name: "seo"
+        widget: "object"
+        collapsed: true
+        fields:
+          - { label: "Meta title", name: "meta_title", widget: "string", required: false }
+          - { label: "Meta description", name: "meta_description", widget: "text", required: false }

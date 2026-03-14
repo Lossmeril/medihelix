@@ -92,7 +92,7 @@ const ContactPopover: React.FC = () => {
     <>
       {open && (
         <div
-          className="fixed flex flex-col z-50 bottom-[100px] top-0 right-0 left-0 sm:top-auto sm:right-5 sm:left-auto h-[calc(100%-95px)] w-full sm:w-[350px] overflow-auto min-h-[250px] sm:h-[600px] border border-gray-300 bg-white shadow-2xl rounded-md"
+          className="fixed flex flex-col z-50 bottom-[100px] top-0 right-0 left-0 sm:top-auto sm:right-5 sm:left-auto h-[calc(100%-95px)] w-full sm:w-[350px] overflow-auto min-h-[250px] sm:h-[600px] border border-gray-300 bg-white shadow-2xl rounded-md "
           onClick={(e) => e.stopPropagation()}
         >
           <div className="flex p-5 flex-col justify-center items-center h-32 bg-sky">
@@ -220,7 +220,7 @@ const ContactPopover: React.FC = () => {
       <button
         id="w3f__widget--btn"
         onClick={() => setOpen((o) => !o)}
-        className="fixed z-40 right-5 bottom-5 shadow-lg flex justify-center items-center w-14 h-14 bg-sky rounded-xl focus:outline-none hover:bg-sky-600 focus:bg-sky-600 transition duration-300 ease"
+        className="fixed z-40 right-5 bottom-5 shadow-lg flex justify-center items-center w-14 h-14 bg-sky rounded-xl focus:outline-none hover:bg-sky-600 focus:bg-sky-600 transition duration-300 ease hover:cursor-pointer"
       >
         {!open ? (
           <svg

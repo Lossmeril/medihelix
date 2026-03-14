@@ -38,6 +38,7 @@ interface ProductCardProps {
   hero_image: string;
   slug: string;
   subcategories: { slug: string }[];
+  basePath?: string;
 
   company?: Company;
   categories?: Subcategory[];
@@ -49,6 +50,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   hero_image,
   slug,
   subcategories,
+  basePath = "/instruments",
   company,
   categories,
 }) => {
@@ -93,8 +95,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         <Divider marginTop="1rem" marginBottom="1rem" />
         <Button
           label="Prohlédnout si detaily"
-          href={`/instruments/${
-            subcategories[0].slug ? subcategories[0].slug + "/" : ""
+          href={`${basePath}/${
+            subcategories[0]?.slug ? subcategories[0].slug + "/" : ""
           }${slug}`}
         />
       </div>

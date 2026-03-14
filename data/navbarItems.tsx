@@ -8,7 +8,7 @@ export const navigationItems: NavigationItem[] = [
 
   { name: "Diagnostika", href: "#" },
   { name: "Přístroje", href: "/instruments" },
-  { name: "Rychlé testy", href: "#" },
+  { name: "Rychlé testy", href: "/quick-tests" },
 
   { name: "Naši partneři", href: "/#partneri" },
 
