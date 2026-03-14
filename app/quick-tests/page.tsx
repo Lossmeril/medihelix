@@ -31,6 +31,7 @@ export default async function QuickTestsPage({ searchParams }: Props) {
       return { cat, count };
     })
     .sort((a, b) => b.count - a.count)
+    .filter(({ count }) => count > 0)
     .map(({ cat }) => cat);
 
   const tagCounts = new Map<string, number>();

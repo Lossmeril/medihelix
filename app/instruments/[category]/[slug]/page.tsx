@@ -9,6 +9,7 @@ import Balancer from "react-wrap-balancer";
 import { getCompanies } from "@/utils/getCompany";
 import { getInstruments } from "@/utils/getInstrument";
 import { getSubcategories } from "@/utils/getSubcategory";
+import { buildSubcategoryTrail } from "@/utils/subcategoryHelpers";
 
 import { webCompanyName } from "@/data/webGlobals";
 
@@ -64,7 +65,10 @@ export default async function InstrumentPage({ params }: Props) {
               title: instrument.title,
               slug: instrument.slug,
             }}
-            subcategories={subcategories}
+            subcategories={buildSubcategoryTrail(
+              instrument.subcategories[0]?.slug,
+              subcategories,
+            )}
           />
 
           {company && instrument.companies.length > 0 && (

@@ -8,6 +8,7 @@ import Balancer from "react-wrap-balancer";
 import { getCompanies } from "@/utils/getCompany";
 import { getQuickTests } from "@/utils/getQuickTest";
 import { getSubcategories } from "@/utils/getSubcategory";
+import { buildSubcategoryTrail } from "@/utils/subcategoryHelpers";
 
 import { webCompanyName } from "@/data/webGlobals";
 
@@ -57,7 +58,10 @@ export default async function QuickTestPage({ params }: Props) {
           <ProductBreadcrumbs
             type="Kit"
             product={{ title: qt.title, slug: qt.slug }}
-            subcategories={subcategories}
+            subcategories={buildSubcategoryTrail(
+              qt.subcategories[0]?.slug,
+              subcategories,
+            )}
           />
           {company && qt.companies.length > 0 && (
             <CompanyBreadcrumbs
