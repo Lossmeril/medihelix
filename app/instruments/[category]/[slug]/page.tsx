@@ -1,6 +1,5 @@
 // app/instruments/[slug]/page.tsx
 import { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -22,6 +21,7 @@ import Button from "@/components/button";
 import Card from "@/components/card";
 import ContactForm from "@/components/contactForm";
 import Divider from "@/components/divider";
+import ImageGallery from "@/components/imageGallery";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -79,19 +79,15 @@ export default async function InstrumentPage({ params }: Props) {
           )}
         </BreadcrumbsBlock>
 
-        {/* Hero section */}
-        <header className="mb-4 lg:mb-12 gap-8 items-center">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-20 justify-start">
-            {instrument.hero_image && (
-              <div className="relative w-full aspect-square">
-                <Image
-                  src={instrument.hero_image}
-                  alt={instrument.title}
-                  fill
-                  className="object-contain rounded-xl shadow"
-                />
-              </div>
-            )}
+        {/* Hero + Gallery */}
+        <header className="mb-4 lg:mb-12">
+          <ImageGallery
+            images={[
+              instrument.hero_image,
+              ...instrument.gallery.map((g) => g.image),
+            ]}
+            title={instrument.title}
+          >
             <div>
               <h1 className="text-2xl lg:text-3xl font-bold mb-4">
                 {instrument.title}
@@ -114,7 +110,7 @@ export default async function InstrumentPage({ params }: Props) {
                 {instrument.summary}
               </p>
               <div className="mt-6 flex gap-8 flex-row md:flex-col lg:flex-row justify-start items-center md:items-start lg:items-center">
-                <Button href="#specs" label="Kontaktujte nás" />
+                <Button href="#contact" label="Kontaktujte nás" />
                 <Button
                   href="#specs"
                   label="Zobrazit specifikace"
@@ -132,7 +128,7 @@ export default async function InstrumentPage({ params }: Props) {
                       key={tag}
                       href={`/instruments?tag=${encodeURIComponent(tag)}`}
                     >
-                      <span key={tag} className="text-sky-500">
+                      <span className="text-sky-500">
                         {tag}
                         {instrument.tags && idx < instrument.tags.length - 1
                           ? ", "
@@ -147,30 +143,8 @@ export default async function InstrumentPage({ params }: Props) {
                 Objednací číslo: {instrument.sku}
               </p>
             </div>
-          </div>
+          </ImageGallery>
         </header>
-
-        {/* Gallery */}
-        {instrument.gallery?.length > 0 && (
-          <section className="mt-12 lg:mt-0 mb-12">
-            <h2 className="text-2xl font-semibold mb-4">Galerie</h2>
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-              {instrument.gallery.map((img, idx) => (
-                <div
-                  key={idx}
-                  className="relative w-full aspect-[4/3] rounded-xl shadow"
-                >
-                  <Image
-                    src={img.image}
-                    alt={`${instrument.title} image ${idx + 1}`}
-                    fill
-                    className="object-cover rounded-lg"
-                  />
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
 
         {/* Intended use */}
         {instrument.intended_use?.length > 0 && (

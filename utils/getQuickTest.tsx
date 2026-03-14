@@ -90,7 +90,10 @@ export async function getQuickTests(): Promise<QuickTest[]> {
         subcategories: data.subcategories || [],
         featured: data.featured || false,
         hero_image: data.hero_image || "",
-        gallery: data.gallery || [],
+        gallery: (data.gallery || []).map(
+          (item: string | { image: string }) =>
+            typeof item === "string" ? { image: item } : item,
+        ),
         technology: data.technology || undefined,
         sample_types: data.sample_types || [],
         features: data.features || [],

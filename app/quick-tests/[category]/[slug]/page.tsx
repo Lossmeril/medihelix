@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -21,6 +20,7 @@ import Button from "@/components/button";
 import Card from "@/components/card";
 import ContactForm from "@/components/contactForm";
 import Divider from "@/components/divider";
+import ImageGallery from "@/components/imageGallery";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -71,19 +71,12 @@ export default async function QuickTestPage({ params }: Props) {
           )}
         </BreadcrumbsBlock>
 
-        {/* Hero */}
-        <header className="mb-4 lg:mb-12 gap-8 items-center">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-20 justify-start">
-            {qt.hero_image && (
-              <div className="relative w-full aspect-square">
-                <Image
-                  src={qt.hero_image}
-                  alt={qt.title}
-                  fill
-                  className="object-cover rounded-xl shadow"
-                />
-              </div>
-            )}
+        {/* Hero + Gallery */}
+        <header className="mb-4 lg:mb-12">
+          <ImageGallery
+            images={[qt.hero_image, ...qt.gallery.map((g) => g.image)]}
+            title={qt.title}
+          >
             <div>
               <h1 className="text-2xl lg:text-3xl font-bold mb-4">
                 {qt.title}
@@ -159,30 +152,8 @@ export default async function QuickTestPage({ params }: Props) {
                 </p>
               )}
             </div>
-          </div>
+          </ImageGallery>
         </header>
-
-        {/* Gallery */}
-        {qt.gallery?.length > 0 && (
-          <section className="mt-12 lg:mt-0 mb-12">
-            <h2 className="text-2xl font-semibold mb-4">Galerie</h2>
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-              {qt.gallery.map((img, idx) => (
-                <div
-                  key={idx}
-                  className="relative w-full aspect-[4/3] rounded-xl shadow"
-                >
-                  <Image
-                    src={img.image}
-                    alt={`${qt.title} image ${idx + 1}`}
-                    fill
-                    className="object-cover rounded-lg"
-                  />
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
 
         {/* Features */}
         {Array.isArray(qt.features) && qt.features.length > 0 && (
@@ -277,7 +248,7 @@ export default async function QuickTestPage({ params }: Props) {
           )}
 
         {/* Intended use */}
-        {qt.intended_use?.length > 0 && (
+        {Array.isArray(qt.intended_use) && qt.intended_use.length > 0 && (
           <section className="mb-12">
             <h2 className="text-2xl font-semibold mb-4">Použití</h2>
             <div className="flex flex-row flex-wrap lg:flex-nowrap gap-12 lg:gap-0 justify-start lg:justify-between">
