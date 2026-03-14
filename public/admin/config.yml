@@ -1,6 +1,12 @@
 backend:
-  name: test-repo
+  name: git-gateway
+  repo: Lossmeril/medihelix
   branch: main
+  auth_type: pkce
+  base_url: https://auth.decapbridge.com
+  auth_endpoint: /sites/411ff7b8-3e19-4833-a877-304b8d6b7e52/pkce
+  auth_token_endpoint: /sites/411ff7b8-3e19-4833-a877-304b8d6b7e52/token
+  gateway_url: https://gateway.decapbridge.com
   commit_messages:
     create: 'Create {{collection}} “{{slug}}”'
     update: 'Update {{collection}} “{{slug}}”'
