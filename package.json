@@ -3,9 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "generate-decap-config": "node scripts/generate-decap-config.js",
-    "dev": "yarn generate-decap-config && next dev",
-    "build": "yarn generate-decap-config && next build",
+    "dev": "next dev",
+    "build": "next build",
     "start": "next start",
     "lint": "eslint"
   },

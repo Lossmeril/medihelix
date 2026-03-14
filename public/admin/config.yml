@@ -4,15 +4,15 @@ backend:
   branch: main
   auth_type: pkce
   base_url: https://auth.decapbridge.com
-  auth_endpoint: /sites/411ff7b8-3e19-4833-a877-304b8d6b7e52/pkce
-  auth_token_endpoint: /sites/411ff7b8-3e19-4833-a877-304b8d6b7e52/token
+  auth_endpoint: /sites/17f8e746-0421-48b3-9604-e7525bf1d61b/pkce
+  auth_token_endpoint: /sites/17f8e746-0421-48b3-9604-e7525bf1d61b/token
   gateway_url: https://gateway.decapbridge.com
   commit_messages:
-    create: 'Create {{collection}} “{{slug}}”'
-    update: 'Update {{collection}} “{{slug}}”'
-    delete: 'Delete {{collection}} “{{slug}}”'
-    uploadMedia: '[skip ci] Upload “{{path}}”'
-    deleteMedia: '[skip ci] Delete “{{path}}”'
+    create: 'Create {{collection}} "{{slug}}"'
+    update: 'Update {{collection}} "{{slug}}"'
+    delete: 'Delete {{collection}} "{{slug}}"'
+    uploadMedia: '[skip ci] Upload "{{path}}"'
+    deleteMedia: '[skip ci] Delete "{{path}}"'
 
 media_folder: "public/uploads"
 public_folder: "/uploads"
@@ -64,7 +64,6 @@ collections:
         required: false
         hint: "Pokud je tato podkategorie součástí jiné, vyberte ji zde"
 
-
   - name: "instruments"
     label: "Přístroje"
     folder: "content/instruments"
@@ -107,12 +106,11 @@ collections:
         widget: "boolean"
         default: false
 
-
       - label: "Hlavní obrázek"
         name: "hero_image"
         widget: "image"
         allow_multiple: false
-        
+
       - label: "Galerie"
         name: "gallery"
         widget: "list"
@@ -162,7 +160,7 @@ collections:
       - label: "Použití"
         name: "intended_use"
         widget: "list"
-        field: 
+        field:
           label: "Typ použití"
           name: "place"
           widget: "string"

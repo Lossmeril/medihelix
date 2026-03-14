@@ -33,9 +33,6 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
-# generated decap config (built from config.template.yml + env vars)
-public/admin/config.yml
-
 # vercel
 .vercel
 
