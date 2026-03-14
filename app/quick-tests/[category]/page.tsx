@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import Balancer from "react-wrap-balancer";
@@ -13,6 +12,7 @@ import {
 import { getSubcategoryTrail } from "@/utils/getSubcategoryTrail";
 
 import { BreadcrumbsBlock, ProductBreadcrumbs } from "@/components/breadcrumbs";
+import SubcategoryCard from "@/components/subcategoryCard";
 import { ProductCard } from "@/components/card";
 import ContactForm from "@/components/contactForm";
 import Divider from "@/components/divider";
@@ -72,27 +72,17 @@ export default async function QuickTestCategoryPage({ params }: Props) {
                 </h2>
                 <div className="flex flex-wrap gap-2">
                   {childSubcategories.map((child) => (
-                    <Link
+                    <SubcategoryCard
                       key={child.slug}
                       href={`/quick-tests/${child.slug}`}
-                    >
-                      <div className="grid grid-cols-2 h-20 justify-center items-center bg-sky-100 hover:bg-sky-200 transition-colors rounded-lg border border-sky-800/5 pr-6">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          src={
-                            quickTests.find((qt) =>
-                              qt.subcategories.some(
-                                (sub) => sub.slug === child.slug
-                              )
-                            )?.hero_image ||
-                            "/img/placeholders/instrument-placeholder.png"
-                          }
-                          alt={child.name}
-                          className="h-20 aspect-square object-contain rounded-md"
-                        />
-                        <div className="">{child.name}</div>
-                      </div>
-                    </Link>
+                      name={child.name}
+                      image={
+                        quickTests.find((qt) =>
+                          qt.subcategories.some((sub) => sub.slug === child.slug)
+                        )?.hero_image ||
+                        "/img/placeholders/instrument-placeholder.png"
+                      }
+                    />
                   ))}
                 </div>
               </div>

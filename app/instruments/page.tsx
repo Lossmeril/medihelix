@@ -8,6 +8,7 @@ import { getSubcategories } from "@/utils/getSubcategory";
 import { getDescendantSlugs } from "@/utils/subcategoryHelpers";
 
 import { BreadcrumbsBlock, ProductBreadcrumbs } from "@/components/breadcrumbs";
+import SubcategoryCard from "@/components/subcategoryCard";
 import { ProductCard } from "@/components/card";
 import ContactForm from "@/components/contactForm";
 import Divider from "@/components/divider";
@@ -72,24 +73,19 @@ export default async function InstrumentsPage({ searchParams }: Props) {
                 <h2 className="text-lg font-semibold mb-2">Kategorie</h2>
                 <div className="flex flex-wrap gap-2">
                   {rootSubcategories.map((cat) => (
-                    <Link key={cat.slug} href={`/instruments/${cat.slug}`}>
-                      <div className="grid grid-cols-2 h-20 justify-center items-center bg-sky-100 hover:bg-sky-200 transition-colors rounded-lg border border-sky-800/5 pr-6">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          src={
-                            instruments.find((inst) =>
-                              inst.subcategories.some((sub) =>
-                                getDescendantSlugs(cat.slug, subcategories).includes(sub.slug)
-                              )
-                            )?.hero_image ||
-                            "/img/placeholders/instrument-placeholder.png"
-                          }
-                          alt={cat.name}
-                          className="h-20 aspect-square object-contain rounded-md"
-                        />
-                        <div className="">{cat.name}</div>
-                      </div>
-                    </Link>
+                    <SubcategoryCard
+                      key={cat.slug}
+                      href={`/instruments/${cat.slug}`}
+                      name={cat.name}
+                      image={
+                        instruments.find((inst) =>
+                          inst.subcategories.some((sub) =>
+                            getDescendantSlugs(cat.slug, subcategories).includes(sub.slug)
+                          )
+                        )?.hero_image ||
+                        "/img/placeholders/instrument-placeholder.png"
+                      }
+                    />
                   ))}
                 </div>
               </div>

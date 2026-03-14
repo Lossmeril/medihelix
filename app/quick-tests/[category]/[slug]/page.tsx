@@ -80,7 +80,7 @@ export default async function QuickTestPage({ params }: Props) {
                   src={qt.hero_image}
                   alt={qt.title}
                   fill
-                  className="object-contain rounded-xl shadow"
+                  className="object-cover rounded-xl shadow"
                 />
               </div>
             )}
@@ -103,7 +103,10 @@ export default async function QuickTestPage({ params }: Props) {
 
               {qt.technology && (
                 <p className="text-sm text-gray-500 mt-1">
-                  Technologie: <span className="font-medium text-gray-700">{qt.technology}</span>
+                  Technologie:{" "}
+                  <span className="font-medium text-gray-700">
+                    {qt.technology}
+                  </span>
                 </p>
               )}
 
@@ -214,7 +217,7 @@ export default async function QuickTestPage({ params }: Props) {
                         <Balancer>
                           {group.targets
                             .map((t) =>
-                              t.alias ? `${t.name} (${t.alias})` : t.name
+                              t.alias ? `${t.name} (${t.alias})` : t.name,
                             )
                             .join(", ")}
                         </Balancer>
@@ -228,34 +231,35 @@ export default async function QuickTestPage({ params }: Props) {
         )}
 
         {/* Performance */}
-        {qt.performance &&
-          Object.values(qt.performance).some(Boolean) && (
-            <section className="mb-12">
-              <h2 className="text-2xl font-semibold mb-4">
-                Výkonnostní parametry
-              </h2>
-              <div className="grid grid-cols-1">
-                {qt.performance.turnaround_time && (
-                  <div className="bg-gray-100 odd:bg-white grid grid-cols-2 border-b border-gray-200 px-4 py-2">
-                    <h3 className="font-medium">Doba zpracování (TAT)</h3>
-                    <p className="text-gray-700">{qt.performance.turnaround_time}</p>
-                  </div>
-                )}
-                {qt.performance.sensitivity && (
-                  <div className="bg-white odd:bg-gray-100 grid grid-cols-2 border-b border-gray-200 px-4 py-2">
-                    <h3 className="font-medium">Senzitivita</h3>
-                    <p className="text-gray-700">{qt.performance.sensitivity}</p>
-                  </div>
-                )}
-                {qt.performance.specificity && (
-                  <div className="bg-gray-100 odd:bg-white grid grid-cols-2 border-b border-gray-200 px-4 py-2">
-                    <h3 className="font-medium">Specificita</h3>
-                    <p className="text-gray-700">{qt.performance.specificity}</p>
-                  </div>
-                )}
-              </div>
-            </section>
-          )}
+        {qt.performance && Object.values(qt.performance).some(Boolean) && (
+          <section className="mb-12">
+            <h2 className="text-2xl font-semibold mb-4">
+              Výkonnostní parametry
+            </h2>
+            <div className="grid grid-cols-1">
+              {qt.performance.turnaround_time && (
+                <div className="bg-gray-100 odd:bg-white grid grid-cols-2 border-b border-gray-200 px-4 py-2">
+                  <h3 className="font-medium">Doba zpracování (TAT)</h3>
+                  <p className="text-gray-700">
+                    {qt.performance.turnaround_time}
+                  </p>
+                </div>
+              )}
+              {qt.performance.sensitivity && (
+                <div className="bg-white odd:bg-gray-100 grid grid-cols-2 border-b border-gray-200 px-4 py-2">
+                  <h3 className="font-medium">Senzitivita</h3>
+                  <p className="text-gray-700">{qt.performance.sensitivity}</p>
+                </div>
+              )}
+              {qt.performance.specificity && (
+                <div className="bg-gray-100 odd:bg-white grid grid-cols-2 border-b border-gray-200 px-4 py-2">
+                  <h3 className="font-medium">Specificita</h3>
+                  <p className="text-gray-700">{qt.performance.specificity}</p>
+                </div>
+              )}
+            </div>
+          </section>
+        )}
 
         {/* Compatible systems */}
         {Array.isArray(qt.compatible_systems) &&
@@ -323,9 +327,7 @@ export default async function QuickTestPage({ params }: Props) {
 
         {/* Single SKU fallback */}
         {qt.sku && (!qt.variants || qt.variants.length === 0) && (
-          <p className="font-medium text-sm mb-12">
-            Objednací číslo: {qt.sku}
-          </p>
+          <p className="font-medium text-sm mb-12">Objednací číslo: {qt.sku}</p>
         )}
 
         <Divider />

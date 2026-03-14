@@ -7,6 +7,7 @@ import { getSubcategories } from "@/utils/getSubcategory";
 import { getDescendantSlugs } from "@/utils/subcategoryHelpers";
 
 import { BreadcrumbsBlock, ProductBreadcrumbs } from "@/components/breadcrumbs";
+import SubcategoryCard from "@/components/subcategoryCard";
 import { ProductCard } from "@/components/card";
 import ContactForm from "@/components/contactForm";
 import Divider from "@/components/divider";
@@ -26,7 +27,7 @@ export default async function QuickTestsPage({ searchParams }: Props) {
     .map((cat) => {
       const descendants = new Set(getDescendantSlugs(cat.slug, subcategories));
       const count = quickTests.filter((qt) =>
-        qt.subcategories.some((sub) => descendants.has(sub.slug))
+        qt.subcategories.some((sub) => descendants.has(sub.slug)),
       ).length;
       return { cat, count };
     })
@@ -72,27 +73,19 @@ export default async function QuickTestsPage({ searchParams }: Props) {
                 <h2 className="text-lg font-semibold mb-2">Kategorie</h2>
                 <div className="flex flex-wrap gap-2">
                   {rootSubcategories.map((cat) => (
-                    <Link key={cat.slug} href={`/quick-tests/${cat.slug}`}>
-                      <div className="grid grid-cols-2 h-20 justify-center items-center bg-sky-100 hover:bg-sky-200 transition-colors rounded-lg border border-sky-800/5 pr-6">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          src={
-                            quickTests.find((qt) =>
-                              qt.subcategories.some((sub) =>
-                                getDescendantSlugs(
-                                  cat.slug,
-                                  subcategories
-                                ).includes(sub.slug)
-                              )
-                            )?.hero_image ||
-                            "/img/placeholders/instrument-placeholder.png"
-                          }
-                          alt={cat.name}
-                          className="h-20 aspect-square object-contain rounded-md"
-                        />
-                        <div className="">{cat.name}</div>
-                      </div>
-                    </Link>
+                    <SubcategoryCard
+                      key={cat.slug}
+                      href={`/quick-tests/${cat.slug}`}
+                      name={cat.name}
+                      image={
+                        quickTests.find((qt) =>
+                          qt.subcategories.some((sub) =>
+                            getDescendantSlugs(cat.slug, subcategories).includes(sub.slug),
+                          ),
+                        )?.hero_image ||
+                        "/img/placeholders/instrument-placeholder.png"
+                      }
+                    />
                   ))}
                 </div>
               </div>
@@ -116,9 +109,7 @@ export default async function QuickTestsPage({ searchParams }: Props) {
                 />
               ))}
               {filtered.length === 0 && (
-                <p className="text-gray-500">
-                  Žádné produkty pro vybraný tag.
-                </p>
+                <p className="text-gray-500">Žádné produkty pro vybraný tag.</p>
               )}
             </div>
           </div>

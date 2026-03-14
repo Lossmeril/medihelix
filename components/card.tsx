@@ -58,9 +58,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({
     <Card className="shadow-sm">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={hero_image}
+        src={hero_image || "/img/placeholders/instrument-placeholder.png"}
         alt={title}
-        className="w-full h-40 object-contain bg-white border-b border-dark/10"
+        className="w-full h-40 object-cover bg-white border-b border-dark/10"
       />
       <div className="pb-8 px-4">
         {categories && categories.length > 0 && (
