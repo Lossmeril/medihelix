@@ -1,7 +1,7 @@
 backend:
   name: git-gateway
   repo: Lossmeril/medihelix
-  branch: main
+  branch: dev
   auth_type: pkce
   base_url: https://auth.decapbridge.com
   auth_endpoint: /sites/17f8e746-0421-48b3-9604-e7525bf1d61b/pkce
@@ -93,13 +93,18 @@ collections:
         hint: "Vyberte výrobce ze seznamu společností"
 
       - label: "Podkategorie"
-        name: "subcategory"
-        widget: "relation"
-        collection: "subcategories"
-        search_fields: ["name", "slug"]
-        value_field: "slug"
-        display_fields: ["name"]
-        hint: "Vyberte podkategorii přístroje ze seznamu typů"
+        name: "subcategories"
+        widget: "list"
+        label_singular: "Podkategorie"
+        hint: "Vyberte podkategorie přístroje ze seznamu typů"
+        fields:
+          - label: "Podkategorie"
+            name: "slug"
+            widget: "relation"
+            collection: "subcategories"
+            search_fields: ["name", "slug"]
+            value_field: "slug"
+            display_fields: ["name"]
 
       - label: "Vypíchnutý produkt?"
         name: "featured"
