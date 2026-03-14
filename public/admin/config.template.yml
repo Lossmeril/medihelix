@@ -1,0 +1,184 @@
+backend:
+  name: git-gateway
+  repo: Lossmeril/medihelix
+  branch: main
+  auth_type: pkce
+  base_url: https://auth.decapbridge.com
+  auth_endpoint: /sites/${DECAP_SITE_ID}/pkce
+  auth_token_endpoint: /sites/${DECAP_SITE_ID}/token
+  gateway_url: https://gateway.decapbridge.com
+  commit_messages:
+    create: 'Create {{collection}} "{{slug}}"'
+    update: 'Update {{collection}} "{{slug}}"'
+    delete: 'Delete {{collection}} "{{slug}}"'
+    uploadMedia: '[skip ci] Upload "{{path}}"'
+    deleteMedia: '[skip ci] Delete "{{path}}"'
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+logo_url: "https://coalmarketing.cz/wp-content/uploads/2024/08/coalmarketing_logo_long_color-black-1024x239.png"
+locale: "cs"
+
+collections:
+  - name: "blog"
+    label: "Blog"
+    folder: "content/blog"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    preview: true
+    fields:
+      - { label: "Nadpis", name: "title", widget: "string" }
+      - { label: "Datum publikace", name: "date", widget: "datetime" }
+      - { label: "Obsah", name: "body", widget: "markdown" }
+      - { label: "Náhledový obrázek", name: "image", widget: "image" }
+
+  - name: "companies"
+    label: "Společnosti"
+    folder: "content/companies"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Název", name: "name", widget: "string" }
+      - { label: "Slug", name: "slug", widget: "string" }
+      - { label: "Logo", name: "logo", widget: "image", allow_multiple: false }
+      - { label: "Web", name: "website", widget: "string", required: false }
+      - { label: "Popis", name: "description", widget: "text", required: false }
+
+  - name: "subcategories"
+    label: "Podkategorie"
+    folder: "content/subcategories"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Název", name: "name", widget: "string" }
+      - { label: "Slug", name: "slug", widget: "string" }
+      - { label: "Popis", name: "description", widget: "text", required: false }
+      - label: "Nadřazená kategorie"
+        name: "parent"
+        widget: "relation"
+        collection: "subcategories"
+        search_fields: ["name", "slug"]
+        value_field: "slug"
+        display_fields: ["name"]
+        required: false
+        hint: "Pokud je tato podkategorie součástí jiné, vyberte ji zde"
+
+  - name: "instruments"
+    label: "Přístroje"
+    folder: "content/instruments"
+    create: true
+    slug: "{{slug}}"
+    summary: "{{title}} — {{specs.model}}"
+    fields:
+      - label: "Název"
+        name: "title"
+        widget: "string"
+        hint: "Marketingový název produktu (např. Perpetuum Mobile 2.0)"
+      - label: "Slug"
+        name: "slug"
+        widget: "string"
+        hint: "URL identifikátor (např. perpetuum-mobile-2-0)"
+      - label: "Stručný popis"
+        name: "summary"
+        widget: "text"
+
+      - label: "Výrobce"
+        name: "companies"
+        widget: "relation"
+        collection: "companies"
+        search_fields: ["name", "slug"]
+        value_field: "slug"
+        display_fields: ["name"]
+        hint: "Vyberte výrobce ze seznamu společností"
+
+      - label: "Podkategorie"
+        name: "subcategory"
+        widget: "relation"
+        collection: "subcategories"
+        search_fields: ["name", "slug"]
+        value_field: "slug"
+        display_fields: ["name"]
+        hint: "Vyberte podkategorii přístroje ze seznamu typů"
+
+      - label: "Vypíchnutý produkt?"
+        name: "featured"
+        widget: "boolean"
+        default: false
+
+      - label: "Hlavní obrázek"
+        name: "hero_image"
+        widget: "image"
+        allow_multiple: false
+
+      - label: "Galerie"
+        name: "gallery"
+        widget: "list"
+        field:
+          label: "Obrázek"
+          name: "image"
+          widget: "image"
+
+      - label: "Přednosti"
+        name: "features"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Titulek", name: "title", widget: "string" }
+          - { label: "Popis", name: "description", widget: "text", required: false }
+
+      - label: "Specifikace"
+        name: "specs"
+        widget: "list"
+        required: false
+        hint: "Volné položky 'Název' + 'Hodnota'; přidejte jen to, co dává smysl pro daný produkt."
+        fields:
+          - { label: "Název parametru", name: "name", widget: "string" }
+          - { label: "Hodnota", name: "value", widget: "string" }
+          - { label: "Jednotka", name: "unit", widget: "string", required: false }
+          - { label: "Skupina", name: "group", widget: "string", required: false }
+
+      - label: "Skupiny testů"
+        name: "test_groups"
+        widget: "list"
+        required: false
+        label_singular: "Skupina testů"
+        summary: "{{name}}"
+        fields:
+          - { label: "Název skupiny", name: "name", widget: "string" }
+          - label: "Testy"
+            name: "tests"
+            widget: "list"
+            label_singular: "Test"
+            summary: "{{name}}"
+            fields:
+              - { label: "Název testu", name: "name", widget: "string" }
+              - { label: "Cíle", name: "targets", widget: "string", required: false }
+              - { label: "Kód", name: "code", widget: "string", required: false }
+              - { label: "Poznámka", name: "note", widget: "text", required: false }
+
+      - label: "Použití"
+        name: "intended_use"
+        widget: "list"
+        field:
+          label: "Typ použití"
+          name: "place"
+          widget: "string"
+
+      - { label: "Objednací číslo / SKU", name: "sku", widget: "string" }
+      - { label: "Tagy", name: "tags", widget: "list", required: false }
+      - label: "Odkazy / Soubory"
+        name: "assets"
+        widget: "object"
+        required: false
+        fields:
+          - { label: "Datový list (PDF)", name: "datasheet", widget: "file", required: false }
+          - { label: "Externí odkaz", name: "external_url", widget: "string", required: false }
+
+      - label: "SEO"
+        name: "seo"
+        widget: "object"
+        collapsed: true
+        fields:
+          - { label: "Meta title", name: "meta_title", widget: "string", required: false }
+          - { label: "Meta description", name: "meta_description", widget: "text", required: false }
