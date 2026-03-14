@@ -1,7 +1,11 @@
 // app/instruments/[slug]/page.tsx
+import Link from "next/link";
+
 import Balancer from "react-wrap-balancer";
 
 import { getInstruments } from "@/utils/getInstrument";
+import { getSubcategories } from "@/utils/getSubcategory";
+import { getDescendantSlugs } from "@/utils/subcategoryHelpers";
 
 import { BreadcrumbsBlock, ProductBreadcrumbs } from "@/components/breadcrumbs";
 import { ProductCard } from "@/components/card";
@@ -16,10 +20,28 @@ type Props = {
 export default async function InstrumentsPage({ searchParams }: Props) {
   const { tag } = await searchParams;
   const instruments = await getInstruments();
+  const subcategories = await getSubcategories();
+  const rootSubcategories = subcategories
+    .filter((c) => !c.parent)
+    .map((cat) => {
+      const descendants = new Set(getDescendantSlugs(cat.slug, subcategories));
+      const count = instruments.filter((inst) =>
+        inst.subcategories.some((sub) => descendants.has(sub.slug))
+      ).length;
+      return { cat, count };
+    })
+    .sort((a, b) => b.count - a.count)
+    .map(({ cat }) => cat);
 
-  const allTags = Array.from(
-    new Set(instruments.flatMap((i) => i.tags ?? []))
-  ).sort();
+  const tagCounts = new Map<string, number>();
+  for (const inst of instruments) {
+    for (const t of inst.tags ?? []) {
+      tagCounts.set(t, (tagCounts.get(t) ?? 0) + 1);
+    }
+  }
+  const allTags = Array.from(tagCounts.entries())
+    .sort((a, b) => b[1] - a[1])
+    .map(([t]) => t);
 
   const filtered = tag
     ? instruments.filter((i) => i.tags?.includes(tag))
@@ -44,6 +66,33 @@ export default async function InstrumentsPage({ searchParams }: Props) {
                 quis lorem ut libero malesuada feugiat.
               </Balancer>
             </p>
+            {rootSubcategories.length > 0 && (
+              <div className="mt-4">
+                <h2 className="text-lg font-semibold mb-2">Kategorie</h2>
+                <div className="flex flex-wrap gap-2">
+                  {rootSubcategories.map((cat) => (
+                    <Link key={cat.slug} href={`/instruments/${cat.slug}`}>
+                      <div className="grid grid-cols-2 h-20 justify-center items-center bg-sky-100 hover:bg-sky-200 transition-colors rounded-lg border border-sky-800/5 pr-6">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={
+                            instruments.find((inst) =>
+                              inst.subcategories.some((sub) =>
+                                getDescendantSlugs(cat.slug, subcategories).includes(sub.slug)
+                              )
+                            )?.hero_image ||
+                            "/img/placeholders/instrument-placeholder.png"
+                          }
+                          alt={cat.name}
+                          className="h-20 aspect-square object-contain rounded-md"
+                        />
+                        <div className="">{cat.name}</div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
             <Divider />
 
             <h2 className="text-xl lg:text-2xl font-bold mb-6">
