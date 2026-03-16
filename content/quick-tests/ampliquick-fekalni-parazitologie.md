@@ -3,7 +3,8 @@ title: BIOSYNEX AMPLIQUICK Fekální parazitologie
 slug: ampliquick-fekalni-parazitologie
 summary: Multiplexní PCR pro simultánní identifikaci 20 střevních parazitů v
   jediném PCR cyklu. Detekce bez ohledu na vývojové stádium parazita.
-companies: biosynex
+companies:
+  - slug: biosynex
 subcategories:
   - slug: parazitologie
 featured: true
