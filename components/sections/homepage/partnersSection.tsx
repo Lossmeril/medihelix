@@ -13,7 +13,7 @@ export default async function PartnersSection() {
 
   return (
     <Section anchor="partneri" minHeight="content" theme="light">
-      <h2 className="text-xl font-semibold uppercase tracking-wide text-center mb-8">
+      <h2 className="text-xl font-semibold uppercase tracking-wide text-center mb-10">
         Naši partneři
       </h2>
       <Carousel>
