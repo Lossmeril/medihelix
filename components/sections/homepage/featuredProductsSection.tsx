@@ -26,7 +26,7 @@ export default async function FeaturedProductsSection() {
         (c) => c.slug === instrument.companies[0]?.slug,
       );
       return (
-        <div key={instrument.slug} className="w-72">
+        <div key={instrument.slug} className="w-72 h-full">
           <ProductCard
             title={instrument.title}
             summary={instrument.summary}
@@ -46,7 +46,7 @@ export default async function FeaturedProductsSection() {
       const categories = await getSubcategoryTrail(qt.subcategories[0]?.slug);
       const company = companies.find((c) => c.slug === qt.companies[0]?.slug);
       return (
-        <div key={qt.slug} className="w-72">
+        <div key={qt.slug} className="w-72 h-full">
           <ProductCard
             title={qt.title}
             summary={qt.summary}

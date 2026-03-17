@@ -23,7 +23,7 @@ const Card: React.FC<CardProps> = ({
 }) => {
   return (
     <div className={`card h-full ${"card-" + theme} ${className || ""}`}>
-      <div className={`card-content ${tip ? "card-tip" : ""}  h-full relative`}>
+      <div className={`card-content ${tip ? "card-tip" : ""} h-full relative flex flex-col`}>
         {children}
       </div>
     </div>
@@ -62,7 +62,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         alt={title}
         className="w-full h-40 object-cover bg-white border-b border-dark/10"
       />
-      <div className="pb-8 px-4">
+      <div className="pb-8 px-4 flex flex-col flex-1">
         {categories && categories.length > 0 && (
           <div className="mb-2 flex flex-wrap gap-2">
             {categories.map((category, index) => (
@@ -88,7 +88,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             <h4 className="text-sm text-sky italic mb-3">{company?.name}</h4>
           </Link>
         )}
-        <p className="text-sm text-gray-500 leading-tight">
+        <p className="text-sm text-gray-500 leading-tight flex-1">
           <Balancer>{summary}</Balancer>
         </p>
 
