@@ -77,7 +77,11 @@ export async function getQuickTests(): Promise<QuickTest[]> {
         slug: data.slug || filename.replace(/\.md$/, ""),
         title: data.title || "",
         summary: data.summary || "",
-        companies: data.companies || [],
+        companies: Array.isArray(data.companies)
+          ? data.companies
+          : data.companies
+            ? [{ slug: data.companies }]
+            : [],
         subcategories: data.subcategories || [],
         featured: data.featured || false,
         hero_image: data.hero_image || "",

@@ -89,12 +89,17 @@ collections:
 
       - label: "Výrobce"
         name: "companies"
-        widget: "relation"
-        collection: "companies"
-        search_fields: ["name", "slug"]
-        value_field: "slug"
-        display_fields: ["name"]
+        widget: "list"
+        label_singular: "Výrobce"
         hint: "Vyberte výrobce ze seznamu společností"
+        fields:
+          - label: "Výrobce"
+            name: "slug"
+            widget: "relation"
+            collection: "companies"
+            search_fields: ["name", "slug"]
+            value_field: "slug"
+            display_fields: ["name"]
 
       - label: "Podkategorie"
         name: "subcategories"
@@ -213,12 +218,17 @@ collections:
 
       - label: "Výrobce"
         name: "companies"
-        widget: "relation"
-        collection: "companies"
-        search_fields: ["name", "slug"]
-        value_field: "slug"
-        display_fields: ["name"]
+        widget: "list"
+        label_singular: "Výrobce"
         hint: "Vyberte výrobce ze seznamu společností"
+        fields:
+          - label: "Výrobce"
+            name: "slug"
+            widget: "relation"
+            collection: "companies"
+            search_fields: ["name", "slug"]
+            value_field: "slug"
+            display_fields: ["name"]
 
       - label: "Podkategorie"
         name: "subcategories"
