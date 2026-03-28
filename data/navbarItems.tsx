@@ -6,16 +6,14 @@ export type NavigationItem = {
 export const navigationItems: NavigationItem[] = [
   { name: "Domů", href: "/" },
 
-  { name: "Diagnostika", href: "#" },
+  { name: "Reagencie a spotřební materiál", href: "#" },
   { name: "Přístroje", href: "/instruments" },
-  { name: "Rychlé testy", href: "/quick-tests" },
+  { name: "Rychlé diagnostické testy", href: "/quick-tests" },
 
-  { name: "Naši partneři", href: "/#partneri" },
-
-  { name: "Produkty podle firem", href: "#" },
+  { name: "Produkty podle firem", href: "/companies" },
   // { name: "Akce", href: "#" },
 
-  // { name: "Aktuality", href: "#" },
+  { name: "Aktuality", href: "#" },
   // { name: "O nás", href: "#" },
   { name: "Kontakt", href: "#kontakt" },
 ];
