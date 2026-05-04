@@ -21,6 +21,7 @@ import Card from "@/components/card";
 import ContactForm from "@/components/contactForm";
 import Divider from "@/components/divider";
 import ImageGallery from "@/components/imageGallery";
+import { QuickTestTabs } from "@/components/quickTestTabs";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -194,39 +195,7 @@ export default async function QuickTestPage({ params }: Props) {
           </section>
         )}
 
-        {/* Variants & ordering */}
-        {Array.isArray(qt.variants) && qt.variants.length > 0 && (
-          <section className="mb-12">
-            <h2 className="text-2xl font-semibold mb-4">Varianty a balení</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {qt.variants.map((variant, idx) => (
-                <Card key={idx}>
-                  <div className="p-4">
-                    <h3 className="font-semibold mb-3">{variant.name}</h3>
-                    <div className="grid grid-cols-1">
-                      {variant.pack_sizes.map((pack, pIdx) => (
-                        <div
-                          key={pIdx}
-                          className="grid grid-cols-2 border-b border-gray-200 py-2 text-sm last:border-0"
-                        >
-                          <span className="text-gray-600">{pack.label}</span>
-                          <span className="font-mono text-gray-800">
-                            {pack.sku}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </Card>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* Single SKU fallback */}
-        {qt.sku && (!qt.variants || qt.variants.length === 0) && (
-          <p className="font-medium text-sm mb-12">Objednací číslo: {qt.sku}</p>
-        )}
+        <QuickTestTabs groups={qt.groups ?? []} />
 
         <Divider />
         <div className="flex flex-row gap-4">

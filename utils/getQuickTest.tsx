@@ -4,12 +4,19 @@ import fs from "fs";
 import matter from "gray-matter";
 import path from "path";
 
-export type QuickTestVariant = {
+export type QuickTestItem = {
   name: string;
-  pack_sizes: {
-    label: string; // e.g. "60 testů", "96 testů"
-    sku: string;
-  }[];
+  cat_no: string;
+  specimen?: string;
+  format?: string;
+  cut_off?: string;
+  ce_mark?: string;
+  note?: string;
+};
+
+export type QuickTestGroup = {
+  name: string;
+  items: QuickTestItem[];
 };
 
 export type QuickTest = {
@@ -22,9 +29,7 @@ export type QuickTest = {
   hero_image: string;
   gallery: { image: string }[];
 
-  // Kit-specific classification
   technology?: string; // PCR, lateral flow, ELISA, …
-  sample_types?: string[]; // fecal, serum, whole blood, …
 
   features?: { title: string; description?: string }[];
 
@@ -38,12 +43,7 @@ export type QuickTest = {
     }[];
   }[];
 
-  // Ordering: one product family can have multiple orderable variants,
-  // each available in multiple pack sizes with their own catalog numbers
-  variants?: QuickTestVariant[];
-
-  // For simple single-variant kits a plain SKU is enough
-  sku?: string;
+  groups?: QuickTestGroup[];
 
   specs?: { name: string; value: string; unit?: string }[];
 
@@ -90,11 +90,9 @@ export async function getQuickTests(): Promise<QuickTest[]> {
             typeof item === "string" ? { image: item } : item,
         ),
         technology: data.technology || undefined,
-        sample_types: data.sample_types || [],
         features: data.features || [],
         target_groups: data.target_groups || [],
-        variants: data.variants || [],
-        sku: data.sku || undefined,
+        groups: data.groups || [],
         specs: data.specs || [],
         tags: data.tags || [],
         assets: data.assets || {},

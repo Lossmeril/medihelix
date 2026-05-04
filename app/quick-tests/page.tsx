@@ -7,10 +7,10 @@ import { getSubcategories } from "@/utils/getSubcategory";
 import { getDescendantSlugs } from "@/utils/subcategoryHelpers";
 
 import { BreadcrumbsBlock, ProductBreadcrumbs } from "@/components/breadcrumbs";
-import SubcategoryCard from "@/components/subcategoryCard";
 import { ProductCard } from "@/components/card";
 import ContactForm from "@/components/contactForm";
 import Divider from "@/components/divider";
+import SubcategoryCard from "@/components/subcategoryCard";
 import { TagFilter } from "@/components/tagFilter";
 
 type Props = {
@@ -71,7 +71,7 @@ export default async function QuickTestsPage({ searchParams }: Props) {
             {rootSubcategories.length > 0 && (
               <div className="mt-4">
                 <h2 className="text-lg font-semibold mb-2">Kategorie</h2>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-5">
                   {rootSubcategories.map((cat) => (
                     <SubcategoryCard
                       key={cat.slug}
@@ -80,7 +80,10 @@ export default async function QuickTestsPage({ searchParams }: Props) {
                       image={
                         quickTests.find((qt) =>
                           qt.subcategories.some((sub) =>
-                            getDescendantSlugs(cat.slug, subcategories).includes(sub.slug),
+                            getDescendantSlugs(
+                              cat.slug,
+                              subcategories,
+                            ).includes(sub.slug),
                           ),
                         )?.hero_image ||
                         "/img/placeholders/instrument-placeholder.png"

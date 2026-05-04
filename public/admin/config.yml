@@ -269,16 +269,6 @@ collections:
         required: false
         hint: "Např. PCR, Multiplexní PCR, Lateral flow, ELISA"
 
-      - label: "Typ vzorku"
-        name: "sample_types"
-        widget: "list"
-        required: false
-        hint: "Např. stolice, sérum, plná krev, moč"
-        field:
-          label: "Typ vzorku"
-          name: "sample_type"
-          widget: "string"
-
       - label: "Přednosti"
         name: "features"
         widget: "list"
@@ -306,31 +296,33 @@ collections:
               - { label: "Zkratka / alias", name: "alias", widget: "string", required: false }
               - { label: "Poznámka", name: "note", widget: "text", required: false }
 
-      - label: "Varianty a balení"
-        name: "variants"
+      - label: "Skupiny produktů (záložky)"
+        name: "groups"
         widget: "list"
         required: false
-        label_singular: "Varianta"
+        label_singular: "Skupina / záložka"
         summary: "{{name}}"
         hint: >
-          Každá varianta je samostatně objednatelný produkt (např. Helminths panel vs. Protozoans panel).
-          Každá varianta může mít více velikostí balení s vlastním katalogovým číslem.
+          Každá skupina se zobrazí jako záložka nad tabulkou.
+          Pokud je jen jedna skupina, záložky se nezobrazí — zobrazí se rovnou tabulka.
         fields:
-          - { label: "Název varianty", name: "name", widget: "string" }
-          - label: "Velikosti balení"
-            name: "pack_sizes"
+          - label: "Název záložky"
+            name: "name"
+            widget: "string"
+            hint: "Např. GI/Enteric, Tropical, Hepatitis, Respiratory, STI"
+          - label: "Položky"
+            name: "items"
             widget: "list"
-            label_singular: "Balení"
-            summary: "{{label}} — {{sku}}"
+            label_singular: "Položka"
+            summary: "{{name}} — {{cat_no}}"
             fields:
-              - { label: "Popis balení", name: "label", widget: "string", hint: "Např. '60 testů', '96 testů'" }
-              - { label: "Katalogové číslo", name: "sku", widget: "string" }
-
-      - label: "Objednací číslo / SKU"
-        name: "sku"
-        widget: "string"
-        required: false
-        hint: "Vyplňte pouze u jednoduchých kitů s jedinou variantou. Pro kity s více variantami použijte sekci Varianty a balení výše."
+              - { label: "Název produktu", name: "name", widget: "string" }
+              - { label: "Katalogové číslo", name: "cat_no", widget: "string" }
+              - { label: "Typ vzorku", name: "specimen", widget: "string", required: false, hint: "Např. Stolice, Sérum/Plazma, WB/S/P" }
+              - { label: "Formát", name: "format", widget: "string", required: false, hint: "Např. Cassette, Dipstick, Cup" }
+              - { label: "Cut-Off", name: "cut_off", widget: "string", required: false }
+              - { label: "CE označení", name: "ce_mark", widget: "string", required: false, hint: "Např. CE, CE IVD, Non-CE" }
+              - { label: "Balení / poznámka", name: "note", widget: "string", required: false, hint: "Např. 60 testů, 96 testů" }
 
       - label: "Specifikace"
         name: "specs"

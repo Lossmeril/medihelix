@@ -56,23 +56,41 @@ target_groups:
       - name: Microsporidium spp.
       - name: Balantidium coli
       - name: Pentatrichomonas hominis
-variants:
-  - name: AMPLIQUICK Helminths
-    pack_sizes:
-      - label: 60 testů
-        sku: BX3150066_SEC01
-      - label: 60 testů (varianta 2)
-        sku: BX3150066_SEC02
-      - label: 96 testů
-        sku: BX3150066_BLK96
-  - name: AMPLIQUICK Protozoans
-    pack_sizes:
-      - label: 60 testů
-        sku: BX3150067_SEC01
-      - label: 60 testů (varianta 2)
-        sku: BX3150067_SEC02
-      - label: 96 testů
-        sku: BX3150067_BLK96
+groups:
+  - name: Helminths
+    items:
+      - name: AMPLIQUICK Helminths
+        cat_no: BX3150066_SEC01
+        specimen: Stolice
+        note: 60 testů
+        ce_mark: CE IVD
+      - name: AMPLIQUICK Helminths
+        cat_no: BX3150066_SEC02
+        specimen: Stolice
+        note: 60 testů (varianta 2)
+        ce_mark: CE IVD
+      - name: AMPLIQUICK Helminths
+        cat_no: BX3150066_BLK96
+        specimen: Stolice
+        note: 96 testů
+        ce_mark: CE IVD
+  - name: Protozoans
+    items:
+      - name: AMPLIQUICK Protozoans
+        cat_no: BX3150067_SEC01
+        specimen: Stolice
+        note: 60 testů
+        ce_mark: CE IVD
+      - name: AMPLIQUICK Protozoans
+        cat_no: BX3150067_SEC02
+        specimen: Stolice
+        note: 60 testů (varianta 2)
+        ce_mark: CE IVD
+      - name: AMPLIQUICK Protozoans
+        cat_no: BX3150067_BLK96
+        specimen: Stolice
+        note: 96 testů
+        ce_mark: CE IVD
 specs:
   - name: Technologie
     value: Multiplexní PCR
