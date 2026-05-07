@@ -13,7 +13,7 @@ export const navigationItems: NavigationItem[] = [
   { name: "Produkty podle firem", href: "/companies" },
   // { name: "Akce", href: "#" },
 
-  { name: "Aktuality", href: "#" },
+  { name: "Aktuality", href: "#blog" },
   // { name: "O nás", href: "#" },
   { name: "Kontakt", href: "#kontakt" },
 ];

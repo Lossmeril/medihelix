@@ -45,7 +45,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ product }) => {
   };
 
   return (
-    <div id="kontakt" className="w-full mx-auto bg-sky-50 rounded-xl p-10">
+    <div id="kontakt" className="w-full mx-auto bg-sky-50 rounded-2xl p-10">
       <svg
         className="w-12 h-12 mb-5 bg-sky-300 p-3 rounded-lg"
         xmlns="http://www.w3.org/2000/svg"

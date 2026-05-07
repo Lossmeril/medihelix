@@ -57,7 +57,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   categories,
 }) => {
   return (
-    <Card className="shadow-md">
+    <Card className="shadow-md product-card">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={hero_image || "/img/placeholders/instrument-placeholder.png"}

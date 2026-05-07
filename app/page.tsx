@@ -39,7 +39,7 @@ const HomePage = async () => {
         text={sections.cta.text}
         button={sections.cta.button}
       />
-      <div className="max-w-5xl mx-auto px-6 sm:px-10 lg:px-4 py-12">
+      <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-0 py-12">
         <ContactForm />
       </div>
     </main>

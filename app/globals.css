@@ -179,6 +179,11 @@ h6 {
   animation: spin 10s linear infinite;
 }
 
+.card.product-card:before {
+  width: 800%;
+  height: 120%;
+}
+
 .card:hover:before {
   opacity: 1;
 }
@@ -225,4 +230,11 @@ h6 {
     rgba(255, 255, 255, 0.1) 1px,
     transparent 1px
   );
+}
+
+.card-light .card-tip {
+  background-image: radial-gradient(
+    rgba(0, 148, 230, 0.1) 1px,
+    transparent 1px
+  ) !important;
 }

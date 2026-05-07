@@ -6,6 +6,7 @@ interface SectionProps {
   borderTop?: boolean;
   borderBottom?: boolean;
   bgColor?: string;
+  wide?: boolean;
 }
 
 const Section: React.FC<SectionProps> = ({
@@ -15,6 +16,7 @@ const Section: React.FC<SectionProps> = ({
   borderTop = false,
   borderBottom = false,
   bgColor,
+  wide = false,
   children,
 }) => {
   return (
@@ -30,7 +32,9 @@ const Section: React.FC<SectionProps> = ({
         backgroundColor: bgColor || undefined,
       }}
     >
-      <div className="w-full max-w-6xl">{children}</div>
+      <div className={`w-full max-w-6xl ${wide ? "xl:max-w-full" : ""}`}>
+        {children}
+      </div>
     </section>
   );
 };

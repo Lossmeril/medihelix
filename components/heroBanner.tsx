@@ -21,8 +21,8 @@ const HeroBanner = ({
         <div className="bg-sky-500/50 w-screen h-screen absolute top-0 left-0 hero-polygon-2 z-20"></div>
         <div className="bg-white w-screen h-screen absolute top-0 left-0 hero-polygon-3 z-30"></div>
 
-        <div className="relative grid grid-cols-1 lg:grid-cols-2 items-center max-w-350 mx-auto isolate px-6 pt-16 lg:px-20 w-full text-left z-40">
-          <div className="mx-[10%] lg:mx-auto max-w-full py-32 sm:py-48 lg:pb-56">
+        <div className="relative grid grid-cols-1 md:grid-cols-2 items-center max-w-350 mx-auto isolate px-6 pt-16 lg:px-20 w-full text-left z-40">
+          <div className="mx-auto max-w-full py-32 sm:py-48 lg:pb-56">
             <div className="flex items-center gap-1 mb-4">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -42,7 +42,7 @@ const HeroBanner = ({
               {subheadline}
             </p>
 
-            <div className="mt-10 flex flex-col md:flex-row items-start md:items-center justify-start gap-6">
+            <div className="mt-10 flex flex-col lg:flex-row items-start lg:items-center justify-start gap-6">
               <Button label={primaryCta.label} href={primaryCta.href} />
               <Button
                 label={secondaryCta.label}
@@ -53,7 +53,7 @@ const HeroBanner = ({
               />
             </div>
           </div>
-          <div className="w-full aspect-square z-0 mask-y-from-80% mask-y-to-100% relative mix-blend-multiply">
+          <div className="w-full aspect-square z-0 mask-y-from-80% mask-y-to-100% relative mix-blend-multiply -translate-y-30 md:-translate-y-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/img/medi007.png"
