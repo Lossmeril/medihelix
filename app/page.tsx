@@ -2,12 +2,12 @@ import { landingContent } from "@/data/pageContent/homepage";
 
 import ContactForm from "@/components/contactForm";
 import HeroBanner from "@/components/heroBanner";
+import BlogSection from "@/components/sections/homepage/blogSection";
 import CTASection from "@/components/sections/homepage/ctaSection";
 import FeaturedProductsSection from "@/components/sections/homepage/featuredProductsSection";
 import PartnersSection from "@/components/sections/homepage/partnersSection";
 import WhatWeDoSection from "@/components/sections/homepage/whatWeDoSection";
 import WhoWeAreSection from "@/components/sections/homepage/whoWeAreSection";
-import WhyUsSection from "@/components/sections/homepage/whyUsSection";
 
 const HomePage = async () => {
   const { hero, sections } = landingContent;
@@ -23,6 +23,8 @@ const HomePage = async () => {
       <WhoWeAreSection
         title={sections.whoWeAre.title}
         paragraphs={sections.whoWeAre.paragraphs}
+        uspPoints={sections.whoWeAre.uspPoints}
+        promise={sections.whoWeAre.promise}
       />
       <WhatWeDoSection
         title={sections.whatWeDo.title}
@@ -30,12 +32,7 @@ const HomePage = async () => {
         bullets={sections.whatWeDo.bullets}
       />
       <FeaturedProductsSection />
-      <WhyUsSection
-        title={sections.whyUs.title}
-        lead={sections.whyUs.lead}
-        promise={sections.whyUs.promise}
-        uspPoints={sections.whyUs.uspPoints}
-      />
+      <BlogSection />
       <PartnersSection />
       <CTASection
         title={sections.cta.title}

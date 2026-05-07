@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 // import localFont from "next/font/local";
-import { Saira } from "next/font/google";
+import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 
 import { navigationItems } from "@/data/navbarItems";
 
@@ -10,16 +10,15 @@ import NavbarDesktop from "@/components/navbar";
 
 import "./globals.css";
 
-const saira = Saira({
-  variable: "--font-saira",
+const plusJakartaSans = Plus_Jakarta_Sans({
+  variable: "--font-plus-jakarta-sans",
   subsets: ["latin"],
 });
 
-// const specialGothicExtendedBold = localFont({
-//   src: "../public/fonts/SpecialGothicExtendedBold.woff2",
-//   display: "swap",
-//   variable: "--font-special",
-// });
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: "Medihelix s.r.o. | Laboratorní přístroje, technologie a servis",
@@ -67,7 +66,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="cs" className="scroll-smooth">
-      <body className={`${saira.variable}  antialiased overflow-x-hidden`}>
+      <body
+        className={`${plusJakartaSans.variable} ${inter.variable} antialiased overflow-x-hidden`}
+      >
         <NavbarDesktop items={navigationItems} />
         {children}
         <Footer />

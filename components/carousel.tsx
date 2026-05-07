@@ -91,7 +91,7 @@ export default function Carousel({ children }: CarouselProps) {
       <div
         ref={trackRef}
         onScroll={handleScroll}
-        className="flex items-stretch gap-4 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden py-2"
+        className="flex items-center gap-20 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden py-2"
       >
         {rendered.map((child, i) => (
           <div key={i} className="shrink-0">

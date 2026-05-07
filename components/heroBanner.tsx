@@ -21,8 +21,8 @@ const HeroBanner = ({
         <div className="bg-sky-500/50 w-screen h-screen absolute top-0 left-0 hero-polygon-2 z-20"></div>
         <div className="bg-white w-screen h-screen absolute top-0 left-0 hero-polygon-3 z-30"></div>
 
-        <div className="relative isolate px-6 pt-16 lg:px-20 w-full md:w-1/2 lg:w-2/3 text-left z-40">
-          <div className="mx-auto max-w-3xl py-32 sm:py-48 lg:py-56">
+        <div className="relative grid grid-cols-1 lg:grid-cols-2 items-center max-w-350 mx-auto isolate px-6 pt-16 lg:px-20 w-full text-left z-40">
+          <div className="mx-[10%] lg:mx-auto max-w-full py-32 sm:py-48 lg:pb-56">
             <div className="flex items-center gap-1 mb-4">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -33,12 +33,12 @@ const HeroBanner = ({
               <span className="sr-only">MEDI HELIX s.r.o.,</span>
             </div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold tracking-tight text-balance uppercase font-heading text-dark">
+            <h1 className="text-5xl md:mx-0 lg:text-6xl xl:text-7xl font-bold -tracking-wider text-balance font-heading text-dark">
               {headline}
             </h1>
             <Divider />
 
-            <p className="mt-8 text-lg font-normal text-pretty text-dark/80 sm:text-xl/8">
+            <p className="mt-8 text-lg font-normal text-pretty text-dark/80 sm:text-lg">
               {subheadline}
             </p>
 
@@ -53,23 +53,18 @@ const HeroBanner = ({
               />
             </div>
           </div>
+          <div className="w-full aspect-square z-0 mask-y-from-80% mask-y-to-100% relative mix-blend-multiply">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/img/medi007.png"
+              className="w-full h-full object-cover absolute top-0 left-0 bg-blend-multiply"
+              alt=""
+            />
+          </div>
         </div>
       </div>
 
       <div className="absolute top-0 left-0 w-screen h-screen overflow-hidden -z-10">
-        <video
-          className="absolute top-0 left-0 w-full h-full object-cover z-10"
-          width={1920}
-          height={1080}
-          autoPlay
-          loop
-          muted
-          playsInline
-        >
-          <source src="/video/ANTIKOR hero video.webm" type="video/webm" />
-          <source src="/video/ANTIKOR hero video.mp4" type="video/mp4" />
-        </video>
-
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/img/stock/stock-5.jpg"

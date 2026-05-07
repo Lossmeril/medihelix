@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { getCompanies } from "@/utils/getCompany";
 
+import Badge from "@/components/badge";
 import Carousel from "@/components/carousel";
 import Section from "@/components/section";
 
@@ -12,16 +13,26 @@ export default async function PartnersSection() {
   if (withLogos.length === 0) return null;
 
   return (
-    <Section anchor="partneri" minHeight="content" theme="light">
-      <h2 className="text-xl font-semibold uppercase tracking-wide text-center mb-10">
-        Naši partneři
+    <Section
+      anchor="partneri"
+      minHeight="content"
+      theme="light"
+      bgColor="#cecece1a"
+      borderBottom
+      borderTop
+    >
+      <div className="w-full text-center mb-3">
+        <Badge>Naši partneři</Badge>
+      </div>
+      <h2 className="text-xl font-black text-black/80 uppercase tracking-wide text-center mb-8">
+        PProdukty podle výrobců
       </h2>
       <Carousel>
         {withLogos.map((company) => (
           <Link
             key={company.slug}
             href={`/companies/${company.slug}`}
-            className="flex items-center justify-center w-44 h-20 p-2"
+            className="flex items-center justify-center w-40 h-20 p-2 mx-5"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img

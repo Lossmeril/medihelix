@@ -23,7 +23,9 @@ const Card: React.FC<CardProps> = ({
 }) => {
   return (
     <div className={`card h-full ${"card-" + theme} ${className || ""}`}>
-      <div className={`card-content ${tip ? "card-tip" : ""} h-full relative flex flex-col`}>
+      <div
+        className={`card-content ${tip ? "card-tip" : ""} h-full relative flex flex-col`}
+      >
         {children}
       </div>
     </div>
@@ -55,7 +57,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   categories,
 }) => {
   return (
-    <Card className="shadow-sm">
+    <Card className="shadow-md">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={hero_image || "/img/placeholders/instrument-placeholder.png"}

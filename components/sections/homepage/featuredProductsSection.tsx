@@ -3,8 +3,9 @@ import { getInstruments } from "@/utils/getInstrument";
 import { getQuickTests } from "@/utils/getQuickTest";
 import { getSubcategoryTrail } from "@/utils/getSubcategoryTrail";
 
-import Carousel from "@/components/carousel";
+import Badge from "@/components/badge";
 import { ProductCard } from "@/components/card";
+import Carousel from "@/components/carousel";
 import Section from "@/components/section";
 
 export default async function FeaturedProductsSection() {
@@ -67,8 +68,11 @@ export default async function FeaturedProductsSection() {
 
   return (
     <Section anchor="produkty" minHeight="content">
-      <h2 className="text-xl font-semibold uppercase tracking-wide text-center mb-8">
-        Vybrané produkty
+      <div className="w-full text-center mb-3">
+        <Badge>Náš katalog</Badge>
+      </div>
+      <h2 className="text-xl font-black text-black uppercase tracking-wide text-center mb-8">
+        Vybrané produkty z naší nabídky
       </h2>
       <Carousel>{allCards}</Carousel>
     </Section>
