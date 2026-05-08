@@ -2,7 +2,6 @@ import { Handshake, Layers, Microscope, QuoteIcon, Zap } from "lucide-react";
 
 import Badge from "@/components/badge";
 import Card from "@/components/card";
-import Divider from "@/components/divider";
 import Section from "@/components/section";
 import { UspPoint, UspSection } from "@/components/usp";
 

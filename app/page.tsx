@@ -1,9 +1,7 @@
 import { landingContent } from "@/data/pageContent/homepage";
 
-import ContactForm from "@/components/contactForm";
 import HeroBanner from "@/components/heroBanner";
 import BlogSection from "@/components/sections/homepage/blogSection";
-import CTASection from "@/components/sections/homepage/ctaSection";
 import FeaturedProductsSection from "@/components/sections/homepage/featuredProductsSection";
 import PartnersSection from "@/components/sections/homepage/partnersSection";
 import WhatWeDoSection from "@/components/sections/homepage/whatWeDoSection";
@@ -34,14 +32,6 @@ const HomePage = async () => {
       <FeaturedProductsSection />
       <BlogSection />
       <PartnersSection />
-      <CTASection
-        title={sections.cta.title}
-        text={sections.cta.text}
-        button={sections.cta.button}
-      />
-      <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-0 py-12">
-        <ContactForm />
-      </div>
     </main>
   );
 };

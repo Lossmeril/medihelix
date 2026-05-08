@@ -90,8 +90,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             <h4 className="text-sm text-sky italic mb-3">{company?.name}</h4>
           </Link>
         )}
-        <p className="text-sm text-gray-500 leading-tight flex-1">
-          <Balancer>{summary}</Balancer>
+        <p className="text-sm text-gray-500 leading-tight flex-1 text-balance">
+     {summary}
         </p>
 
         <Divider marginTop="1rem" marginBottom="1rem" />

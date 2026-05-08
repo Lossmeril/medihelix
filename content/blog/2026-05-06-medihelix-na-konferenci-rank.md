@@ -4,7 +4,7 @@ date: 2026-05-06T00:00:00.000Z
 image: ""
 ---
 
-Společnost Medihelix se zúčastnila jubilejního 20. ročníku odborné konference RANK, která letos proběhla v nových, velmi zdařilých prostorách.
+Společnost **Medihelix** se zúčastnila jubilejního 20. ročníku odborné konference RANK, která letos proběhla v nových, velmi zdařilých prostorách.
 
 Akce nabídla inspirativní odborný program a příjemné prostředí pro setkání s partnery i odbornou veřejností. Pro Medihelix byla účast skvělou příležitostí k posílení spolupráce a sdílení novinek z oblasti laboratorní diagnostiky.
 
