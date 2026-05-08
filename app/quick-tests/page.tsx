@@ -1,7 +1,3 @@
-import Link from "next/link";
-
-import Balancer from "react-wrap-balancer";
-
 import { getQuickTests } from "@/utils/getQuickTest";
 import { getSubcategories } from "@/utils/getSubcategory";
 import { getDescendantSlugs } from "@/utils/subcategoryHelpers";
@@ -61,11 +57,9 @@ export default async function QuickTestsPage({ searchParams }: Props) {
             <h1 className="text-2xl lg:text-3xl font-bold mb-4">
               Rychlotesty a diagnostické kity
             </h1>
-            <p className="text-base lg:text-lg text-gray-600">
-              <Balancer>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-                quis lorem ut libero malesuada feugiat.
-              </Balancer>
+            <p className="text-base lg:text-lg text-gray-600 text-balance">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
+              quis lorem ut libero malesuada feugiat.
             </p>
 
             {rootSubcategories.length > 0 && (

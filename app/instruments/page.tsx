@@ -1,8 +1,3 @@
-// app/instruments/[slug]/page.tsx
-import Link from "next/link";
-
-import Balancer from "react-wrap-balancer";
-
 import { getInstruments } from "@/utils/getInstrument";
 import { getSubcategories } from "@/utils/getSubcategory";
 import { getDescendantSlugs } from "@/utils/subcategoryHelpers";
@@ -62,11 +57,9 @@ export default async function InstrumentsPage({ searchParams }: Props) {
             <h1 className="text-2xl lg:text-3xl font-bold mb-4">
               Přístroje a laboratorní technika
             </h1>
-            <p className="text-base lg:text-lg text-gray-600">
-              <Balancer>
+            <p className="text-base lg:text-lg text-gray-600 text-balance">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
                 quis lorem ut libero malesuada feugiat.
-              </Balancer>
             </p>
             {rootSubcategories.length > 0 && (
               <div className="mt-4">

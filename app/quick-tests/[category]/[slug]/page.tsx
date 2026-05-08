@@ -2,8 +2,6 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import Balancer from "react-wrap-balancer";
-
 import { getCompanies } from "@/utils/getCompany";
 import { getQuickTests } from "@/utils/getQuickTest";
 import { getSubcategories } from "@/utils/getSubcategory";
@@ -158,14 +156,12 @@ export default async function QuickTestPage({ params }: Props) {
                   <div className="h-full flex flex-col justify-start p-4">
                     <h3 className="font-medium mb-2">{group.name}</h3>
                     {group.targets && (
-                      <div className="text-xs text-gray-500">
-                        <Balancer>
+                      <div className="text-xs text-gray-500 text-balance">
                           {group.targets
                             .map((t) =>
                               t.alias ? `${t.name} (${t.alias})` : t.name,
                             )
                             .join(", ")}
-                        </Balancer>
                       </div>
                     )}
                   </div>

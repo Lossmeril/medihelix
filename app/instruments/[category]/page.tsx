@@ -1,7 +1,7 @@
 // app/instruments/[slug]/page.tsx
 import { notFound } from "next/navigation";
 
-import Balancer from "react-wrap-balancer";
+
 
 import { getCompanies } from "@/utils/getCompany";
 import { getInstruments } from "@/utils/getInstrument";
@@ -63,8 +63,8 @@ export default async function InstrumentTypePage({ params }: Props) {
             <h1 className="text-2xl lg:text-3xl font-bold mb-4">
               {subcategory.name}
             </h1>
-            <p className="text-base lg:text-lg text-gray-600">
-              <Balancer>{subcategory.description}</Balancer>
+            <p className="text-base lg:text-lg text-gray-600 text-balance">
+              {subcategory.description}
             </p>
             {childSubcategories.length > 0 && (
               <div className="mt-4">

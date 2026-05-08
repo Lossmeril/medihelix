@@ -3,8 +3,6 @@ import { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
-import Balancer from "react-wrap-balancer";
-
 import { getCompanies } from "@/utils/getCompany";
 import { getInstruments } from "@/utils/getInstrument";
 import { getQuickTests } from "@/utils/getQuickTest";
@@ -81,8 +79,8 @@ export default async function CompanyPage({ params }: Props) {
             <h1 className="text-2xl lg:text-3xl font-bold mb-4">
               {company.name}
             </h1>
-            <p className="text-base lg:text-lg text-gray-600">
-              <Balancer>{company.description}</Balancer>
+            <p className="text-base lg:text-lg text-gray-600 text-balance">
+              {company.description}
             </p>
             <Divider />
 

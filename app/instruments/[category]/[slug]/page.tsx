@@ -3,7 +3,6 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import Balancer from "react-wrap-balancer";
 
 import { getCompanies } from "@/utils/getCompany";
 import { getInstruments } from "@/utils/getInstrument";
@@ -217,10 +216,8 @@ export default async function InstrumentPage({ params }: Props) {
                     <div className="h-full flex flex-col justify-start p-4">
                       <h3 className="font-medium mb-2">{group.name}</h3>
                       {group.tests && (
-                        <div className="text-xs text-gray-500">
-                          <Balancer>
+                        <div className="text-xs text-gray-500 text-balance">
                             {group.tests.map((test) => test.name).join(", ")}
-                          </Balancer>
                         </div>
                       )}
                     </div>

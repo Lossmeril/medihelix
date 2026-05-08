@@ -1,7 +1,5 @@
 import Link from "next/link";
 
-import Balancer from "react-wrap-balancer";
-
 import { Company } from "@/utils/getCompany";
 import { Subcategory } from "@/utils/getSubcategory";
 

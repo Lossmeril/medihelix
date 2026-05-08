@@ -1,21 +1,19 @@
 import { notFound } from "next/navigation";
 
-import Balancer from "react-wrap-balancer";
-
 import { getCompanies } from "@/utils/getCompany";
 import { getQuickTests } from "@/utils/getQuickTest";
 import { Subcategory, getSubcategories } from "@/utils/getSubcategory";
+import { getSubcategoryTrail } from "@/utils/getSubcategoryTrail";
 import {
   buildSubcategoryTrail,
   getDescendantSlugs,
 } from "@/utils/subcategoryHelpers";
-import { getSubcategoryTrail } from "@/utils/getSubcategoryTrail";
 
 import { BreadcrumbsBlock, ProductBreadcrumbs } from "@/components/breadcrumbs";
-import SubcategoryCard from "@/components/subcategoryCard";
 import { ProductCard } from "@/components/card";
 import ContactForm from "@/components/contactForm";
 import Divider from "@/components/divider";
+import SubcategoryCard from "@/components/subcategoryCard";
 
 type Props = {
   params: Promise<{ category: string }>;
@@ -35,14 +33,14 @@ export default async function QuickTestCategoryPage({ params }: Props) {
 
   const quickTests = await getQuickTests();
   const descendantSlugs = new Set(
-    getDescendantSlugs(param.category, subcategories)
+    getDescendantSlugs(param.category, subcategories),
   );
   const quickTestsInSubcat = quickTests.filter((qt) =>
-    qt.subcategories.some((sub) => descendantSlugs.has(sub.slug))
+    qt.subcategories.some((sub) => descendantSlugs.has(sub.slug)),
   );
 
   const childSubcategories = subcategories.filter(
-    (c) => c.parent === subcategory?.slug
+    (c) => c.parent === subcategory?.slug,
   );
 
   if (!subcategory) {
@@ -61,8 +59,8 @@ export default async function QuickTestCategoryPage({ params }: Props) {
             <h1 className="text-2xl lg:text-3xl font-bold mb-4">
               {subcategory.name}
             </h1>
-            <p className="text-base lg:text-lg text-gray-600">
-              <Balancer>{subcategory.description}</Balancer>
+            <p className="text-base lg:text-lg text-gray-600 text-balance">
+              {subcategory.description}
             </p>
 
             {childSubcategories.length > 0 && (
@@ -78,7 +76,9 @@ export default async function QuickTestCategoryPage({ params }: Props) {
                       name={child.name}
                       image={
                         quickTests.find((qt) =>
-                          qt.subcategories.some((sub) => sub.slug === child.slug)
+                          qt.subcategories.some(
+                            (sub) => sub.slug === child.slug,
+                          ),
                         )?.hero_image ||
                         "/img/placeholders/instrument-placeholder.png"
                       }
@@ -103,10 +103,10 @@ export default async function QuickTestCategoryPage({ params }: Props) {
                   subcategories={qt.subcategories}
                   basePath="/quick-tests"
                   categories={await getSubcategoryTrail(
-                    qt.subcategories[0].slug
+                    qt.subcategories[0].slug,
                   )}
                   company={companies.find(
-                    (c) => c.slug === qt.companies[0]?.slug
+                    (c) => c.slug === qt.companies[0]?.slug,
                   )}
                 />
               ))}
