@@ -34,7 +34,7 @@ export default function WhoWeAreSection({
   });
 
   return (
-    <Section anchor="kdo-jsme" minHeight="content" borderBottom>
+    <Section anchor="o-nas" minHeight="content" borderBottom>
       <div className="w-full h-full absolute left-0 top-0 bg-linear-180 from-transparent to-sky/10 pointer-events-none select-none"></div>
       <div className="w-full grid grid-cols-1 lg:grid-cols-2 pb-20 items-center gap-10 lg:gap-20">
         <div className="w-full text-center lg:text-right">

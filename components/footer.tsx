@@ -16,13 +16,13 @@ const FooterMenu = () => {
         <p className="text-sm">250 01 Brandýs nad Labem</p>
       </div>
       <div className="flex flex-col gap-2 w-full h-full justify-center items-center lg:items-start">
-        <a href="#" className="text-sm">
+        <a href="#o-nas" className="text-sm">
           O nás
         </a>
-        <a href="#" className="text-sm">
-          Služby
+        <a href="#nabidka" className="text-sm">
+          Naše nabídka
         </a>
-        <a href="#" className="text-sm">
+        <a href="#kontakt" className="text-sm">
           Kontakt
         </a>
       </div>

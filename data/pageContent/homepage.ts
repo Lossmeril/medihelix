@@ -4,7 +4,7 @@ export const landingContent = {
     subheadline:
       "Medihelix s.r.o. je mladá distribuční společnost v oblasti laboratorní techniky, která staví na partnerském přístupu a dlouhodobé spolupráci se zákazníky.",
     primaryCta: { label: "Začněme spolupracovat", href: "#kontakt" },
-    secondaryCta: { label: "Poznejte, co děláme", href: "#co-delame" },
+    secondaryCta: { label: "Poznejte, co děláme", href: "#o-nas" },
   },
 
   sections: {
