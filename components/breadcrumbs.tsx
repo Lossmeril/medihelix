@@ -69,10 +69,16 @@ export const CompanyBreadcrumbs = ({
   );
 };
 
+const productTypeConfig = {
+  Instrument: { href: "/instruments", label: "Přístroje" },
+  Kit: { href: "/quick-tests", label: "Rychlotesty" },
+  Reagencie: { href: "/reagencie", label: "Reagencie" },
+};
+
 interface ProductBreadcrumbsProps {
   subcategories?: Subcategory[];
   product?: { title: string; slug: string };
-  type?: "Instrument" | "Kit" | "Reagencie";
+  type?: keyof typeof productTypeConfig;
 }
 
 export const ProductBreadcrumbs: React.FC<ProductBreadcrumbsProps> = ({
@@ -80,36 +86,23 @@ export const ProductBreadcrumbs: React.FC<ProductBreadcrumbsProps> = ({
   subcategories,
   type = "Instrument",
 }) => {
+  const { href: baseHref, label: baseLabel } = productTypeConfig[type];
+
   if (!subcategories) {
     return (
       <Breadcrumbs
         items={[]}
-        current={
-          product
-            ? product.title
-            : type === "Instrument"
-              ? "Přístroje"
-              : type === "Kit"
-                ? "Rychlotesty"
-                : "Reagencie"
-        }
+        current={product ? product.title : baseLabel}
       />
     );
   }
 
   const subcategoryTrail = subcategories.map((subcategory: Subcategory) => ({
-    href: `/instruments/${subcategory.slug}`,
+    href: `${baseHref}/${subcategory.slug}`,
     label: subcategory.name,
   }));
 
-  const items = [
-    type === "Instrument"
-      ? { href: "/instruments", label: "Přístroje" }
-      : type === "Kit"
-        ? { href: "/kits", label: "Rychlotesty" }
-        : { href: "/reagencie", label: "Reagencie" },
-    ...subcategoryTrail,
-  ];
+  const items = [{ href: baseHref, label: baseLabel }, ...subcategoryTrail];
   if (!product) {
     items.splice(-1, 1);
   }

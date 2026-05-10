@@ -1,15 +1,48 @@
-// app/instruments/[slug]/page.tsx
-import Balancer from "react-wrap-balancer";
-
 import { getInstruments } from "@/utils/getInstrument";
+import { getSubcategories } from "@/utils/getSubcategory";
+import { getDescendantSlugs } from "@/utils/subcategoryHelpers";
 
 import { BreadcrumbsBlock, ProductBreadcrumbs } from "@/components/breadcrumbs";
+import SubcategoryCard from "@/components/subcategoryCard";
 import { ProductCard } from "@/components/card";
 import ContactForm from "@/components/contactForm";
 import Divider from "@/components/divider";
+import { TagFilter } from "@/components/tagFilter";
 
-export default async function InstrumentsPage() {
+type Props = {
+  searchParams: Promise<{ tag?: string }>;
+};
+
+export default async function InstrumentsPage({ searchParams }: Props) {
+  const { tag } = await searchParams;
   const instruments = await getInstruments();
+  const subcategories = await getSubcategories();
+  const rootSubcategories = subcategories
+    .filter((c) => !c.parent)
+    .map((cat) => {
+      const descendants = new Set(getDescendantSlugs(cat.slug, subcategories));
+      const count = instruments.filter((inst) =>
+        inst.subcategories.some((sub) => descendants.has(sub.slug))
+      ).length;
+      return { cat, count };
+    })
+    .sort((a, b) => b.count - a.count)
+    .filter(({ count }) => count > 0)
+    .map(({ cat }) => cat);
+
+  const tagCounts = new Map<string, number>();
+  for (const inst of instruments) {
+    for (const t of inst.tags ?? []) {
+      tagCounts.set(t, (tagCounts.get(t) ?? 0) + 1);
+    }
+  }
+  const allTags = Array.from(tagCounts.entries())
+    .sort((a, b) => b[1] - a[1])
+    .map(([t]) => t);
+
+  const filtered = tag
+    ? instruments.filter((i) => i.tags?.includes(tag))
+    : instruments;
 
   return (
     <main className="max-w-5xl mx-auto px-12 lg:px-4 py-12 mt-20 lg:mt-40">
@@ -24,19 +57,40 @@ export default async function InstrumentsPage() {
             <h1 className="text-2xl lg:text-3xl font-bold mb-4">
               Přístroje a laboratorní technika
             </h1>
-            <p className="text-base lg:text-lg text-gray-600">
-              <Balancer>
+            <p className="text-base lg:text-lg text-gray-600 text-balance">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
                 quis lorem ut libero malesuada feugiat.
-              </Balancer>
             </p>
+            {rootSubcategories.length > 0 && (
+              <div className="mt-4">
+                <h2 className="text-lg font-semibold mb-2">Kategorie</h2>
+                <div className="flex flex-wrap gap-2">
+                  {rootSubcategories.map((cat) => (
+                    <SubcategoryCard
+                      key={cat.slug}
+                      href={`/instruments/${cat.slug}`}
+                      name={cat.name}
+                      image={
+                        instruments.find((inst) =>
+                          inst.subcategories.some((sub) =>
+                            getDescendantSlugs(cat.slug, subcategories).includes(sub.slug)
+                          )
+                        )?.hero_image ||
+                        "/img/placeholders/instrument-placeholder.png"
+                      }
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
             <Divider />
 
             <h2 className="text-xl lg:text-2xl font-bold mb-6">
               Nabídka přístrojů
             </h2>
+            <TagFilter tags={allTags} basePath="/instruments" />
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {instruments.map((instrument) => (
+              {filtered.map((instrument) => (
                 <ProductCard
                   key={instrument.slug}
                   title={instrument.title}
@@ -46,8 +100,10 @@ export default async function InstrumentsPage() {
                   subcategories={instrument.subcategories}
                 />
               ))}
-              {instruments.length === 0 && (
-                <p className="text-gray-500">Žádné produkty k zobrazení.</p>
+              {filtered.length === 0 && (
+                <p className="text-gray-500">
+                  Žádné produkty pro vybraný tag.
+                </p>
               )}
             </div>
           </div>

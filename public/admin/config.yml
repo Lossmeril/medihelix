@@ -1,12 +1,18 @@
 backend:
-  name: test-repo
-  branch: main
+  name: git-gateway
+  repo: Lossmeril/medihelix
+  branch: dev
+  auth_type: pkce
+  base_url: https://auth.decapbridge.com
+  auth_endpoint: /sites/17f8e746-0421-48b3-9604-e7525bf1d61b/pkce
+  auth_token_endpoint: /sites/17f8e746-0421-48b3-9604-e7525bf1d61b/token
+  gateway_url: https://gateway.decapbridge.com
   commit_messages:
-    create: 'Create {{collection}} “{{slug}}”'
-    update: 'Update {{collection}} “{{slug}}”'
-    delete: 'Delete {{collection}} “{{slug}}”'
-    uploadMedia: '[skip ci] Upload “{{path}}”'
-    deleteMedia: '[skip ci] Delete “{{path}}”'
+    create: 'Create {{collection}} "{{slug}}"'
+    update: 'Update {{collection}} "{{slug}}"'
+    delete: 'Delete {{collection}} "{{slug}}"'
+    uploadMedia: '[skip ci] Upload "{{path}}"'
+    deleteMedia: '[skip ci] Delete "{{path}}"'
 
 media_folder: "public/uploads"
 public_folder: "/uploads"
@@ -56,8 +62,11 @@ collections:
         value_field: "slug"
         display_fields: ["name"]
         required: false
-        hint: "Pokud je tato podkategorie součástí jiné, vyberte ji zde"
-
+        hint: >
+          Vyberte pouze přímého rodiče této kategorie — prarodiče se dědí automaticky.
+          Příklad: pokud vytváříte „Řada iPonatic", přiřaďte rodiče „mPOCT".
+          Kategorie „mPOCT" pak sama odkazuje na svého rodiče (pokud jej má).
+          Systém hierarchii sestaví sám.
 
   - name: "instruments"
     label: "Přístroje"
@@ -80,33 +89,42 @@ collections:
 
       - label: "Výrobce"
         name: "companies"
-        widget: "relation"
-        collection: "companies"
-        search_fields: ["name", "slug"]
-        value_field: "slug"
-        display_fields: ["name"]
+        widget: "list"
+        label_singular: "Výrobce"
         hint: "Vyberte výrobce ze seznamu společností"
+        fields:
+          - label: "Výrobce"
+            name: "slug"
+            widget: "relation"
+            collection: "companies"
+            search_fields: ["name", "slug"]
+            value_field: "slug"
+            display_fields: ["name"]
 
       - label: "Podkategorie"
-        name: "subcategory"
-        widget: "relation"
-        collection: "subcategories"
-        search_fields: ["name", "slug"]
-        value_field: "slug"
-        display_fields: ["name"]
-        hint: "Vyberte podkategorii přístroje ze seznamu typů"
+        name: "subcategories"
+        widget: "list"
+        label_singular: "Podkategorie"
+        hint: "Vyberte podkategorie přístroje ze seznamu typů"
+        fields:
+          - label: "Podkategorie"
+            name: "slug"
+            widget: "relation"
+            collection: "subcategories"
+            search_fields: ["name", "slug"]
+            value_field: "slug"
+            display_fields: ["name"]
 
       - label: "Vypíchnutý produkt?"
         name: "featured"
         widget: "boolean"
         default: false
 
-
       - label: "Hlavní obrázek"
         name: "hero_image"
         widget: "image"
         allow_multiple: false
-        
+
       - label: "Galerie"
         name: "gallery"
         widget: "list"
@@ -156,7 +174,7 @@ collections:
       - label: "Použití"
         name: "intended_use"
         widget: "list"
-        field: 
+        field:
           label: "Typ použití"
           name: "place"
           widget: "string"
@@ -169,6 +187,162 @@ collections:
         required: false
         fields:
           - { label: "Datový list (PDF)", name: "datasheet", widget: "file", required: false }
+          - { label: "Externí odkaz", name: "external_url", widget: "string", required: false }
+
+      - label: "SEO"
+        name: "seo"
+        widget: "object"
+        collapsed: true
+        fields:
+          - { label: "Meta title", name: "meta_title", widget: "string", required: false }
+          - { label: "Meta description", name: "meta_description", widget: "text", required: false }
+
+  - name: "quick-tests"
+    label: "Rychlé testy / kity"
+    folder: "content/quick-tests"
+    create: true
+    slug: "{{slug}}"
+    summary: "{{title}} — {{technology}}"
+    fields:
+      - label: "Název"
+        name: "title"
+        widget: "string"
+        hint: "Marketingový název produktu (např. AMPLIQUICK Fekální parazitologie)"
+      - label: "Slug"
+        name: "slug"
+        widget: "string"
+        hint: "URL identifikátor (např. ampliquick-fekalni-parazitologie)"
+      - label: "Stručný popis"
+        name: "summary"
+        widget: "text"
+
+      - label: "Výrobce"
+        name: "companies"
+        widget: "list"
+        label_singular: "Výrobce"
+        hint: "Vyberte výrobce ze seznamu společností"
+        fields:
+          - label: "Výrobce"
+            name: "slug"
+            widget: "relation"
+            collection: "companies"
+            search_fields: ["name", "slug"]
+            value_field: "slug"
+            display_fields: ["name"]
+
+      - label: "Podkategorie"
+        name: "subcategories"
+        widget: "list"
+        label_singular: "Podkategorie"
+        hint: "Vyberte podkategorie kitu ze seznamu typů"
+        fields:
+          - label: "Podkategorie"
+            name: "slug"
+            widget: "relation"
+            collection: "subcategories"
+            search_fields: ["name", "slug"]
+            value_field: "slug"
+            display_fields: ["name"]
+
+      - label: "Vypíchnutý produkt?"
+        name: "featured"
+        widget: "boolean"
+        default: false
+
+      - label: "Hlavní obrázek"
+        name: "hero_image"
+        widget: "image"
+        allow_multiple: false
+
+      - label: "Galerie"
+        name: "gallery"
+        widget: "list"
+        required: false
+        field:
+          label: "Obrázek"
+          name: "image"
+          widget: "image"
+
+      - label: "Technologie"
+        name: "technology"
+        widget: "string"
+        required: false
+        hint: "Např. PCR, Multiplexní PCR, Lateral flow, ELISA"
+
+      - label: "Přednosti"
+        name: "features"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Titulek", name: "title", widget: "string" }
+          - { label: "Popis", name: "description", widget: "text", required: false }
+
+      - label: "Skupiny cílů / panely"
+        name: "target_groups"
+        widget: "list"
+        required: false
+        label_singular: "Panel / skupina"
+        summary: "{{name}}"
+        hint: "Skupiny detekovaných patogenů nebo analytů. Každá skupina odpovídá jednomu panelu kitu."
+        fields:
+          - { label: "Název skupiny / panelu", name: "name", widget: "string" }
+          - label: "Cíle"
+            name: "targets"
+            widget: "list"
+            label_singular: "Cíl"
+            summary: "{{name}}"
+            fields:
+              - { label: "Název patogenu / analytu", name: "name", widget: "string" }
+              - { label: "Zkratka / alias", name: "alias", widget: "string", required: false }
+              - { label: "Poznámka", name: "note", widget: "text", required: false }
+
+      - label: "Skupiny produktů (záložky)"
+        name: "groups"
+        widget: "list"
+        required: false
+        label_singular: "Skupina / záložka"
+        summary: "{{name}}"
+        hint: >
+          Každá skupina se zobrazí jako záložka nad tabulkou.
+          Pokud je jen jedna skupina, záložky se nezobrazí — zobrazí se rovnou tabulka.
+        fields:
+          - label: "Název záložky"
+            name: "name"
+            widget: "string"
+            hint: "Např. GI/Enteric, Tropical, Hepatitis, Respiratory, STI"
+          - label: "Položky"
+            name: "items"
+            widget: "list"
+            label_singular: "Položka"
+            summary: "{{name}} — {{cat_no}}"
+            fields:
+              - { label: "Název produktu", name: "name", widget: "string" }
+              - { label: "Katalogové číslo", name: "cat_no", widget: "string" }
+              - { label: "Typ vzorku", name: "specimen", widget: "string", required: false, hint: "Např. Stolice, Sérum/Plazma, WB/S/P" }
+              - { label: "Formát", name: "format", widget: "string", required: false, hint: "Např. Cassette, Dipstick, Cup" }
+              - { label: "Cut-Off", name: "cut_off", widget: "string", required: false }
+              - { label: "CE označení", name: "ce_mark", widget: "string", required: false, hint: "Např. CE, CE IVD, Non-CE" }
+              - { label: "Balení / poznámka", name: "note", widget: "string", required: false, hint: "Např. 60 testů, 96 testů" }
+
+      - label: "Specifikace"
+        name: "specs"
+        widget: "list"
+        required: false
+        hint: "Volné položky 'Název' + 'Hodnota' — přidejte jen to, co dává smysl pro daný kit (např. Skladovací teplota, Senzitivita, Kompatibilní systémy…)."
+        fields:
+          - { label: "Název parametru", name: "name", widget: "string" }
+          - { label: "Hodnota", name: "value", widget: "string" }
+          - { label: "Jednotka", name: "unit", widget: "string", required: false }
+
+      - { label: "Tagy", name: "tags", widget: "list", required: false }
+
+      - label: "Odkazy / Soubory"
+        name: "assets"
+        widget: "object"
+        required: false
+        fields:
+          - { label: "Datový list (PDF)", name: "datasheet", widget: "file", required: false }
+          - { label: "Návod k použití / IFU (PDF)", name: "ifu", widget: "file", required: false }
           - { label: "Externí odkaz", name: "external_url", widget: "string", required: false }
 
       - label: "SEO"

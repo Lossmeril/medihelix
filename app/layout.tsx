@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 // import localFont from "next/font/local";
-import { Saira } from "next/font/google";
+import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 
 import { navigationItems } from "@/data/navbarItems";
 
@@ -9,17 +9,19 @@ import Footer from "@/components/footer";
 import NavbarDesktop from "@/components/navbar";
 
 import "./globals.css";
+import ContactForm from "@/components/contactForm";
+import CTASection from "@/components/sections/homepage/ctaSection";
+import { landingContent } from "@/data/pageContent/homepage";
 
-const saira = Saira({
-  variable: "--font-saira",
+const plusJakartaSans = Plus_Jakarta_Sans({
+  variable: "--font-plus-jakarta-sans",
   subsets: ["latin"],
 });
 
-// const specialGothicExtendedBold = localFont({
-//   src: "../public/fonts/SpecialGothicExtendedBold.woff2",
-//   display: "swap",
-//   variable: "--font-special",
-// });
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: "Medihelix s.r.o. | Laboratorní přístroje, technologie a servis",
@@ -65,11 +67,22 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { sections } = landingContent;
   return (
     <html lang="cs" className="scroll-smooth">
-      <body className={`${saira.variable}  antialiased overflow-x-hidden`}>
+      <body
+        className={`${plusJakartaSans.variable} ${inter.variable} antialiased overflow-x-hidden`}
+      >
         <NavbarDesktop items={navigationItems} />
         {children}
+        <CTASection
+          title={sections.cta.title}
+          text={sections.cta.text}
+          button={sections.cta.button}
+        />
+        <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-0 mb-20">
+          <ContactForm />
+        </div>
         <Footer />
         <ContactPopover />
       </body>

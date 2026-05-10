@@ -18,7 +18,7 @@ export const UspSection: React.FC<UspSectionProps> = ({
   return (
     <div
       className={
-        `w-full grid gap-8 py-8` +
+        `w-full grid gap-8 pb-4` +
         (columnCount === 1
           ? " grid-cols-1"
           : columnCount === 2
@@ -30,13 +30,13 @@ export const UspSection: React.FC<UspSectionProps> = ({
     >
       {uspPoints.map((point, index) => (
         <div key={index} className="text-center p-4">
-          <div className="w-20 h-20 mx-auto mb-6 grid place-content-center text-5xl blob-animated bg-sky/10 text-sky rounded-xl  ">
+          <div className="w-16 h-16 mx-auto mb-6 grid place-content-center text-5xl blob-animated bg-sky/10 text-sky rounded-xl">
             {point.icon}
           </div>
-          <h3 className="font-bold text-2xl mb-3 leading-none">
+          <h3 className="font-bold text-lg lg:text-xl mb-3 leading-none">
             {point.title}
           </h3>
-          <p className="opacity-65 text-sm">{point.description}</p>
+          <p className="opacity-65 text-sm text-balance">{point.description}</p>
         </div>
       ))}
     </div>

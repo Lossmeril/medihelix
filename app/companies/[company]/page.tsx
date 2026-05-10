@@ -3,10 +3,9 @@ import { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
-import Balancer from "react-wrap-balancer";
-
 import { getCompanies } from "@/utils/getCompany";
 import { getInstruments } from "@/utils/getInstrument";
+import { getQuickTests } from "@/utils/getQuickTest";
 import { getSubcategoryTrail } from "@/utils/getSubcategoryTrail";
 
 import { webCompanyName } from "@/data/webGlobals";
@@ -46,7 +45,12 @@ export default async function CompanyPage({ params }: Props) {
 
   const instruments = await getInstruments();
   const companyInstruments = instruments.filter(
-    (instrument) => instrument.companies[0].slug === paramObj.company,
+    (instrument) => instrument.companies[0]?.slug === paramObj.company,
+  );
+
+  const quickTests = await getQuickTests();
+  const companyQuickTests = quickTests.filter(
+    (qt) => qt.companies[0]?.slug === paramObj.company,
   );
 
   if (!company) {
@@ -75,32 +79,61 @@ export default async function CompanyPage({ params }: Props) {
             <h1 className="text-2xl lg:text-3xl font-bold mb-4">
               {company.name}
             </h1>
-            <p className="text-base lg:text-lg text-gray-600">
-              <Balancer>{company.description}</Balancer>
+            <p className="text-base lg:text-lg text-gray-600 text-balance">
+              {company.description}
             </p>
             <Divider />
 
-            <h2 className="text-xl lg:text-2xl font-bold mb-6">
-              Produkty od {company.name}
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {companyInstruments.map(async (instrument) => (
-                <ProductCard
-                  key={instrument.slug}
-                  title={instrument.title}
-                  summary={instrument.summary}
-                  hero_image={instrument.hero_image}
-                  slug={instrument.slug}
-                  subcategories={instrument.subcategories}
-                  categories={await getSubcategoryTrail(
-                    instrument.subcategories[0].slug,
-                  )}
-                />
-              ))}
-              {companyInstruments.length === 0 && (
-                <p className="text-gray-500">Žádné produkty k zobrazení.</p>
-              )}
-            </div>
+            {companyInstruments.length === 0 && companyQuickTests.length === 0 && (
+              <p className="text-gray-500">Žádné produkty k zobrazení.</p>
+            )}
+
+            {companyInstruments.length > 0 && (
+              <>
+                <h2 className="text-xl lg:text-2xl font-bold mb-6">
+                  Přístroje
+                </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                  {companyInstruments.map(async (instrument) => (
+                    <ProductCard
+                      key={instrument.slug}
+                      title={instrument.title}
+                      summary={instrument.summary}
+                      hero_image={instrument.hero_image}
+                      slug={instrument.slug}
+                      subcategories={instrument.subcategories}
+                      categories={await getSubcategoryTrail(
+                        instrument.subcategories[0].slug,
+                      )}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
+
+            {companyQuickTests.length > 0 && (
+              <>
+                <h2 className="text-xl lg:text-2xl font-bold mb-6">
+                  Rychlotesty a diagnostické kity
+                </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {companyQuickTests.map(async (qt) => (
+                    <ProductCard
+                      key={qt.slug}
+                      title={qt.title}
+                      summary={qt.summary}
+                      hero_image={qt.hero_image}
+                      slug={qt.slug}
+                      subcategories={qt.subcategories}
+                      basePath="/quick-tests"
+                      categories={await getSubcategoryTrail(
+                        qt.subcategories[0].slug,
+                      )}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
           </div>
         </div>
       </header>

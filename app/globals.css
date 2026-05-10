@@ -40,8 +40,8 @@
   --color-light: var(--light);
   --color-dark: var(--dark);
 
-  --font-heading: var(--font-special);
-  --font-paragraph: var(--font-saira);
+  --font-heading: var(--font-plus-jakarta-sans);
+  --font-paragraph: var(--font-inter);
 }
 
 /* ======================= GENERALS ======================= */
@@ -49,7 +49,16 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: "Saira", Arial, Helvetica, sans-serif;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Plus Jakarta Sans", Arial, Helvetica, sans-serif;
 }
 
 /* ======================== NAVBAR ======================= */
@@ -170,6 +179,11 @@ body {
   animation: spin 10s linear infinite;
 }
 
+.card.product-card:before {
+  width: 800%;
+  height: 120%;
+}
+
 .card:hover:before {
   opacity: 1;
 }
@@ -216,4 +230,11 @@ body {
     rgba(255, 255, 255, 0.1) 1px,
     transparent 1px
   );
+}
+
+.card-light .card-tip {
+  background-image: radial-gradient(
+    rgba(0, 148, 230, 0.1) 1px,
+    transparent 1px
+  ) !important;
 }

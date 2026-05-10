@@ -3,12 +3,20 @@ interface SectionProps {
   theme?: "dark" | "light";
   children: React.ReactNode;
   minHeight?: "screen" | "content";
+  borderTop?: boolean;
+  borderBottom?: boolean;
+  bgColor?: string;
+  wide?: boolean;
 }
 
 const Section: React.FC<SectionProps> = ({
   anchor,
   theme = "light",
   minHeight = "content",
+  borderTop = false,
+  borderBottom = false,
+  bgColor,
+  wide = false,
   children,
 }) => {
   return (
@@ -18,8 +26,15 @@ const Section: React.FC<SectionProps> = ({
         px-6 sm:px-10 lg:px-20 xl:px-40 py-16 sm:py-20
         ${minHeight === "screen" ? "min-h-screen" : ""}
         ${theme === "dark" ? "bg-dark text-white" : "bg-white text-dark"}`}
+      style={{
+        borderTop: borderTop ? "1px solid rgba(0, 0, 0, 0.1)" : undefined,
+        borderBottom: borderBottom ? "1px solid rgba(0, 0, 0, 0.1)" : undefined,
+        backgroundColor: bgColor || undefined,
+      }}
     >
-      <div className="w-full max-w-6xl">{children}</div>
+      <div className={`w-full max-w-6xl ${wide ? "xl:max-w-full" : ""}`}>
+        {children}
+      </div>
     </section>
   );
 };

@@ -5,12 +5,26 @@ summary: iPonatic III je nové zařízení v řadě iPonatic, které zvyšuje ú
   molekulární diagnostiky díky pokročilým technologiím. Zavádí éru digitální a
   inteligentní diagnostiky s cílem poskytnout rychlé a přesné výsledky.
 companies: sansure
-subcategory: rada-iponatic
+subcategories:
+  - slug: rada-iponatic
 featured: true
 hero_image: /uploads/ponatic-iii.png
 gallery:
   - image: /uploads/ponatic-iii.png
   - image: /uploads/ponatic-iii.png
+features:
+  - title: Plně automatizovaný proces
+    description: Výsledky testů do 15–45 minut.
+  - title: Předem připravené soupravy
+    description: Méně manipulace, nižší riziko kontaminace.
+  - title: Bohatá a rozšiřitelná nabídka testů
+  - title: Okamžité testování po přijetí vzorku
+    description: Bezdrátové připojení, chytrá obrazovka a flexibilní kombinace modulů.
+  - title: Kompaktní a lehké provedení (~7,2 kg)
+  - title: Intuitivní SanUI
+    description: HD dotyková obrazovka zobrazí výsledky přímo.
+  - title: Průmyslový design
+    description: Dle nejvyšších světových standardů.
 specs:
   - name: Model
     value: S-Q36A
@@ -116,6 +130,7 @@ intended_use:
   - place: Venkovské oblasti
   - place: Letiště
   - place: Celní úřady
+sku: SE S-Q36A
 tags:
   - molekulární diagnostika
   - PCR
