@@ -138,22 +138,6 @@ tags:
 assets:
   datasheet: /docs/iponatic-iii-datasheet.pdf
   external_url: ""
-subcategories:
-  - slug: rada-iponatic
-features:
-  - title: Plně automatizovaný proces
-    description: Výsledky testů do 15–45 minut.
-  - title: Předem připravené soupravy
-    description: Méně manipulace, nižší riziko kontaminace.
-  - title: Bohatá a rozšiřitelná nabídka testů
-  - title: Okamžité testování po přijetí vzorku
-    description: Bezdrátové připojení, chytrá obrazovka a flexibilní kombinace modulů.
-  - title: Kompaktní a lehké provedení (~7,2 kg)
-  - title: Intuitivní SanUI
-    description: HD dotyková obrazovka zobrazí výsledky přímo.
-  - title: Průmyslový design
-    description: Dle nejvyšších světových standardů.
-sku: SE S-Q36A
 seo:
   meta_title: iPonatic III — Přenosná molekulární pracovní stanice
   meta_description: Plně automatizovaná stanice pro molekulární diagnostiku s
