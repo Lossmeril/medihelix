@@ -157,11 +157,11 @@ export default async function QuickTestPage({ params }: Props) {
                     <h3 className="font-medium mb-2">{group.name}</h3>
                     {group.targets && (
                       <div className="text-xs text-gray-500 text-balance">
-                          {group.targets
-                            .map((t) =>
-                              t.alias ? `${t.name} (${t.alias})` : t.name,
-                            )
-                            .join(", ")}
+                        {group.targets
+                          .map((t) =>
+                            t.alias ? `${t.name} (${t.alias})` : t.name,
+                          )
+                          .join(", ")}
                       </div>
                     )}
                   </div>
@@ -192,6 +192,9 @@ export default async function QuickTestPage({ params }: Props) {
         )}
 
         <QuickTestTabs groups={qt.groups ?? []} />
+        {qt.table_note && (
+          <p className="text-sm text-gray-600 -mt-6 mb-12">{qt.table_note}</p>
+        )}
 
         <Divider />
         <div className="flex flex-row gap-4">

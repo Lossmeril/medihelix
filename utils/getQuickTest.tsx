@@ -45,6 +45,8 @@ export type QuickTest = {
 
   groups?: QuickTestGroup[];
 
+  table_note?: string;
+
   specs?: { name: string; value: string; unit?: string }[];
 
   tags?: string[];
@@ -85,14 +87,14 @@ export async function getQuickTests(): Promise<QuickTest[]> {
         subcategories: data.subcategories || [],
         featured: data.featured || false,
         hero_image: data.hero_image || "",
-        gallery: (data.gallery || []).map(
-          (item: string | { image: string }) =>
-            typeof item === "string" ? { image: item } : item,
+        gallery: (data.gallery || []).map((item: string | { image: string }) =>
+          typeof item === "string" ? { image: item } : item,
         ),
         technology: data.technology || undefined,
         features: data.features || [],
         target_groups: data.target_groups || [],
         groups: data.groups || [],
+        table_note: data.table_note || "",
         specs: data.specs || [],
         tags: data.tags || [],
         assets: data.assets || {},

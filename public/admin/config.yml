@@ -324,6 +324,12 @@ collections:
               - { label: "CE označení", name: "ce_mark", widget: "string", required: false, hint: "Např. CE, CE IVD, Non-CE" }
               - { label: "Balení / poznámka", name: "note", widget: "string", required: false, hint: "Např. 60 testů, 96 testů" }
 
+      - label: "Vysvětlující popisek pod tabulkou"
+        name: "table_note"
+        widget: "text"
+        required: false
+        hint: "Zobrazí se pod tabulkou, ideálně pro vysvětlení zkratek, formátů, typů vzorků apod."
+
       - label: "Specifikace"
         name: "specs"
         widget: "list"
