@@ -77,7 +77,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               >
                 <Link
                   key={category.slug}
-                  href={`/instruments/${category.slug}`}
+                  href={`${basePath}/${category.slug}`}
                   className=" text-gray-500 hover:text-gray-700"
                 >
                   {category.name}
