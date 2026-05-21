@@ -51,10 +51,13 @@ export type QuickTest = {
 
   tags?: string[];
 
+  price?: string;
+
   assets?: {
     datasheet?: string;
     ifu?: string; // Instructions For Use — required field for IVD kits
     external_url?: string;
+    eshop_url?: string;
   };
 
   seo?: {
@@ -97,6 +100,7 @@ export async function getQuickTests(): Promise<QuickTest[]> {
         table_note: data.table_note || "",
         specs: data.specs || [],
         tags: data.tags || [],
+        price: data.price || undefined,
         assets: data.assets || {},
         seo: data.seo || {},
         body: content,

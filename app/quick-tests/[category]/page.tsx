@@ -108,6 +108,8 @@ export default async function QuickTestCategoryPage({ params }: Props) {
                   company={companies.find(
                     (c) => c.slug === qt.companies[0]?.slug,
                   )}
+                  price={qt.price}
+                  eshop_url={qt.assets?.eshop_url}
                 />
               ))}
               {quickTestsInSubcat.length === 0 && (

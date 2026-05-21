@@ -96,7 +96,16 @@ export default async function QuickTestPage({ params }: Props) {
               <Divider />
               <p className="text-base lg:text-lg text-gray-600">{qt.summary}</p>
 
+              {qt.price && (
+                <p className="mt-4 text-xl font-bold text-sky-700">
+                  {qt.price}
+                </p>
+              )}
+
               <div className="mt-6 flex gap-8 flex-row md:flex-col lg:flex-row justify-start items-center md:items-start lg:items-center">
+                {qt.assets?.eshop_url && (
+                  <Button href={qt.assets.eshop_url} label="Koupit v e-shopu" />
+                )}
                 <Button href="#contact" label="Kontaktujte nás" />
                 <Button
                   href="#targets"
@@ -197,9 +206,12 @@ export default async function QuickTestPage({ params }: Props) {
         )}
 
         <Divider />
-        <div className="flex flex-row gap-4">
+        <div className="flex flex-row gap-4 flex-wrap">
+          {qt.assets?.eshop_url && (
+            <Button label="Koupit v e-shopu" href={qt.assets.eshop_url} />
+          )}
           {qt.assets?.datasheet && (
-            <Button label="Stáhnout datový list" href={qt.assets.datasheet} />
+            <Button label="Stáhnout datový list" href={qt.assets.datasheet} transparent inverted monochrome />
           )}
           {qt.assets?.ifu && (
             <Button

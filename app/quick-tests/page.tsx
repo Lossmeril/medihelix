@@ -58,8 +58,11 @@ export default async function QuickTestsPage({ searchParams }: Props) {
               Rychlotesty a diagnostické kity
             </h1>
             <p className="text-base lg:text-lg text-gray-600 text-balance">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-              quis lorem ut libero malesuada feugiat.
+              Rapid testy představují moderní diagnostické řešení, které
+              umožňuje rychlé a spolehlivé orientační vyšetření během několika
+              minut. Vyznačují se jednoduchým použitím bez nutnosti odborného
+              vybavení, díky čemuž jsou vhodné pro široké využití nejen ve
+              zdravotnictví.
             </p>
 
             {rootSubcategories.length > 0 && (
@@ -103,6 +106,8 @@ export default async function QuickTestsPage({ searchParams }: Props) {
                   slug={qt.slug}
                   subcategories={qt.subcategories}
                   basePath="/quick-tests"
+                  price={qt.price}
+                  eshop_url={qt.assets?.eshop_url}
                 />
               ))}
               {filtered.length === 0 && (
