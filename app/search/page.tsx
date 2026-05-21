@@ -9,7 +9,6 @@ import { buildSubcategoryTrail } from "@/utils/subcategoryHelpers";
 
 import { webCompanyName } from "@/data/webGlobals";
 
-import { BreadcrumbsBlock, ProductBreadcrumbs } from "@/components/breadcrumbs";
 import Card, { ProductCard } from "@/components/card";
 import ContactForm from "@/components/contactForm";
 import Divider from "@/components/divider";

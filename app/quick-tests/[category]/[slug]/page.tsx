@@ -205,13 +205,22 @@ export default async function QuickTestPage({ params }: Props) {
           <p className="text-sm text-gray-600 -mt-6 mb-12">{qt.table_note}</p>
         )}
 
-        <Divider />
+        {qt.assets?.datasheet || qt.assets?.external_url || qt.assets?.ifu ? (
+          <Divider />
+        ) : null}
+
         <div className="flex flex-row gap-4 flex-wrap">
           {qt.assets?.eshop_url && (
             <Button label="Koupit v e-shopu" href={qt.assets.eshop_url} />
           )}
           {qt.assets?.datasheet && (
-            <Button label="Stáhnout datový list" href={qt.assets.datasheet} transparent inverted monochrome />
+            <Button
+              label="Stáhnout datový list"
+              href={qt.assets.datasheet}
+              transparent
+              inverted
+              monochrome
+            />
           )}
           {qt.assets?.ifu && (
             <Button
