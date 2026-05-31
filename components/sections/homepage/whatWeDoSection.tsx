@@ -52,14 +52,14 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
         {/* <div className="text-xs text-gray-600 mt-2 text-balance mb-5">
           {description}
         </div> */}
-        <Link
+        {/* <Link
           href={link}
           target="_blank"
           rel="noopener noreferrer"
           className="text-sky font-bold text-sm"
         >
           {buttonText + " " + webButtonArrow}
-        </Link>
+        </Link> */}
       </div>
     </div>
   );

@@ -33,7 +33,7 @@ const HeroBanner = ({
               <span className="sr-only">MEDI HELIX s.r.o.,</span>
             </div>
 
-            <h1 className="text-5xl md:mx-0 lg:text-6xl xl:text-7xl font-bold -tracking-wider text-balance font-heading text-dark">
+            <h1 className="text-5xl md:mx-0 lg:text-6xl xl:text-7xl font-bold tracking-tighter text-balance font-heading text-dark">
               {headline}
             </h1>
             <Divider />

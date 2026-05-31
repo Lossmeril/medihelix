@@ -10,7 +10,7 @@ export const navigationItems: NavigationItem[] = [
   { name: "Přístroje", href: "/instruments" },
   { name: "Rychlé diagnostické testy", href: "/quick-tests" },
 
-  { name: "Produkty podle firem", href: "/companies" },
+  // { name: "Produkty podle firem", href: "/companies" },
   // { name: "Akce", href: "#" },
 
   { name: "Aktuality", href: "#blog" },
