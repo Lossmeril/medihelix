@@ -1,5 +1,6 @@
 ---
 title: HDD36 Abound Diagnostic
+slug: abound-drink-check-test-hdd36
 summary: Diskrétní náramek pro rychlé testování nápojů na přítomnost GHB,
   ketaminu a flunitrazepamu — látek běžně zneužívaných k manipulaci s nápoji na
   společenských akcích.
@@ -7,7 +8,11 @@ companies:
   - slug: abound-diagnostics
 subcategories:
   - slug: testy-na-drogy-v-napojich
+featured: false
+visible: true
 hero_image: /uploads/hdd36-abound-diagnostic.jpg
+gallery: []
+technology: Lateral flow immunoassay
 features:
   - title: Diskrétní design
     description: Náramek nevzbuzuje pozornost a lze jej nosit jako běžný doplněk po
@@ -58,6 +63,7 @@ tags:
   - ketamin
   - flunitrazepam
   - bezpečnost
+price: 45 Kč bez DPH
 assets:
   datasheet: ""
   ifu: ""
