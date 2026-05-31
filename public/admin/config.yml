@@ -1,7 +1,7 @@
 backend:
   name: git-gateway
   repo: Lossmeril/medihelix
-  branch: dev
+  branch: main
   auth_type: pkce
   base_url: https://auth.decapbridge.com
   auth_endpoint: /sites/17f8e746-0421-48b3-9604-e7525bf1d61b/pkce
