@@ -1,14 +1,31 @@
 import Link from "next/link";
 
 import { getCompanies } from "@/utils/getCompany";
+import { getConsumables } from "@/utils/getConsumable";
+import { getInstruments } from "@/utils/getInstrument";
+import { getQuickTests } from "@/utils/getQuickTest";
 
 import Badge from "@/components/badge";
 import Carousel from "@/components/carousel";
 import Section from "@/components/section";
 
 export default async function PartnersSection() {
-  const companies = await getCompanies();
-  const withLogos = companies.filter((c) => c.logo);
+  const [companies, instruments, quickTests, consumables] = await Promise.all([
+    getCompanies(),
+    getInstruments(),
+    getQuickTests(),
+    getConsumables(),
+  ]);
+
+  const withLogos = companies.filter((company) => {
+    if (!company.logo) return false;
+    if (company.show_if_empty) return true;
+    return (
+      instruments.some((i) => i.companies.some((c) => c.slug === company.slug)) ||
+      quickTests.some((qt) => qt.companies.some((c) => c.slug === company.slug)) ||
+      consumables.some((con) => con.companies.some((c) => c.slug === company.slug))
+    );
+  });
 
   if (withLogos.length === 0) return null;
 

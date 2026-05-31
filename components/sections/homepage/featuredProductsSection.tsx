@@ -1,4 +1,5 @@
 import { getCompanies } from "@/utils/getCompany";
+import { getConsumables } from "@/utils/getConsumable";
 import { getInstruments } from "@/utils/getInstrument";
 import { getQuickTests } from "@/utils/getQuickTest";
 import { getSubcategoryTrail } from "@/utils/getSubcategoryTrail";
@@ -9,14 +10,16 @@ import Carousel from "@/components/carousel";
 import Section from "@/components/section";
 
 export default async function FeaturedProductsSection() {
-  const [instruments, quickTests, companies] = await Promise.all([
+  const [instruments, quickTests, consumables, companies] = await Promise.all([
     getInstruments(),
     getQuickTests(),
+    getConsumables(),
     getCompanies(),
   ]);
 
   const featuredInstruments = instruments.filter((i) => i.featured);
   const featuredQuickTests = quickTests.filter((qt) => qt.featured);
+  const featuredConsumables = consumables.filter((con) => con.featured);
 
   const instrumentCards = await Promise.all(
     featuredInstruments.map(async (instrument) => {
@@ -57,13 +60,38 @@ export default async function FeaturedProductsSection() {
             basePath="/quick-tests"
             categories={categories}
             company={company}
+            price={qt.price}
+            eshop_url={qt.assets?.eshop_url}
           />
         </div>
       );
     }),
   );
 
-  const allCards = [...instrumentCards, ...qtCards];
+  const consumableCards = await Promise.all(
+    featuredConsumables.map(async (con) => {
+      const categories = await getSubcategoryTrail(con.subcategories[0]?.slug);
+      const company = companies.find((c) => c.slug === con.companies[0]?.slug);
+      return (
+        <div key={con.slug} className="w-72 h-full">
+          <ProductCard
+            title={con.title}
+            summary={con.summary}
+            hero_image={con.hero_image}
+            slug={con.slug}
+            subcategories={con.subcategories}
+            basePath="/consumables"
+            categories={categories}
+            company={company}
+            price={con.price}
+            eshop_url={con.assets?.eshop_url}
+          />
+        </div>
+      );
+    }),
+  );
+
+  const allCards = [...instrumentCards, ...qtCards, ...consumableCards];
   if (allCards.length === 0) return null;
 
   return (

@@ -7,6 +7,7 @@ companies:
 subcategories:
   - slug: infekcni-onemocneni
 featured: false
+visible: false
 hero_image: "/uploads/Infectious-disease.jpg"
 gallery: 
   - "/uploads/HCV.jpg"
