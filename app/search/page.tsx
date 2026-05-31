@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 import { getCompanies } from "@/utils/getCompany";
+import { getConsumables } from "@/utils/getConsumable";
 import { getInstruments } from "@/utils/getInstrument";
 import { getQuickTests } from "@/utils/getQuickTest";
 import { getSubcategories } from "@/utils/getSubcategory";
@@ -34,9 +35,14 @@ export default async function SearchPage({ searchParams }: Props) {
   const raw = q?.trim() ?? "";
   const terms = raw.toLowerCase().split(/\s+/).filter(Boolean);
 
-  const [instruments, quickTests, companies, subcategories] = await Promise.all(
-    [getInstruments(), getQuickTests(), getCompanies(), getSubcategories()],
-  );
+  const [instruments, quickTests, consumables, companies, subcategories] =
+    await Promise.all([
+      getInstruments(),
+      getQuickTests(),
+      getConsumables(),
+      getCompanies(),
+      getSubcategories(),
+    ]);
 
   const companyMap = new Map(companies.map((c) => [c.slug, c.name]));
   const subcatMap = new Map(subcategories.map((s) => [s.slug, s.name]));
@@ -123,15 +129,45 @@ export default async function SearchPage({ searchParams }: Props) {
     .sort((a, b) => b.score - a.score)
     .map((r) => r.qt);
 
+  // ── Consumables ───────────────────────────────────────────────────────────────
+  const matchedConsumables = consumables
+    .map((con) => {
+      const text = [
+        con.title,
+        con.summary,
+        con.body,
+        ...(con.tags ?? []),
+        ...con.companies.map((c) => companyMap.get(c.slug) ?? c.slug),
+        ...con.subcategories.map((s) => subcatMap.get(s.slug) ?? s.slug),
+        ...(con.features ?? []).map((f) => `${f.title} ${f.description ?? ""}`),
+        ...(con.specs ?? []).map((s) => `${s.name} ${s.value}`),
+      ]
+        .join(" ")
+        .toLowerCase();
+      return { con, score: relevance(con.title, text), ok: matches(text) };
+    })
+    .filter((r) => r.ok)
+    .sort((a, b) => b.score - a.score)
+    .map((r) => r.con);
+
   // ── Companies ─────────────────────────────────────────────────────────────────
-  const matchedCompanies = companies.filter((c) => {
-    const text = `${c.name} ${c.description ?? ""} ${c.body}`.toLowerCase();
-    return matches(text);
-  });
+  const matchedCompanies = companies
+    .filter((c) => {
+      if (!c.show_if_empty) {
+        const hasProducts =
+          instruments.some((i) => i.companies.some((ic) => ic.slug === c.slug)) ||
+          quickTests.some((qt) => qt.companies.some((qc) => qc.slug === c.slug)) ||
+          consumables.some((con) => con.companies.some((cc) => cc.slug === c.slug));
+        if (!hasProducts) return false;
+      }
+      const text = `${c.name} ${c.description ?? ""} ${c.body}`.toLowerCase();
+      return matches(text);
+    });
 
   const total =
     matchedInstruments.length +
     matchedQuickTests.length +
+    matchedConsumables.length +
     matchedCompanies.length;
 
   return (
@@ -211,9 +247,9 @@ export default async function SearchPage({ searchParams }: Props) {
       )}
 
       {matchedInstruments.length > 0 &&
-        (matchedQuickTests.length > 0 || matchedCompanies.length > 0) && (
-          <Divider />
-        )}
+        (matchedQuickTests.length > 0 ||
+          matchedConsumables.length > 0 ||
+          matchedCompanies.length > 0) && <Divider />}
 
       {/* ── Quick tests ─────────────────────────────────────────── */}
       {matchedQuickTests.length > 0 && (
@@ -253,7 +289,50 @@ export default async function SearchPage({ searchParams }: Props) {
         </section>
       )}
 
-      {matchedQuickTests.length > 0 && matchedCompanies.length > 0 && (
+      {matchedQuickTests.length > 0 &&
+        (matchedConsumables.length > 0 || matchedCompanies.length > 0) && (
+          <Divider />
+        )}
+
+      {/* ── Consumables ─────────────────────────────────────────── */}
+      {matchedConsumables.length > 0 && (
+        <section className="mb-12">
+          <h2 className="text-xl font-semibold mb-6 flex items-center gap-3">
+            Reagencie a spotřební materiál
+            <span className="text-sm font-normal text-gray-400">
+              {matchedConsumables.length}
+            </span>
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {matchedConsumables.map((con) => {
+              const company = companies.find(
+                (c) => c.slug === con.companies[0]?.slug,
+              );
+              const categories = buildSubcategoryTrail(
+                con.subcategories[0]?.slug ?? "",
+                subcategories,
+              );
+              return (
+                <ProductCard
+                  key={con.slug}
+                  title={con.title}
+                  summary={con.summary}
+                  hero_image={con.hero_image}
+                  slug={con.slug}
+                  subcategories={con.subcategories}
+                  basePath="/consumables"
+                  company={company}
+                  categories={categories}
+                  price={con.price}
+                  eshop_url={con.assets?.eshop_url}
+                />
+              );
+            })}
+          </div>
+        </section>
+      )}
+
+      {matchedConsumables.length > 0 && matchedCompanies.length > 0 && (
         <Divider />
       )}
 

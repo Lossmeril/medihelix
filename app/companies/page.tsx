@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 import { getCompanies } from "@/utils/getCompany";
+import { getConsumables } from "@/utils/getConsumable";
 import { getInstruments } from "@/utils/getInstrument";
 import { getQuickTests } from "@/utils/getQuickTest";
 
@@ -17,11 +18,21 @@ export const metadata: Metadata = {
 };
 
 export default async function CompaniesPage() {
-  const [companies, instruments, quickTests] = await Promise.all([
+  const [companies, instruments, quickTests, consumables] = await Promise.all([
     getCompanies(),
     getInstruments(),
     getQuickTests(),
+    getConsumables(),
   ]);
+
+  const visibleCompanies = companies.filter((company) => {
+    if (company.show_if_empty) return true;
+    return (
+      instruments.some((i) => i.companies.some((c) => c.slug === company.slug)) ||
+      quickTests.some((qt) => qt.companies.some((c) => c.slug === company.slug)) ||
+      consumables.some((con) => con.companies.some((c) => c.slug === company.slug))
+    );
+  });
 
   return (
     <main className="max-w-5xl mx-auto px-12 lg:px-4 py-12 mt-20 lg:mt-40">
@@ -34,14 +45,17 @@ export default async function CompaniesPage() {
       </header>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {companies.map((company) => {
+        {visibleCompanies.map((company) => {
           const instrumentCount = instruments.filter((i) =>
             i.companies.some((c) => c.slug === company.slug),
           ).length;
           const qtCount = quickTests.filter((qt) =>
             qt.companies.some((c) => c.slug === company.slug),
           ).length;
-          const totalCount = instrumentCount + qtCount;
+          const consumableCount = consumables.filter((con) =>
+            con.companies.some((c) => c.slug === company.slug),
+          ).length;
+          const totalCount = instrumentCount + qtCount + consumableCount;
 
           return (
             <Link

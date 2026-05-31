@@ -4,7 +4,7 @@ import fs from "fs";
 import matter from "gray-matter";
 import path from "path";
 
-export type Instrument = {
+export type Consumable = {
   slug: string;
   title: string;
   summary: string;
@@ -15,22 +15,13 @@ export type Instrument = {
   hero_image: string;
   gallery: { image: string }[];
   features?: { title: string; description?: string }[];
-  specs?: { name: string; value: string; unit?: string; group?: string }[];
-  test_groups?: {
-    name: string;
-    tests: {
-      name: string;
-      targets?: string;
-      code?: string;
-      note?: string;
-    }[];
-  }[];
-  intended_use: { place: string }[];
-  sku: string;
+  specs?: { name: string; value: string; unit?: string }[];
   tags?: string[];
+  price?: string;
   assets?: {
     datasheet?: string;
     external_url?: string;
+    eshop_url?: string;
   };
   seo?: {
     meta_title?: string;
@@ -39,12 +30,14 @@ export type Instrument = {
   body: string;
 };
 
-export async function getInstruments(): Promise<Instrument[]> {
-  const dir = path.join(process.cwd(), "content/instruments");
-  const files = fs.readdirSync(dir);
+export async function getConsumables(): Promise<Consumable[]> {
+  const dir = path.join(process.cwd(), "content/consumables");
+  if (!fs.existsSync(dir)) return [];
+
+  const files = fs.readdirSync(dir).filter((f) => f.endsWith(".md"));
 
   return files
-    .map((filename): Instrument => {
+    .map((filename): Consumable => {
       const fileContent = fs.readFileSync(path.join(dir, filename), "utf-8");
       const { data, content } = matter(fileContent);
       return {
@@ -60,18 +53,19 @@ export async function getInstruments(): Promise<Instrument[]> {
         featured: data.featured || false,
         visible: data.visible !== false,
         hero_image: data.hero_image || "",
-        gallery: data.gallery || [],
+        gallery: (data.gallery || []).map(
+          (item: string | { image: string }) =>
+            typeof item === "string" ? { image: item } : item,
+        ),
         features: data.features || [],
         specs: data.specs || [],
-        test_groups: data.test_groups || [],
-        intended_use: data.intended_use || [],
-        sku: data.sku || "",
         tags: data.tags || [],
+        price: data.price || undefined,
         assets: data.assets || {},
         seo: data.seo || {},
         body: content,
       };
     })
-    .filter((i) => i.visible)
+    .filter((c) => c.visible)
     .sort((a, b) => a.title.localeCompare(b.title));
 }

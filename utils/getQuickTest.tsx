@@ -26,6 +26,7 @@ export type QuickTest = {
   companies: { slug: string }[];
   subcategories: { slug: string }[];
   featured: boolean;
+  visible: boolean;
   hero_image: string;
   gallery: { image: string }[];
 
@@ -89,6 +90,7 @@ export async function getQuickTests(): Promise<QuickTest[]> {
             : [],
         subcategories: data.subcategories || [],
         featured: data.featured || false,
+        visible: data.visible !== false,
         hero_image: data.hero_image || "",
         gallery: (data.gallery || []).map((item: string | { image: string }) =>
           typeof item === "string" ? { image: item } : item,
@@ -106,5 +108,6 @@ export async function getQuickTests(): Promise<QuickTest[]> {
         body: content,
       };
     })
+    .filter((qt) => qt.visible)
     .sort((a, b) => a.title.localeCompare(b.title));
 }

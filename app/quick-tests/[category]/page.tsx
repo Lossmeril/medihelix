@@ -113,7 +113,14 @@ export default async function QuickTestCategoryPage({ params }: Props) {
                 />
               ))}
               {quickTestsInSubcat.length === 0 && (
-                <p className="text-gray-500">Žádné produkty k zobrazení.</p>
+                <div className="col-span-full py-12 text-center text-gray-400">
+                  <p className="text-base mb-1">
+                    V této kategorii momentálně nejsou dostupné žádné produkty.
+                  </p>
+                  <p className="text-sm">
+                    Připravujeme nabídku — brzy zde najdete nové produkty.
+                  </p>
+                </div>
               )}
             </div>
           </div>
