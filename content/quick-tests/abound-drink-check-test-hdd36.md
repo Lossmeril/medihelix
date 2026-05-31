@@ -8,7 +8,7 @@ companies:
   - slug: abound-diagnostics
 subcategories:
   - slug: testy-na-drogy-v-napojich
-featured: false
+featured: true
 visible: true
 hero_image: /uploads/hdd36-abound-diagnostic.jpg
 gallery: []
@@ -69,11 +69,6 @@ assets:
   ifu: ""
   external_url: ""
   eshop_url: ""
-price: 45 Kč bez DPH
-slug: abound-drink-check-test-hdd36
-featured: true
-gallery: []
-technology: Lateral flow immunoassay
 seo:
   meta_title: Drink Check Test – GHB&KET&FLZ (HDD36) | Abound Diagnostics
   meta_description: Diskrétní náramek pro testování nápojů na GHB, ketamin a

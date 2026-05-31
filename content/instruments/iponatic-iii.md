@@ -8,6 +8,7 @@ companies: sansure
 subcategories:
   - slug: rada-iponatic
 featured: true
+visible: false
 hero_image: /uploads/ponatic-iii.png
 gallery:
   - image: /uploads/ponatic-iii.png
