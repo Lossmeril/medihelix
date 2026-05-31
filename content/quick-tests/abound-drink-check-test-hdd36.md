@@ -69,6 +69,11 @@ assets:
   ifu: ""
   external_url: ""
   eshop_url: ""
+price: 45 Kč bez DPH
+slug: abound-drink-check-test-hdd36
+featured: true
+gallery: []
+technology: Lateral flow immunoassay
 seo:
   meta_title: Drink Check Test – GHB&KET&FLZ (HDD36) | Abound Diagnostics
   meta_description: Diskrétní náramek pro testování nápojů na GHB, ketamin a
