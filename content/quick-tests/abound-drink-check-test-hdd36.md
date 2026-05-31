@@ -65,7 +65,7 @@ assets:
   eshop_url: ""
 price: 45 Kč bez DPH
 slug: abound-drink-check-test-hdd36
-featured: false
+featured: true
 gallery: []
 technology: Lateral flow immunoassay
 seo:

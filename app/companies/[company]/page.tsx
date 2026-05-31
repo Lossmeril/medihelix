@@ -4,6 +4,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 
 import { getCompanies } from "@/utils/getCompany";
+import { getConsumables } from "@/utils/getConsumable";
 import { getInstruments } from "@/utils/getInstrument";
 import { getQuickTests } from "@/utils/getQuickTest";
 import { getSubcategoryTrail } from "@/utils/getSubcategoryTrail";
@@ -43,14 +44,20 @@ export default async function CompanyPage({ params }: Props) {
   const paramObj = await params;
   const company = companies.find((c) => c.slug === paramObj.company);
 
-  const instruments = await getInstruments();
-  const companyInstruments = instruments.filter(
-    (instrument) => instrument.companies[0]?.slug === paramObj.company,
-  );
+  const [instruments, quickTests, consumables] = await Promise.all([
+    getInstruments(),
+    getQuickTests(),
+    getConsumables(),
+  ]);
 
-  const quickTests = await getQuickTests();
-  const companyQuickTests = quickTests.filter(
-    (qt) => qt.companies[0]?.slug === paramObj.company,
+  const companyInstruments = instruments.filter((i) =>
+    i.companies.some((c) => c.slug === paramObj.company),
+  );
+  const companyQuickTests = quickTests.filter((qt) =>
+    qt.companies.some((c) => c.slug === paramObj.company),
+  );
+  const companyConsumables = consumables.filter((con) =>
+    con.companies.some((c) => c.slug === paramObj.company),
   );
 
   if (!company) {
@@ -85,7 +92,8 @@ export default async function CompanyPage({ params }: Props) {
             <Divider />
 
             {companyInstruments.length === 0 &&
-              companyQuickTests.length === 0 && (
+              companyQuickTests.length === 0 &&
+              companyConsumables.length === 0 && (
                 <p className="text-gray-500">Žádné produkty k zobrazení.</p>
               )}
 
@@ -104,7 +112,7 @@ export default async function CompanyPage({ params }: Props) {
                       slug={instrument.slug}
                       subcategories={instrument.subcategories}
                       categories={await getSubcategoryTrail(
-                        instrument.subcategories[0].slug,
+                        instrument.subcategories[0]?.slug ?? "",
                       )}
                     />
                   ))}
@@ -117,7 +125,7 @@ export default async function CompanyPage({ params }: Props) {
                 <h2 className="text-xl lg:text-2xl font-bold mb-6">
                   Rychlotesty a diagnostické kity
                 </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
                   {companyQuickTests.map(async (qt) => (
                     <ProductCard
                       key={qt.slug}
@@ -128,8 +136,36 @@ export default async function CompanyPage({ params }: Props) {
                       subcategories={qt.subcategories}
                       basePath="/quick-tests"
                       categories={await getSubcategoryTrail(
-                        qt.subcategories[0].slug,
+                        qt.subcategories[0]?.slug ?? "",
                       )}
+                      price={qt.price}
+                      eshop_url={qt.assets?.eshop_url}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
+
+            {companyConsumables.length > 0 && (
+              <>
+                <h2 className="text-xl lg:text-2xl font-bold mb-6">
+                  Reagencie a spotřební materiál
+                </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {companyConsumables.map(async (con) => (
+                    <ProductCard
+                      key={con.slug}
+                      title={con.title}
+                      summary={con.summary}
+                      hero_image={con.hero_image}
+                      slug={con.slug}
+                      subcategories={con.subcategories}
+                      basePath="/consumables"
+                      categories={await getSubcategoryTrail(
+                        con.subcategories[0]?.slug ?? "",
+                      )}
+                      price={con.price}
+                      eshop_url={con.assets?.eshop_url}
                     />
                   ))}
                 </div>

@@ -29,9 +29,9 @@ const HomePage = async () => {
         paragraphs={sections.whatWeDo.paragraphs}
         bullets={sections.whatWeDo.bullets}
       />
-      {/* <FeaturedProductsSection /> */}
+      <FeaturedProductsSection />
       <BlogSection />
-      {/* <PartnersSection /> */}
+      <PartnersSection />
     </main>
   );
 };
