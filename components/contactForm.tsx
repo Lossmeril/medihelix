@@ -61,7 +61,9 @@ const ContactForm: React.FC<ContactFormProps> = ({ product }) => {
         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
       </svg>
       <h2 className="text-2xl font-semibold mb-4">
-        {!product ? "Kontaktní formulář" : `Máte dotaz k tomuto produktu?`}
+        {!product
+          ? "Kontaktní formulář"
+          : `Máte dotaz k tomuto produktu? Chcete jej poptat?`}
       </h2>
       <p className="text-sm text-gray-600">
         {!product

@@ -26,6 +26,7 @@ export type QuickTest = {
   companies: { slug: string }[];
   subcategories: { slug: string }[];
   featured: boolean;
+  visible: boolean;
   hero_image: string;
   gallery: { image: string }[];
 
@@ -45,14 +46,19 @@ export type QuickTest = {
 
   groups?: QuickTestGroup[];
 
+  table_note?: string;
+
   specs?: { name: string; value: string; unit?: string }[];
 
   tags?: string[];
+
+  price?: string;
 
   assets?: {
     datasheet?: string;
     ifu?: string; // Instructions For Use — required field for IVD kits
     external_url?: string;
+    eshop_url?: string;
   };
 
   seo?: {
@@ -84,21 +90,24 @@ export async function getQuickTests(): Promise<QuickTest[]> {
             : [],
         subcategories: data.subcategories || [],
         featured: data.featured || false,
+        visible: data.visible !== false,
         hero_image: data.hero_image || "",
-        gallery: (data.gallery || []).map(
-          (item: string | { image: string }) =>
-            typeof item === "string" ? { image: item } : item,
+        gallery: (data.gallery || []).map((item: string | { image: string }) =>
+          typeof item === "string" ? { image: item } : item,
         ),
         technology: data.technology || undefined,
         features: data.features || [],
         target_groups: data.target_groups || [],
         groups: data.groups || [],
+        table_note: data.table_note || "",
         specs: data.specs || [],
         tags: data.tags || [],
+        price: data.price || undefined,
         assets: data.assets || {},
         seo: data.seo || {},
         body: content,
       };
     })
+    .filter((qt) => qt.visible)
     .sort((a, b) => a.title.localeCompare(b.title));
 }

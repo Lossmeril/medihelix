@@ -1083,6 +1083,8 @@ groups:
         cut_off: "40"
         ce_mark: CE
 
+table_note: "S: Serum, P: Plasma, WB: Whole Blood"
+
 tags:
   - rapid test
   - infectious disease

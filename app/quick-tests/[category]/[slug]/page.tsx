@@ -96,7 +96,16 @@ export default async function QuickTestPage({ params }: Props) {
               <Divider />
               <p className="text-base lg:text-lg text-gray-600">{qt.summary}</p>
 
+              {qt.price && (
+                <p className="mt-4 text-xl font-bold text-sky-700">
+                  {qt.price}
+                </p>
+              )}
+
               <div className="mt-6 flex gap-8 flex-row md:flex-col lg:flex-row justify-start items-center md:items-start lg:items-center">
+                {qt.assets?.eshop_url && (
+                  <Button href={qt.assets.eshop_url} label="Koupit v e-shopu" />
+                )}
                 <Button href="#contact" label="Kontaktujte nás" />
                 <Button
                   href="#targets"
@@ -157,11 +166,11 @@ export default async function QuickTestPage({ params }: Props) {
                     <h3 className="font-medium mb-2">{group.name}</h3>
                     {group.targets && (
                       <div className="text-xs text-gray-500 text-balance">
-                          {group.targets
-                            .map((t) =>
-                              t.alias ? `${t.name} (${t.alias})` : t.name,
-                            )
-                            .join(", ")}
+                        {group.targets
+                          .map((t) =>
+                            t.alias ? `${t.name} (${t.alias})` : t.name,
+                          )
+                          .join(", ")}
                       </div>
                     )}
                   </div>
@@ -192,11 +201,26 @@ export default async function QuickTestPage({ params }: Props) {
         )}
 
         <QuickTestTabs groups={qt.groups ?? []} />
+        {qt.table_note && (
+          <p className="text-sm text-gray-600 -mt-6 mb-12">{qt.table_note}</p>
+        )}
 
-        <Divider />
-        <div className="flex flex-row gap-4">
+        {qt.assets?.datasheet || qt.assets?.external_url || qt.assets?.ifu ? (
+          <Divider />
+        ) : null}
+
+        <div className="flex flex-row gap-4 flex-wrap">
+          {qt.assets?.eshop_url && (
+            <Button label="Koupit v e-shopu" href={qt.assets.eshop_url} />
+          )}
           {qt.assets?.datasheet && (
-            <Button label="Stáhnout datový list" href={qt.assets.datasheet} />
+            <Button
+              label="Stáhnout datový list"
+              href={qt.assets.datasheet}
+              transparent
+              inverted
+              monochrome
+            />
           )}
           {qt.assets?.ifu && (
             <Button

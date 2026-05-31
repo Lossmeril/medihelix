@@ -79,14 +79,15 @@ export default async function CompanyPage({ params }: Props) {
             <h1 className="text-2xl lg:text-3xl font-bold mb-4">
               {company.name}
             </h1>
-            <p className="text-base lg:text-lg text-gray-600 text-balance">
+            <p className="text-sm lg:text-base text-gray-600 text-balance">
               {company.description}
             </p>
             <Divider />
 
-            {companyInstruments.length === 0 && companyQuickTests.length === 0 && (
-              <p className="text-gray-500">Žádné produkty k zobrazení.</p>
-            )}
+            {companyInstruments.length === 0 &&
+              companyQuickTests.length === 0 && (
+                <p className="text-gray-500">Žádné produkty k zobrazení.</p>
+              )}
 
             {companyInstruments.length > 0 && (
               <>

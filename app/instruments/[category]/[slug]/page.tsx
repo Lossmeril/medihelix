@@ -3,7 +3,6 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-
 import { getCompanies } from "@/utils/getCompany";
 import { getInstruments } from "@/utils/getInstrument";
 import { getSubcategories } from "@/utils/getSubcategory";
@@ -155,9 +154,7 @@ export default async function InstrumentPage({ params }: Props) {
                   key={idx}
                   className="text-base lg:text-lg text-gray-700 relative pl-4 font-semibold"
                 >
-                  <span className="text-sky-500 font-bold text-4xl absolute -mt-[6px] scale-500 opacity-25 -z-10 left-3">
-                    &bull;
-                  </span>{" "}
+                  <span className="w-12 h-12 rounded-lg bg-sky-500 font-bold absolute top-1/2 mt-0.5 transform -translate-y-1/2 -translate-x-1/3 opacity-25 -z-10"></span>
                   {use.place}
                 </h3>
               ))}
@@ -217,7 +214,7 @@ export default async function InstrumentPage({ params }: Props) {
                       <h3 className="font-medium mb-2">{group.name}</h3>
                       {group.tests && (
                         <div className="text-xs text-gray-500 text-balance">
-                            {group.tests.map((test) => test.name).join(", ")}
+                          {group.tests.map((test) => test.name).join(", ")}
                         </div>
                       )}
                     </div>

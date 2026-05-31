@@ -10,6 +10,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { NavigationItem } from "@/data/navbarItems";
 
 import Button from "./button";
+import SearchBar from "./searchBar";
 
 interface NavbarProps {
   items: NavigationItem[];
@@ -35,7 +36,8 @@ const NavbarDesktop: React.FC<NavbarProps> = ({ items }) => {
             <img alt="" src="/img/logo.svg" className="h-10 w-auto" />
           </Link>
         </div>
-        <div className="flex lg:hidden">
+        <div className="flex lg:hidden items-center gap-2">
+          <SearchBar />
           <button
             type="button"
             onClick={() => setMobileMenuOpen(true)}
@@ -56,7 +58,8 @@ const NavbarDesktop: React.FC<NavbarProps> = ({ items }) => {
             </a>
           ))}
         </div>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+        <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center lg:gap-2">
+          <SearchBar />
           <Button label={buttonText} href={buttonHref} />
         </div>
       </nav>

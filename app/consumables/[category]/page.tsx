@@ -1,32 +1,29 @@
-// app/instruments/[slug]/page.tsx
 import { notFound } from "next/navigation";
 
-
-
 import { getCompanies } from "@/utils/getCompany";
-import { getInstruments } from "@/utils/getInstrument";
+import { getConsumables } from "@/utils/getConsumable";
 import { Subcategory, getSubcategories } from "@/utils/getSubcategory";
+import { getSubcategoryTrail } from "@/utils/getSubcategoryTrail";
 import {
   buildSubcategoryTrail,
   getDescendantSlugs,
 } from "@/utils/subcategoryHelpers";
-import { getSubcategoryTrail } from "@/utils/getSubcategoryTrail";
 
 import { BreadcrumbsBlock, ProductBreadcrumbs } from "@/components/breadcrumbs";
-import SubcategoryCard from "@/components/subcategoryCard";
 import { ProductCard } from "@/components/card";
 import ContactForm from "@/components/contactForm";
 import Divider from "@/components/divider";
+import SubcategoryCard from "@/components/subcategoryCard";
 
 type Props = {
   params: Promise<{ category: string }>;
 };
 
-export default async function InstrumentTypePage({ params }: Props) {
+export default async function ConsumableCategoryPage({ params }: Props) {
   const param = await params;
 
   const subcategories = await getSubcategories();
-  const subcategory = subcategories.find((c) => c.slug === param?.category);
+  const subcategory = subcategories.find((c) => c.slug === param.category);
 
   const companies = await getCompanies();
 
@@ -34,12 +31,12 @@ export default async function InstrumentTypePage({ params }: Props) {
     ? buildSubcategoryTrail(subcategory.slug, subcategories)
     : [];
 
-  const instruments = await getInstruments();
+  const consumables = await getConsumables();
   const descendantSlugs = new Set(
-    getDescendantSlugs(param.category, subcategories)
+    getDescendantSlugs(param.category, subcategories),
   );
-  const instrumentsInSubcat = instruments.filter((instrument) =>
-    instrument.subcategories.some((subcat) => descendantSlugs.has(subcat.slug))
+  const consumablesInSubcat = consumables.filter((con) =>
+    con.subcategories.some((sub) => descendantSlugs.has(sub.slug)),
   );
 
   const childSubcategories = subcategories.filter(
@@ -53,10 +50,9 @@ export default async function InstrumentTypePage({ params }: Props) {
   return (
     <main className="max-w-5xl mx-auto px-12 lg:px-4 py-12 mt-20 lg:mt-40">
       <BreadcrumbsBlock>
-        <ProductBreadcrumbs subcategories={subcategoryTrail} />
+        <ProductBreadcrumbs type="Consumable" subcategories={subcategoryTrail} />
       </BreadcrumbsBlock>
 
-      {/* Hero section */}
       <header className="mb-4 lg:mb-12 gap-8 items-center">
         <div className="flex flex-col gap-10 lg:gap-20 justify-start">
           <div>
@@ -66,6 +62,7 @@ export default async function InstrumentTypePage({ params }: Props) {
             <p className="text-base lg:text-lg text-gray-600 text-balance">
               {subcategory.description}
             </p>
+
             {childSubcategories.length > 0 && (
               <div className="mt-4">
                 <h2 className="text-lg font-semibold mb-2">
@@ -75,11 +72,13 @@ export default async function InstrumentTypePage({ params }: Props) {
                   {childSubcategories.map((child) => (
                     <SubcategoryCard
                       key={child.slug}
-                      href={`/instruments/${child.slug}`}
+                      href={`/consumables/${child.slug}`}
                       name={child.name}
                       image={
-                        instruments.find((inst) =>
-                          inst.subcategories.some((sub) => sub.slug === child.slug)
+                        consumables.find((con) =>
+                          con.subcategories.some(
+                            (sub) => sub.slug === child.slug,
+                          ),
                         )?.hero_image ||
                         "/img/placeholders/instrument-placeholder.png"
                       }
@@ -91,26 +90,29 @@ export default async function InstrumentTypePage({ params }: Props) {
             <Divider />
 
             <h2 className="text-xl lg:text-2xl font-bold mb-6">
-              Přístroje spadající do kategorie {subcategory.name}
+              Produkty v kategorii {subcategory.name}
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {instrumentsInSubcat.map(async (instrument) => (
+              {consumablesInSubcat.map(async (con) => (
                 <ProductCard
-                  key={instrument.slug}
-                  title={instrument.title}
-                  summary={instrument.summary}
-                  hero_image={instrument.hero_image}
-                  slug={instrument.slug}
-                  subcategories={instrument.subcategories}
+                  key={con.slug}
+                  title={con.title}
+                  summary={con.summary}
+                  hero_image={con.hero_image}
+                  slug={con.slug}
+                  subcategories={con.subcategories}
+                  basePath="/consumables"
                   categories={await getSubcategoryTrail(
-                    instrument.subcategories[0].slug,
+                    con.subcategories[0]?.slug ?? "",
                   )}
                   company={companies.find(
-                    (c) => c.slug === instrument.companies[0].slug,
+                    (c) => c.slug === con.companies[0]?.slug,
                   )}
+                  price={con.price}
+                  eshop_url={con.assets?.eshop_url}
                 />
               ))}
-              {instrumentsInSubcat.length === 0 && (
+              {consumablesInSubcat.length === 0 && (
                 <div className="col-span-full py-12 text-center text-gray-400">
                   <p className="text-base mb-1">
                     V této kategorii momentálně nejsou dostupné žádné produkty.

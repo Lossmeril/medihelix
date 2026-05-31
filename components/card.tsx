@@ -42,6 +42,9 @@ interface ProductCardProps {
 
   company?: Company;
   categories?: Subcategory[];
+
+  price?: string;
+  eshop_url?: string;
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({
@@ -53,6 +56,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   basePath = "/instruments",
   company,
   categories,
+  price,
+  eshop_url,
 }) => {
   return (
     <Card className="shadow-md product-card">
@@ -72,7 +77,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               >
                 <Link
                   key={category.slug}
-                  href={`/instruments/${category.slug}`}
+                  href={`${basePath}/${category.slug}`}
                   className=" text-gray-500 hover:text-gray-700"
                 >
                   {category.name}
@@ -92,13 +97,25 @@ export const ProductCard: React.FC<ProductCardProps> = ({
      {summary}
         </p>
 
+        {price && (
+          <p className="mt-3 text-base font-bold text-sky-700">{price}</p>
+        )}
+
         <Divider marginTop="1rem" marginBottom="1rem" />
-        <Button
-          label="Prohlédnout si detaily"
-          href={`${basePath}/${
-            subcategories[0]?.slug ? subcategories[0].slug + "/" : ""
-          }${slug}`}
-        />
+        <div className="flex flex-col gap-3">
+          {eshop_url && (
+            <Button label="Koupit v e-shopu" href={eshop_url} />
+          )}
+          <Button
+            label="Prohlédnout si detaily"
+            href={`${basePath}/${
+              subcategories[0]?.slug ? subcategories[0].slug + "/" : ""
+            }${slug}`}
+            transparent={!!eshop_url}
+            inverted={!!eshop_url}
+            monochrome={!!eshop_url}
+          />
+        </div>
       </div>
     </Card>
   );

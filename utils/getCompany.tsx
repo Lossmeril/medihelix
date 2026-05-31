@@ -10,6 +10,8 @@ export type Company = {
   logo: string;
   website?: string;
   description?: string;
+  visible: boolean;
+  show_if_empty: boolean;
   body: string;
 };
 
@@ -27,8 +29,11 @@ export async function getCompanies(): Promise<Company[]> {
         logo: data.logo || "",
         website: data.website || "",
         description: data.description || "",
+        visible: data.visible !== false,
+        show_if_empty: data.show_if_empty === true,
         body: content,
       };
     })
+    .filter((c) => c.visible)
     .sort((a, b) => a.name.localeCompare(b.name));
 }

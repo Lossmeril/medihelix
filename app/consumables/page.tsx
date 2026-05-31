@@ -1,4 +1,4 @@
-import { getQuickTests } from "@/utils/getQuickTest";
+import { getConsumables } from "@/utils/getConsumable";
 import { getSubcategories } from "@/utils/getSubcategory";
 import { getDescendantSlugs } from "@/utils/subcategoryHelpers";
 
@@ -13,17 +13,17 @@ type Props = {
   searchParams: Promise<{ tag?: string }>;
 };
 
-export default async function QuickTestsPage({ searchParams }: Props) {
+export default async function ConsumablesPage({ searchParams }: Props) {
   const { tag } = await searchParams;
-  const quickTests = await getQuickTests();
+  const consumables = await getConsumables();
   const subcategories = await getSubcategories();
 
   const rootSubcategories = subcategories
     .filter((c) => !c.parent)
     .map((cat) => {
       const descendants = new Set(getDescendantSlugs(cat.slug, subcategories));
-      const count = quickTests.filter((qt) =>
-        qt.subcategories.some((sub) => descendants.has(sub.slug)),
+      const count = consumables.filter((con) =>
+        con.subcategories.some((sub) => descendants.has(sub.slug)),
       ).length;
       return { cat, count };
     })
@@ -32,8 +32,8 @@ export default async function QuickTestsPage({ searchParams }: Props) {
     .map(({ cat }) => cat);
 
   const tagCounts = new Map<string, number>();
-  for (const qt of quickTests) {
-    for (const t of qt.tags ?? []) {
+  for (const con of consumables) {
+    for (const t of con.tags ?? []) {
       tagCounts.set(t, (tagCounts.get(t) ?? 0) + 1);
     }
   }
@@ -42,27 +42,25 @@ export default async function QuickTestsPage({ searchParams }: Props) {
     .map(([t]) => t);
 
   const filtered = tag
-    ? quickTests.filter((qt) => qt.tags?.includes(tag))
-    : quickTests;
+    ? consumables.filter((con) => con.tags?.includes(tag))
+    : consumables;
 
   return (
     <main className="max-w-5xl mx-auto px-12 lg:px-4 py-12 mt-20 lg:mt-40">
       <BreadcrumbsBlock>
-        <ProductBreadcrumbs type="Kit" />
+        <ProductBreadcrumbs type="Consumable" />
       </BreadcrumbsBlock>
 
       <header className="mb-4 lg:mb-12 gap-8 items-center">
         <div className="flex flex-col gap-10 lg:gap-20 justify-start">
           <div>
             <h1 className="text-2xl lg:text-3xl font-bold mb-4">
-              Rychlotesty a diagnostické kity
+              Reagencie a spotřební materiál
             </h1>
             <p className="text-base lg:text-lg text-gray-600 text-balance">
-              Rapid testy představují moderní diagnostické řešení, které
-              umožňuje rychlé a spolehlivé orientační vyšetření během několika
-              minut. Vyznačují se jednoduchým použitím bez nutnosti odborného
-              vybavení, díky čemuž jsou vhodné pro široké využití nejen ve
-              zdravotnictví.
+              Nabízíme široký sortiment reagencií a spotřebního materiálu pro
+              laboratorní diagnostiku. Vyberte si z naší nabídky produktů od
+              předních výrobců.
             </p>
 
             {rootSubcategories.length > 0 && (
@@ -72,11 +70,11 @@ export default async function QuickTestsPage({ searchParams }: Props) {
                   {rootSubcategories.map((cat) => (
                     <SubcategoryCard
                       key={cat.slug}
-                      href={`/quick-tests/${cat.slug}`}
+                      href={`/consumables/${cat.slug}`}
                       name={cat.name}
                       image={
-                        quickTests.find((qt) =>
-                          qt.subcategories.some((sub) =>
+                        consumables.find((con) =>
+                          con.subcategories.some((sub) =>
                             getDescendantSlugs(
                               cat.slug,
                               subcategories,
@@ -93,25 +91,29 @@ export default async function QuickTestsPage({ searchParams }: Props) {
             <Divider />
 
             <h2 className="text-xl lg:text-2xl font-bold mb-6">
-              Nabídka rychlotestů
+              Nabídka reagencií a spotřebního materiálu
             </h2>
-            <TagFilter tags={allTags} basePath="/quick-tests" />
+            <TagFilter tags={allTags} basePath="/consumables" />
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filtered.map((qt) => (
+              {filtered.map((con) => (
                 <ProductCard
-                  key={qt.slug}
-                  title={qt.title}
-                  summary={qt.summary}
-                  hero_image={qt.hero_image}
-                  slug={qt.slug}
-                  subcategories={qt.subcategories}
-                  basePath="/quick-tests"
-                  price={qt.price}
-                  eshop_url={qt.assets?.eshop_url}
+                  key={con.slug}
+                  title={con.title}
+                  summary={con.summary}
+                  hero_image={con.hero_image}
+                  slug={con.slug}
+                  subcategories={con.subcategories}
+                  basePath="/consumables"
+                  price={con.price}
+                  eshop_url={con.assets?.eshop_url}
                 />
               ))}
               {filtered.length === 0 && (
-                <p className="text-gray-500">Žádné produkty pro vybraný tag.</p>
+                <p className="text-gray-500 col-span-full">
+                  {tag
+                    ? "Žádné produkty pro vybraný tag."
+                    : "Připravujeme nabídku. Brzy zde najdete naše produkty."}
+                </p>
               )}
             </div>
           </div>

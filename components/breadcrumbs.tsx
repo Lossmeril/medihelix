@@ -72,7 +72,7 @@ export const CompanyBreadcrumbs = ({
 const productTypeConfig = {
   Instrument: { href: "/instruments", label: "Přístroje" },
   Kit: { href: "/quick-tests", label: "Rychlotesty" },
-  Reagencie: { href: "/reagencie", label: "Reagencie" },
+  Consumable: { href: "/consumables", label: "Reagencie a spotřební materiál" },
 };
 
 interface ProductBreadcrumbsProps {
