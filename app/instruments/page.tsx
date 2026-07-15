@@ -1,3 +1,5 @@
+import { Metadata } from "next";
+
 import { getInstruments } from "@/utils/getInstrument";
 import { getSubcategories } from "@/utils/getSubcategory";
 import { getDescendantSlugs } from "@/utils/subcategoryHelpers";
@@ -5,9 +7,16 @@ import { getDescendantSlugs } from "@/utils/subcategoryHelpers";
 import { BreadcrumbsBlock, ProductBreadcrumbs } from "@/components/breadcrumbs";
 import SubcategoryCard from "@/components/subcategoryCard";
 import { ProductCard } from "@/components/card";
+import Button from "@/components/button";
 import ContactForm from "@/components/contactForm";
 import Divider from "@/components/divider";
 import { TagFilter } from "@/components/tagFilter";
+
+export const metadata: Metadata = {
+  title: "Laboratorní přístroje Medihelix | Exkluzivní distributor",
+  description:
+    "Medihelix je exkluzivním distributorem PlexBio, Genes2Me a Nucleotica pro ČR. Přístroje pro molekulární diagnostiku, PCR, NGS a extrakci nukleových kyselin.",
+};
 
 type Props = {
   searchParams: Promise<{ tag?: string }>;
@@ -54,13 +63,22 @@ export default async function InstrumentsPage({ searchParams }: Props) {
       <header className="mb-4 lg:mb-12 gap-8 items-center">
         <div className="flex flex-col gap-10 lg:gap-20 justify-start">
           <div>
-            <h1 className="text-2xl lg:text-3xl font-bold mb-4">
+            <h1 className="text-2xl lg:text-3xl font-bold mb-2">
               Přístroje a laboratorní technika
             </h1>
-            <p className="text-base lg:text-lg text-gray-600 text-balance">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-                quis lorem ut libero malesuada feugiat.
+            <p className="text-sky-600 font-semibold mb-4">
+              Exkluzivní technologie pro laboratoře v České republice.
             </p>
+            <p className="text-base lg:text-lg text-gray-600 text-balance">
+              Medihelix je exkluzivním distributorem společností PlexBio,
+              Genes2Me a Nucleotica pro Českou republiku. Nabízíme laboratorní
+              přístroje pro molekulární diagnostiku, PCR, dPCR, NGS i
+              point-of-care testování, spolu s odborným poradenstvím a
+              technickou podporou.
+            </p>
+            <div className="mt-4">
+              <Button label="Domluvit odbornou konzultaci" href="#kontakt" />
+            </div>
             {rootSubcategories.length > 0 && (
               <div className="mt-4">
                 <h2 className="text-lg font-semibold mb-2">Kategorie</h2>
