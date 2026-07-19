@@ -5,11 +5,11 @@ import { getSubcategories } from "@/utils/getSubcategory";
 import { getDescendantSlugs } from "@/utils/subcategoryHelpers";
 
 import { BreadcrumbsBlock, ProductBreadcrumbs } from "@/components/breadcrumbs";
-import SubcategoryCard from "@/components/subcategoryCard";
-import { ProductCard } from "@/components/card";
 import Button from "@/components/button";
+import { ProductCard } from "@/components/card";
 import ContactForm from "@/components/contactForm";
 import Divider from "@/components/divider";
+import SubcategoryCard from "@/components/subcategoryCard";
 import { TagFilter } from "@/components/tagFilter";
 
 export const metadata: Metadata = {
@@ -31,7 +31,7 @@ export default async function InstrumentsPage({ searchParams }: Props) {
     .map((cat) => {
       const descendants = new Set(getDescendantSlugs(cat.slug, subcategories));
       const count = instruments.filter((inst) =>
-        inst.subcategories.some((sub) => descendants.has(sub.slug))
+        inst.subcategories.some((sub) => descendants.has(sub.slug)),
       ).length;
       return { cat, count };
     })
@@ -76,7 +76,7 @@ export default async function InstrumentsPage({ searchParams }: Props) {
               point-of-care testování, spolu s odborným poradenstvím a
               technickou podporou.
             </p>
-            <div className="mt-4">
+            <div className="mt-4 max-w-fit">
               <Button label="Domluvit odbornou konzultaci" href="#kontakt" />
             </div>
             {rootSubcategories.length > 0 && (
@@ -91,8 +91,11 @@ export default async function InstrumentsPage({ searchParams }: Props) {
                       image={
                         instruments.find((inst) =>
                           inst.subcategories.some((sub) =>
-                            getDescendantSlugs(cat.slug, subcategories).includes(sub.slug)
-                          )
+                            getDescendantSlugs(
+                              cat.slug,
+                              subcategories,
+                            ).includes(sub.slug),
+                          ),
                         )?.hero_image ||
                         "/img/placeholders/instrument-placeholder.png"
                       }
@@ -119,9 +122,7 @@ export default async function InstrumentsPage({ searchParams }: Props) {
                 />
               ))}
               {filtered.length === 0 && (
-                <p className="text-gray-500">
-                  Žádné produkty pro vybraný tag.
-                </p>
+                <p className="text-gray-500">Žádné produkty pro vybraný tag.</p>
               )}
             </div>
           </div>
