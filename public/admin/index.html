@@ -5,15 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Správa obsahu</title>
-    <link rel="stylesheet" href="/app/globals.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <!-- Include the script that builds the page and powers Decap CMS -->
+    <!-- Decap initializes automatically on load, so it must come first;
+         registerPreviewTemplate/registerPreviewStyle calls below still
+         apply, they just run after the initial init. -->
     <script src="https://unpkg.com/decap-cms@^3.6.1/dist/decap-cms.js"></script>
 
-    <!-- Add a CSS file that styles the editor preview -->
+    <!-- Real compiled site CSS (Tailwind utilities + design tokens),
+         regenerated from app/globals.css by scripts/copy-admin-css.mjs
+         on every build — see that script for why this can't just link
+         directly to app/globals.css. -->
     <script>
+      CMS.registerPreviewStyle("/admin/site.css");
       CMS.registerPreviewStyle("/admin/preview.css");
     </script>
+    <script src="/admin/preview-templates.js"></script>
   </body>
 </html>

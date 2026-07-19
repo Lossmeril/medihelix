@@ -4,15 +4,16 @@ slug: iponatic-iii
 summary: iPonatic III je nové zařízení v řadě iPonatic, které zvyšuje úroveň
   molekulární diagnostiky díky pokročilým technologiím. Zavádí éru digitální a
   inteligentní diagnostiky s cílem poskytnout rychlé a přesné výsledky.
-companies: sansure
+companies:
+  - slug: sansure
 subcategories:
   - slug: rada-iponatic
 featured: true
 visible: false
 hero_image: /uploads/ponatic-iii.png
 gallery:
-  - image: /uploads/ponatic-iii.png
-  - image: /uploads/ponatic-iii.png
+  - /uploads/ponatic-iii.png
+  - /uploads/ponatic-iii.png
 features:
   - title: Plně automatizovaný proces
     description: Výsledky testů do 15–45 minut.
@@ -126,11 +127,11 @@ test_groups:
       - name: Monkeypox Virus
         targets: MPXV
 intended_use:
-  - place: Laboratoře
-  - place: Urgentní příjmy
-  - place: Venkovské oblasti
-  - place: Letiště
-  - place: Celní úřady
+  - Laboratoře
+  - Urgentní příjmy
+  - Venkovské oblasti
+  - Letiště
+  - Celní úřady
 sku: SE S-Q36A
 tags:
   - molekulární diagnostika
